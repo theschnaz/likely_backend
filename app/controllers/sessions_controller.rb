@@ -2,15 +2,14 @@ class SessionsController < ApplicationController
   def new_user
     #created via the app
     uid = params[:uid]
-    
-    user = User.find_by_uid(uid)
+    key = params[:key]
     
     unless User.find_by_uid(uid)
-     user_data = FbGraph2::User.fetch(uid)
+     user_data = FbGraph2::User.new(uid).authenticate(key)
+     user_data.fetch
      user = User.new
      user.name = user_data.name
      user.facebook_key = params[:key]
-     user.newsletter = params[:newsletter]
      user.username = user_data.username
      user.email = user_data.email
      user.fb_pic_square = 'http://graph.facebook.com/' + user_data.identifier + '/picture?type=square'
