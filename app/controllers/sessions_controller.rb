@@ -10,7 +10,6 @@ class SessionsController < ApplicationController
      user = User.new
      user.name = user_data.name
      user.facebook_key = params[:key]
-     user.username = user_data.username
      user.email = user_data.email
      user.fb_pic_square = 'http://graph.facebook.com/' + user_data.identifier + '/picture?type=square'
      user.fb_pic_large = 'http://graph.facebook.com/' + user_data.identifier + '/picture?type=large'
