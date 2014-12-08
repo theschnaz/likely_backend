@@ -55,7 +55,7 @@ Rails.application.routes.draw do
   #   end
   
   root 'welcome#index'
-  match "/new_user" => "sessions#new_user"
+  post "/new_user" => "sessions#new_user"
   
   
 end
