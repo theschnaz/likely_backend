@@ -55,7 +55,7 @@ Rails.application.routes.draw do
   #   end
   
   root 'welcome#index'
-  post "/new_user" => "sessions#new_user"
+  get "/new_user" => "sessions#new_user"
   
   
 end
