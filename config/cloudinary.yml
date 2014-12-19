@@ -1,0 +1,19 @@
+---
+development:
+  cloud_name: hh55qpw1c
+  api_key: '165226941951821'
+  api_secret: tHveib5P3xm5uwEcxAnbDOj_K5M
+  enhance_image_tag: true
+  static_image_support: false
+production:
+  cloud_name: hh55qpw1c
+  api_key: '165226941951821'
+  api_secret: tHveib5P3xm5uwEcxAnbDOj_K5M
+  enhance_image_tag: true
+  static_image_support: true
+test:
+  cloud_name: hh55qpw1c
+  api_key: '165226941951821'
+  api_secret: tHveib5P3xm5uwEcxAnbDOj_K5M
+  enhance_image_tag: true
+  static_image_support: false
