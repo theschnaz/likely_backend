@@ -3,5 +3,7 @@ class SnapsController < ApplicationController
  
   def new_snap
     Cloudinary::Uploader.upload(params[:photo])
+    
+    render :text => "uploaded"
   end
 end
