@@ -4,7 +4,7 @@ class SnapsController < ApplicationController
   def new_snap
     snap = Snap.new
     snap.save
-    snap.photo_url = snap.id
+    snap.photo_url = 'http://res.cloudinary.com/hh55qpw1c/image/upload/v1419546151/' + snap.id.to_s + '.jpg'
     snap.save
     
   
