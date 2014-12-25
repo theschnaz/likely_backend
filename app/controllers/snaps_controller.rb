@@ -4,7 +4,7 @@ class SnapsController < ApplicationController
   def new_snap
     snap = Snap.new
     snap.save
-    snap.photo_user = snap.id
+    snap.photo_url = snap.id
     snap.save
     
   
