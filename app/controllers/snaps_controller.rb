@@ -19,4 +19,10 @@ class SnapsController < ApplicationController
     snap = Snap.find_by_id(2)
     render :text => 'http://res.cloudinary.com/hh55qpw1c/image/upload/v1419546151/' + snap.id.to_s + '.jpg'
   end
+  
+  def get_snap_and_vote
+    snap = Snap.find_by_id(3)
+    render :text => 'http://res.cloudinary.com/hh55qpw1c/image/upload/v1419546151/' + snap.id.to_s + '.jpg'
+  end
+  
 end
