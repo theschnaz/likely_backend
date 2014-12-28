@@ -14,4 +14,9 @@ class SnapsController < ApplicationController
     
     render :text => "uploaded"
   end
+  
+  def get_snap
+    snap = Snap.find_by_id(2)
+    render :text => 'http://res.cloudinary.com/hh55qpw1c/image/upload/v1419546151/' + snap.id.to_s + '.jpg'
+  end
 end
