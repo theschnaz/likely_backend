@@ -30,6 +30,7 @@ class SnapsController < ApplicationController
     snap_id = params[:snap_id]
     vote.snap_id = snap_id[61...-4]
     vote.vote = params[:vote]
+    vote.save
     
     render :text => 'http://res.cloudinary.com/hh55qpw1c/image/upload/v1419546151/' + snap.id.to_s + '.jpg'
   end
