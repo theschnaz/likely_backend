@@ -27,7 +27,7 @@ class SnapsController < ApplicationController
     
     vote = Vote.new
     vote.user_id = user.id
-    snap_id = params[:snap_id]
+    snap_id = params[:snap_url]
     vote.snap_id = snap_id[61...-4]
     vote.vote = params[:vote]
     vote.save
