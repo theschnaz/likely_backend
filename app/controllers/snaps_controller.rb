@@ -24,7 +24,7 @@ class SnapsController < ApplicationController
   
   def get_snap_and_vote
     user = User.find_by_uid(params[:uid])
-    snap = Snap.find_by_sql("select snap_id from votes where user_id != ?", user.id)
+    snap = Snap.find_by_sql("select id from snaps where id NOT IN (select snap_id from votes where user_id != ?)", user.id)
     snap = snap.first
     
     vote = Vote.new
