@@ -16,18 +16,21 @@ class SnapsController < ApplicationController
   end
   
   def get_snap
-    snap = Snap.find_by_id(rand(4..6))
+    user = User.find_by_uid(params[:uid])
+    snap = Snap.find_by_sql("select snap_id from votes where user_id != ?", user.id)
+    snap = snap.first
     render :text => 'http://res.cloudinary.com/hh55qpw1c/image/upload/v1419546151/' + snap.id.to_s + '.jpg'
   end
   
   def get_snap_and_vote
-    snap = Snap.find_by_id(rand(4..6))
-    
     user = User.find_by_uid(params[:uid])
+    snap = Snap.find_by_sql("select snap_id from votes where user_id != ?", user.id)
+    snap = snap.first
     
     vote = Vote.new
     vote.user_id = user.id
     snap_id = params[:snap_url]
+    #this little beauty finds the ID from the URL
     vote.snap_id = snap_id[61...-4]
     vote.vote = params[:vote]
     vote.save
