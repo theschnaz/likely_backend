@@ -28,8 +28,6 @@ class SnapsController < ApplicationController
   
   def get_snap_and_vote
     user = User.find_by_uid(params[:uid])
-    snap = Snap.find_by_sql("select id from snaps where id NOT IN (select snap_id from votes where user_id =" + user.id.to_s + ")")
-    snap = snap.first
     
     vote = Vote.new
     vote.user_id = user.id
@@ -38,6 +36,9 @@ class SnapsController < ApplicationController
     vote.snap_id = snap_id[61...-4]
     vote.vote = params[:vote]
     vote.save
+    
+    snap = Snap.find_by_sql("select id from snaps where id NOT IN (select snap_id from votes where user_id =" + user.id.to_s + ")")
+    snap = snap.first
     
     if(snap)
       render :text => 'http://res.cloudinary.com/hh55qpw1c/image/upload/v1419546151/' + snap.id.to_s + '.jpg'
