@@ -37,6 +37,23 @@ class SnapsController < ApplicationController
     vote.vote = params[:vote]
     vote.save
     
+    ##calculate the votes and return a percent
+    #left = Vote.find_by_sql("select count(id) from votes where vote = 'left' and snap_id = " + snap_id.to_s
+    left = Vote.where(snap_id: snap_id, vote: "left")
+    right = Vote.where(snap_id: snap_id, vote: "left")
+    total_votes = left + right
+    
+    if(left > right)
+      final_vote = (left/(left+right)).to_s + " left)
+    end
+    if(right > left)
+      final_vote = right/(left+right).to_s + " right)
+    end
+    if(left == right)
+      final_vote = "even"
+    end
+    
+    
     snap = Snap.find_by_sql("select id from snaps where id NOT IN (select snap_id from votes where user_id =" + user.id.to_s + ")")
     snap = snap.first
     
