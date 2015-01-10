@@ -44,10 +44,10 @@ class SnapsController < ApplicationController
     total_votes = left + right
     
     if(left > right)
-      final_vote = (left/(left+right)).to_s + " left)
+      final_vote = (left/(left+right)).to_s + " left")
     end
     if(right > left)
-      final_vote = right/(left+right).to_s + " right)
+      final_vote = right/(left+right).to_s + " right")
     end
     if(left == right)
       final_vote = "even"
