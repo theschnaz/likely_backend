@@ -39,8 +39,8 @@ class SnapsController < ApplicationController
     
     ##calculate the votes and return a percent
     #left = Vote.find_by_sql("select count(id) from votes where vote = 'left' and snap_id = " + snap_id.to_s
-    left = Vote.where(snap_id: snap_id, vote: "left")
-    right = Vote.where(snap_id: snap_id, vote: "left")
+    left = Vote.where(snap_id: snap_id, vote: "left").count
+    right = Vote.where(snap_id: snap_id, vote: "right").count
     total_votes = left + right
     
     if(left > right)
