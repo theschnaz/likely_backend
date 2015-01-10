@@ -44,14 +44,12 @@ class SnapsController < ApplicationController
     total_votes = left + right
     
     if(left > right)
-      final_vote = (left.to_f/(left.to_f+right.to_f))*100
-      final_vote = final_vote.to_i
-      final_vote = final_vote.to_s + "L"
+      final_vote = ((left.to_f/(left.to_f+right.to_f))*100).round
+      final_vote = "L" + final_vote.to_s
     end
     if(right > left)
-      final_vote = (right.to_f/(left.to_f+right.to_f))*100
-      final_vote = final_vote.to_i
-      final_vote = final_vote.to_s + "R"
+      final_vote = ((right.to_f/(left.to_f+right.to_f))*100).round
+      final_vote = "R" + final_vote.to_s
     end
     if(left == right)
       final_vote = "E"
