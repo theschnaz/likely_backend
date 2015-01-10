@@ -44,23 +44,26 @@ class SnapsController < ApplicationController
     total_votes = left + right
     
     if(left > right)
-      final_vote = (left/(left+right)).to_f
-      final_vote = final_vote.to_s + " left"
+      final_vote = (left.to_f/(left.to_f+right.to_f))*100
+      final_vote = final_vote.to_i
+      final_vote = final_vote.to_s + "L"
     end
     if(right > left)
-      final_vote = (right/(left+right)).to_f
-      final_vote = final_vote.to_s + " right"
+      final_vote = (right.to_f/(left.to_f+right.to_f))*100
+      final_vote = final_vote.to_i
+      final_vote = final_vote.to_s + "R"
     end
     if(left == right)
-      final_vote = "even"
+      final_vote = "E"
     end
+    #by here, we have the percent with an R or L, it's being added to the string returned, the app will have to split the string
     
     
     snap = Snap.find_by_sql("select id from snaps where id NOT IN (select snap_id from votes where user_id =" + user.id.to_s + ")")
     snap = snap.first
     
     if(snap)
-      render :text => 'http://res.cloudinary.com/hh55qpw1c/image/upload/v1419546151/' + snap.id.to_s + '.jpg'
+      render :text => final_vote + 'http://res.cloudinary.com/hh55qpw1c/image/upload/v1419546151/' + snap.id.to_s + '.jpg'
     else
       render :text => 'done'
     end
