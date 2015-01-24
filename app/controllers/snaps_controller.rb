@@ -28,7 +28,7 @@ class SnapsController < ApplicationController
   
   def get_snap_and_vote
   
-  	require 'sendgrid-ruby'
+  	##require 'sendgrid-ruby'
   	client = SendGrid::Client.new(api_user: 'theschnaz', api_key: '33floppyq')
   	mail = SendGrid::Mail.new do |m|
 	  m.to = 'theschnaz@gmail.com'
