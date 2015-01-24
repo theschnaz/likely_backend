@@ -63,7 +63,7 @@ class SnapsController < ApplicationController
       final_vote = ((right.to_f/(left.to_f+right.to_f))*100).round
       final_vote = "R" + final_vote.to_s
     end
-    if((left == right) AND (left == 0))
+    if((left == right) && (left == 0))
       final_vote = "F"
     end
     if(left == right)
