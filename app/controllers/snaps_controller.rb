@@ -9,7 +9,7 @@ class SnapsController < ApplicationController
 	  m.from = 'taco@cat.limo'
 	  m.subject = 'You posted a Snap!'
 	  m.html = "When people swipe on your Snap, we'll let you know! <img src='http://timehop.com/assets/about/headshots/yanique.gif' />"
-	  m.test = "Image uploaded"
+	  m.text = "Image uploaded"
 	end
 	puts client.send(mail)
 	
