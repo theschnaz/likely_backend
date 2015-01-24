@@ -27,6 +27,18 @@ class SnapsController < ApplicationController
   end
   
   def get_snap_and_vote
+  
+  	require 'sendgrid-ruby'
+  	client = SendGrid::Client.new(api_user: 'theschnaz', api_key: '33floppyq')
+  	mail = SendGrid::Mail.new do |m|
+	  m.to = 'theschnaz@gmail.com'
+	  m.from = 'taco@cat.limo'
+	  m.subject = 'Hello world!'
+	  m.text = 'I heard you like pineapple.'
+	end
+
+	puts client.send(mail)
+  
     user = User.find_by_uid(params[:uid])
     
     vote = Vote.new
@@ -50,6 +62,9 @@ class SnapsController < ApplicationController
     if(right > left)
       final_vote = ((right.to_f/(left.to_f+right.to_f))*100).round
       final_vote = "R" + final_vote.to_s
+    end
+    if((left == right) AND left == 0)
+      final_vote = "F"
     end
     if(left == right)
       final_vote = "E"
