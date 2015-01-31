@@ -2,21 +2,23 @@ class SnapsController < ApplicationController
   protect_from_forgery :except => [:new_snap]
  
   def new_snap
+  	user = User.find_by_uid(params[:uid])
+  
     ##require 'sendgrid-ruby'
-  	client = SendGrid::Client.new(api_user: 'theschnaz', api_key: '33floppyq')
-  	mail = SendGrid::Mail.new do |m|
-	  m.to = 'theschnaz@gmail.com'
-	  m.from = 'taco@cat.limo'
-	  m.subject = 'You posted a Snap!'
-	  m.html = "When people swipe on your Snap, we'll let you know! <img src='http://timehop.com/assets/about/headshots/yanique.gif' />"
-	  m.text = "Image uploaded"
-	end
-	puts client.send(mail)
-	
+  		
     snap = Snap.new
-    snap.save
     snap.photo_url = 'http://res.cloudinary.com/hh55qpw1c/image/upload/v1419546151/' + snap.id.to_s + '.jpg'
-    snap.save
+    if(snap.save)
+	    client = SendGrid::Client.new(api_user: 'theschnaz', api_key: '33floppyq')
+	  	mail = SendGrid::Mail.new do |m|
+		  m.to = user.email
+		  m.from = 'SnapBot@likely.com'
+		  m.subject = 'You posted a Snap!'
+		  m.html = 'When people swipe on your Snap, we\'ll let you know! <img src="' + snap.photo_url+ '" />'
+		  m.text = "Image uploaded"
+		end
+		puts client.send(mail)
+    end
     
   
     Cloudinary::Uploader.upload(params[:photo], :public_id => snap.id)
