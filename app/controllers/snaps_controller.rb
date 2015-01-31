@@ -16,7 +16,7 @@ class SnapsController < ApplicationController
 		  m.to = user.email
 		  m.from = 'SnapBot@likely.com'
 		  m.subject = 'You posted a Snap!'
-		  m.html = 'When people swipe on your Snap, we\'ll let you know! <img src="' + snap.photo_url + '" />'
+		  m.html = 'When people swipe on your Snap, we\'ll let you know!<br /><br /> <img src="' + snap.photo_url + '" style="max-width:400px;" />'
 		  m.text = "Image uploaded"
 		end
 		puts client.send(mail)
