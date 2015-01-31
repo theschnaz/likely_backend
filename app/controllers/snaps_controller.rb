@@ -7,6 +7,8 @@ class SnapsController < ApplicationController
     ##require 'sendgrid-ruby'
   		
     snap = Snap.new
+    snap.save
+    #need to save here to get the snap ID for the next line
     snap.photo_url = 'http://res.cloudinary.com/hh55qpw1c/image/upload/v1419546151/' + snap.id.to_s + '.jpg'
     if(snap.save)
 	    client = SendGrid::Client.new(api_user: 'theschnaz', api_key: '33floppyq')
@@ -14,7 +16,7 @@ class SnapsController < ApplicationController
 		  m.to = user.email
 		  m.from = 'SnapBot@likely.com'
 		  m.subject = 'You posted a Snap!'
-		  m.html = 'When people swipe on your Snap, we\'ll let you know! <img src="' + snap.photo_url+ '" />'
+		  m.html = 'When people swipe on your Snap, we\'ll let you know! <img src="' + snap.photo_url + '" />'
 		  m.text = "Image uploaded"
 		end
 		puts client.send(mail)
