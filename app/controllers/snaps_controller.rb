@@ -9,7 +9,7 @@ class SnapsController < ApplicationController
     snap = Snap.new
     snap.save
     #need to save here to get the snap ID for the next line
-    snap.photo_url = 'http://res.cloudinary.com/hh55qpw1c/image/upload/v1419546151/r_20/' + snap.id.to_s + '.jpg'
+    snap.photo_url = 'http://res.cloudinary.com/hh55qpw1c/image/upload/a_90,w_500,h_500,c_fill/v1419546151/' + snap.id.to_s + '.jpg'
     if(snap.save)
 	    client = SendGrid::Client.new(api_user: 'theschnaz', api_key: '33floppyq')
 	  	mail = SendGrid::Mail.new do |m|
