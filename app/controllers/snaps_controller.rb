@@ -36,8 +36,8 @@ class SnapsController < ApplicationController
     ##this gets a little wonky if the snap_id in the votes table is blank
     snap = snap.first
     if(snap)
-      puts 'http://res.cloudinary.com/hh55qpw1c/image/upload/v1419546151/' + snap.id.to_s + '.jpg'
-      render :text => 'http://res.cloudinary.com/hh55qpw1c/image/upload/v1419546151/' + snap.id.to_s + '.jpg'
+      puts snap.photo_url.to_s
+      render :text => snap.photo_url.to_s
     else
       render :text => 'done'
     end
