@@ -51,7 +51,7 @@ class SnapsController < ApplicationController
     vote.user_id = user.id
     snap_id = params[:snap_url]
     #this little beauty finds the ID from the URL
-    vote.snap_id = snap_id[61...-4]
+    vote.snap_id = snap_id[85...-4]
     vote.vote = params[:vote]
     vote.save
     
