@@ -21,7 +21,6 @@ class SnapsController < ApplicationController
 		end
 		puts client.send(mail)
 		
-		render :text => snap.photo_url.to_s
     end
     
   
@@ -29,7 +28,7 @@ class SnapsController < ApplicationController
     
     
     
-    render :text => "uploaded"
+    render :text => snap.photo_url.to_s
   end
   
   def get_snap
