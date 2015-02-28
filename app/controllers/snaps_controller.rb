@@ -78,7 +78,7 @@ class SnapsController < ApplicationController
     #by here, we have the percent with an R or L, it's being added to the string returned, the app will have to split the string
     
     
-    snap = Snap.find_by_sql("select id from snaps where id NOT IN (select snap_id from votes where user_id =" + user.id.to_s + ")")
+    snap = Snap.find_by_sql("select id, photo_url from snaps where id NOT IN (select snap_id from votes where user_id =" + user.id.to_s + ")")
     snap = snap.first
     
     if(snap)
