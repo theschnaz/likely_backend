@@ -82,7 +82,7 @@ class SnapsController < ApplicationController
     snap = snap.first
     
     if(snap)
-      render :text => final_vote + 'http://res.cloudinary.com/hh55qpw1c/image/upload/v1419546151/' + snap.id.to_s + '.jpg'
+      render :text => final_vote + snap.photo_url.to_s
     else
       render :text => 'done'
     end
