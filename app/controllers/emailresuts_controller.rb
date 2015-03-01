@@ -18,7 +18,9 @@ class EmailresutsController < ApplicationController
 	   puts client.send(mail)
 	  
 	  end
+	  
+	  render :text => "sent"
 	end
 
-	render :text => "sent"
+	
 end
