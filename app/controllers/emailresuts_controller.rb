@@ -20,4 +20,5 @@ class EmailresutsController < ApplicationController
 	  end
 	end
 
+	render :text => "sent"
 end
