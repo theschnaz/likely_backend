@@ -5,7 +5,7 @@ class EmailresultsController < ApplicationController
 	  
 	  duels.each do |p|
 	  
-	    user = User.find_by_sql("select * from users, snaps where snaps.snapped_by = users.id and snaps.id = ?", p.id)
+	    user = User.find_by_sql("select * from users, snaps where snaps.snapped_by = users.id and snaps.id = " + p.id.to_s)
 	  
 	    client = SendGrid::Client.new(api_user: 'theschnaz', api_key: '33floppyq')
 	      mail = SendGrid::Mail.new do |m|
