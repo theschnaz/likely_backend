@@ -34,11 +34,15 @@ class SnapsController < ApplicationController
   
   def get_snap
     user = User.find_by_uid(params[:uid])
-    snap = Snap.find_by_sql("select id, photo_url from snaps where id NOT IN (select snap_id from votes where user_id =" + user.id.to_s + ")")
+    snap = Snap.find_by_sql("select * from snaps where id NOT IN (select snap_id from votes where user_id =" + user.id.to_s + ")")
     ##this gets a little wonky if the snap_id in the votes table is blank
     snap = snap.first
     if(snap)
       puts snap.photo_url.to_s
+      
+      snap.vote_rigt = Vote.where(:snap_id => snap.id, :vote => 'right').count
+      snap.vote_left = Vote.where(:snap_id => snap.id, :vote => 'left').count
+      
       render json: snap
     else
       render :text => 'done'
