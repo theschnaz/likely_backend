@@ -39,7 +39,7 @@ class SnapsController < ApplicationController
     snap = snap.first
     if(snap)
       puts snap.photo_url.to_s
-      render :text => snap.photo_url.to_s
+      render json: snap
     else
       render :text => 'done'
     end
