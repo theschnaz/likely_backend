@@ -40,7 +40,7 @@ class SnapsController < ApplicationController
     if(snap)
       puts snap.photo_url.to_s
       
-      snap.vote_rigt = Vote.where(:snap_id => snap.id, :vote => 'right').count
+      snap.vote_right = Vote.where(:snap_id => snap.id, :vote => 'right').count
       snap.vote_left = Vote.where(:snap_id => snap.id, :vote => 'left').count
       
       render json: snap
