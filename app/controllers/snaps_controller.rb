@@ -84,11 +84,14 @@ class SnapsController < ApplicationController
     #by here, we have the percent with an R or L, it's being added to the string returned, the app will have to split the string
     
     
-    snap = Snap.find_by_sql("select id, photo_url from snaps where id NOT IN (select snap_id from votes where user_id =" + user.id.to_s + ")")
+    snap = Snap.find_by_sql("select id, photo_url, vote_right, vote_left from snaps where id NOT IN (select snap_id from votes where user_id =" + user.id.to_s + ")")
     snap = snap.first
     
     if(snap)
-      render :text => final_vote + snap.photo_url.to_s
+      snap.vote_right = Vote.where(:snap_id => snap.id, :vote => 'right').count
+      snap.vote_left = Vote.where(:snap_id => snap.id, :vote => 'left').count
+      
+      render json: snap
     else
       render :text => 'done'
     end
