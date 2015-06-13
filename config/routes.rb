@@ -55,7 +55,7 @@ Rails.application.routes.draw do
   #   end
   
   root 'welcome#index'
-  get "/new_user" => "sessions#new_user"
+  post "/new_user" => "sessions#new_user"
   post "/new_snap" => "snaps#new_snap"
   get "/get_snap" => "snaps#get_snap"
   get "/get_snap_and_vote" => "snaps#get_snap_and_vote"
