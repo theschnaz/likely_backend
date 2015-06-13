@@ -1,4 +1,6 @@
-class SessionsController < ApplicationController  
+class SessionsController < ApplicationController 
+  protect_from_forgery :except => [:new_user]
+   
   def new_user
     #created via the app
     uid = params[:uid]
