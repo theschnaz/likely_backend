@@ -2,8 +2,8 @@ class SnapsController < ApplicationController
   protect_from_forgery :except => [:new_snap, :new_share_photo]
   
   def new_share_photo
-    Cloudinary::Uploader.upload(params[:photo])
-    render :text => response.public_id
+    data = Cloudinary::Uploader.upload(params[:photo])
+    render :text => data.public_id
   end
  
   def new_snap
