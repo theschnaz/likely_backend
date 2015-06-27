@@ -22,7 +22,7 @@ class EmailresultsController < ApplicationController
 	      m.to = user.email
 	      m.from = 'SnapBot@likely.com'
 	      m.subject = 'Update on your duel!'
-	      m.html = leftpercent + ' like the left and ' + rightpercent + ' like the right! ' + total + ' people have voted. <br /><br /> <img src="' + p.photo_url.to_s + '" style = "max-width:400px;" />'
+	      m.html = leftpercent.to_s + ' like the left and ' + rightpercent.to_s + ' like the right! ' + total.to_s + ' people have voted. <br /><br /> <img src="' + p.photo_url.to_s + '" style = "max-width:400px;" />'
 	      m.text = "Image uploaded"
 	   end
 	   puts client.send(mail)
