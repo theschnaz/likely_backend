@@ -5,8 +5,6 @@ class EmailresultsController < ApplicationController
 	  
 	  duels = Snap.find_by_sql("select snaps.id, snaps.snapped_by, snaps.photo_url, snaps.vote_left, snaps.vote_right from snaps, votes where snaps.id = votes.snap_id")
 	  
-	  duels = duels.first
-	  
 	  duels.each do |p|
 	  
 	    user = User.find_by_sql("select users.email from users, snaps where snaps.snapped_by = users.id and snaps.id = " + p.id.to_s)
