@@ -17,15 +17,18 @@ class EmailresultsController < ApplicationController
       	rightpercent = (p.vote_right/total)*100
       	leftpercent = (p.vote_left/total)*100
 	  
-	    client = SendGrid::Client.new(api_user: 'theschnaz', api_key: '33floppyq')
-	      mail = SendGrid::Mail.new do |m|
-	      m.to = user.email
-	      m.from = 'SnapBot@likely.com'
-	      m.subject = 'Update on your duel!'
-	      m.html = leftpercent.to_s + ' like the left and ' + rightpercent.to_s + ' like the right! ' + total.to_s + ' people have voted. <br /><br /> <img src="' + p.photo_url.to_s + '" style = "max-width:400px;" />'
-	      m.text = "Image uploaded"
+	   # client = SendGrid::Client.new(api_user: 'theschnaz', api_key: '33floppyq')
+	   #   mail = SendGrid::Mail.new do |m|
+	   #   m.to = user.email
+	   #   m.from = 'SnapBot@likely.com'
+	   #   m.subject = 'Update on your duel!'
+	   #   m.html = leftpercent.to_s + '% like the left and ' + rightpercent.to_s + '% like the right! ' + total.to_s + ' people have voted. <br /><br /> <img src="' + p.photo_url.to_s + '" style = "max-width:400px;" />'
+	   #   m.text = "Image uploaded"
 	   end
-	   puts client.send(mail)
+	   #puts client.send(mail)
+	   
+	   puts rightpercent
+	   puts leftpercent
 	  
 	  end
 	  
