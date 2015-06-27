@@ -14,8 +14,8 @@ class EmailresultsController < ApplicationController
       	p.vote_left = Vote.where(:snap_id => p.id, :vote => 'left').count
       	total = p.vote_right + p.vote_left
       	
-      	rightpercent = (p.vote_right.to_f/total.to_f)*100
-      	leftpercent = (p.vote_left/total)*100
+      	rightpercent = ((p.vote_right.to_f/total.to_f)*100).round
+      	leftpercent = ((p.vote_left.to_f/total.to_f)*100).round
 	  
 	   # client = SendGrid::Client.new(api_user: 'theschnaz', api_key: '33floppyq')
 	   #   mail = SendGrid::Mail.new do |m|
