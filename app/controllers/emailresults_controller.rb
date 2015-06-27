@@ -5,6 +5,8 @@ class EmailresultsController < ApplicationController
 	  
 	  duels = Snap.find_by_sql("select snaps.id, snaps.snapped_by, snaps.photo_url, snaps.vote_left, snaps.vote_right from snaps, votes where snaps.id = votes.snap_id")
 	  
+	  duels = duels.first
+	  
 	  duels.each do |p|
 	  
 	    user = User.find_by_sql("select users.email from users, snaps where snaps.snapped_by = users.id and snaps.id = " + p.id.to_s)
@@ -12,13 +14,17 @@ class EmailresultsController < ApplicationController
 	    
 	    p.vote_right = Vote.where(:snap_id => p.id, :vote => 'right').count
       	p.vote_left = Vote.where(:snap_id => p.id, :vote => 'left').count
+      	total = p.vote_right + p.vote_left
+      	
+      	rightpercent = p.vote_right/total
+      	leftpercent = p.vote_left/total
 	  
 	    client = SendGrid::Client.new(api_user: 'theschnaz', api_key: '33floppyq')
 	      mail = SendGrid::Mail.new do |m|
 	      m.to = user.email
 	      m.from = 'SnapBot@likely.com'
 	      m.subject = 'Update on your duel!'
-	      m.html = 'Left = ' + p.vote_left.to_s + ' Right = ' + p.vote_right.to_s + ' <br /> <img src="' + p.photo_url.to_s + '" style = "max-width:400px;" />'
+	      m.html = leftpercent + ' like the left and ' + rightpercent + ' like the right! ' + total + ' people have voted. <br /><br /> <img src="' + p.photo_url.to_s + '" style = "max-width:400px;" />'
 	      m.text = "Image uploaded"
 	   end
 	   puts client.send(mail)
