@@ -27,6 +27,8 @@ class EmailresultsController < ApplicationController
 	   # end
 	   #puts client.send(mail)
 	   
+	   puts vote_right
+	   puts total
 	   puts rightpercent
 	  
 	  end
