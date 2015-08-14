@@ -16,6 +16,10 @@ class SnapsController < ApplicationController
     #need to save here to get the snap ID for the next line
     snap.photo_url = 'http://res.cloudinary.com/hh55qpw1c/image/upload/w_500,h_500,c_fill/v1419546151/' + snap.id.to_s + '.jpg'
     snap.snapped_by = user.id
+    snap.left_text = params[:left]
+    snap.right_text = params[:right]
+    
+    
     if(snap.save)
 	    client = SendGrid::Client.new(api_user: 'theschnaz', api_key: '33floppyq')
 	  	mail = SendGrid::Mail.new do |m|
@@ -39,7 +43,7 @@ class SnapsController < ApplicationController
   
   def get_snap
     user = User.find_by_uid(params[:uid])
-    snap = Snap.find_by_sql("select id, photo_url, vote_right, vote_left from snaps where id NOT IN (select snap_id from votes where user_id =" + user.id.to_s + ")")
+    snap = Snap.find_by_sql("select id, photo_url, vote_right, vote_left, left_text, right_text from snaps where id NOT IN (select snap_id from votes where user_id =" + user.id.to_s + ")")
     ##this gets a little wonky if the snap_id in the votes table is blank
     snap = snap.first
     if(snap)
@@ -89,7 +93,7 @@ class SnapsController < ApplicationController
     #by here, we have the percent with an R or L, it's being added to the string returned, the app will have to split the string
     
     
-    snap = Snap.find_by_sql("select id, photo_url, vote_right, vote_left from snaps where id NOT IN (select snap_id from votes where user_id =" + user.id.to_s + ")")
+    snap = Snap.find_by_sql("select id, photo_url, vote_right, vote_left, left_text, right_text from snaps where id NOT IN (select snap_id from votes where user_id =" + user.id.to_s + ")")
     snap = snap.first
     
     if(snap)
