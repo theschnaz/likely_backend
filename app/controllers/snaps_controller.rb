@@ -44,7 +44,7 @@ class SnapsController < ApplicationController
   
   def get_snap
     user = User.find_by_uid(params[:uid])
-    snap = Snap.find_by_sql("select id, photo_url, vote_right, vote_left, left_text, right_text from snaps where id NOT IN (select snap_id from votes where user_id =" + user.id.to_s + ")")
+    snap = Snap.find_by_sql("select id, photo_url, vote_right, vote_left, left_text, right_text, question from snaps where id NOT IN (select snap_id from votes where user_id =" + user.id.to_s + ")")
     ##this gets a little wonky if the snap_id in the votes table is blank
     snap = snap.first
     if(snap)
@@ -94,7 +94,7 @@ class SnapsController < ApplicationController
     #by here, we have the percent with an R or L, it's being added to the string returned, the app will have to split the string
     
     
-    snap = Snap.find_by_sql("select id, photo_url, vote_right, vote_left, left_text, right_text from snaps where id NOT IN (select snap_id from votes where user_id =" + user.id.to_s + ")")
+    snap = Snap.find_by_sql("select id, photo_url, vote_right, vote_left, left_text, right_text, question from snaps where id NOT IN (select snap_id from votes where user_id =" + user.id.to_s + ")")
     snap = snap.first
     
     if(snap)
