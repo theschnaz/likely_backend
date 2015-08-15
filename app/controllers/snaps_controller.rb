@@ -53,7 +53,7 @@ class SnapsController < ApplicationController
     #if null, set to better
     
     ##this gets a little wonky if the snap_id in the votes table is blank
-    snap = snap.first
+
     if(snap)
       puts snap.photo_url.to_s
       
