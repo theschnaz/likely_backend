@@ -18,6 +18,7 @@ class SnapsController < ApplicationController
     snap.snapped_by = user.id
     snap.left_text = params[:left]
     snap.right_text = params[:right]
+    snap.question = params[:question]
     
     
     if(snap.save)
