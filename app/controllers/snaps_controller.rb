@@ -25,9 +25,9 @@ class SnapsController < ApplicationController
 	    client = SendGrid::Client.new(api_user: 'theschnaz', api_key: '33floppyq')
 	  	mail = SendGrid::Mail.new do |m|
 		  m.to = user.email
-		  m.from = 'SnapBot@likely.com'
-		  m.subject = 'You posted a Snap!'
-		  m.html = 'When people swipe on your Snap, we\'ll let you know!<br /><br /> <img src="' + snap.photo_url + '" style="max-width:400px;" />'
+		  m.from = 'Likely@likely.com'
+		  m.subject = 'You posted a pic!'
+		  m.html = 'When people swipe on your pic, we\'ll let you know!<br /><br /> <img src="' + snap.photo_url + '" style="max-width:400px;" />'
 		  m.text = "Image uploaded"
 		end
 		puts client.send(mail)
@@ -46,7 +46,7 @@ class SnapsController < ApplicationController
     user = User.find_by_uid(params[:uid])
     snap = Snap.find_by_sql("select id, photo_url, vote_right, vote_left, left_text, right_text, question from snaps where id NOT IN (select snap_id from votes where user_id =" + user.id.to_s + ") order by id desc")
     
-    unless snap.question
+    if snap.question.nil?
       snap.question = 'better'
     end
     #if null, set to better
@@ -103,7 +103,7 @@ class SnapsController < ApplicationController
     snap = Snap.find_by_sql("select id, photo_url, vote_right, vote_left, left_text, right_text, question from snaps where id NOT IN (select snap_id from votes where user_id =" + user.id.to_s + ") order by id desc")
     snap = snap.first
     
-    unless snap.question
+    if snap.question.nil?
       snap.question = 'better'
     end
     #if null, set to better
