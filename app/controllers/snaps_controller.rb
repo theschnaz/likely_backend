@@ -43,7 +43,7 @@ class SnapsController < ApplicationController
   end
   
   def get_snap
-    user = User.find_by_uid(params[:uid])
+    user = User.find_by_uid(params[:uid].to_s)
     snap = Snap.find_by_sql("select id, photo_url, vote_right, vote_left, left_text, right_text, question from snaps where id NOT IN (select snap_id from votes where user_id =" + user.id.to_s + ") order by id desc")
    
     
