@@ -51,11 +51,7 @@ class SnapsController < ApplicationController
 
     if(snap)
       snap = snap.first
-    
-      if snap.question.nil?
-        snap.question = 'better'
-      end
-      #if null, set to better
+  
       
       puts snap.photo_url.to_s
       
@@ -109,10 +105,7 @@ class SnapsController < ApplicationController
     
     if(snap)
       snap = snap.first
-    
-      if snap.question.nil?
-        snap.question = 'better'
-      end
+
     
       snap.vote_right = Vote.where(:snap_id => snap.id, :vote => 'right').count
       snap.vote_left = Vote.where(:snap_id => snap.id, :vote => 'left').count
