@@ -62,5 +62,7 @@ Rails.application.routes.draw do
   get "/get_snap_and_vote" => "snaps#get_snap_and_vote"
   get "/emailresults" => "emailresults#sendresults"
   
+  get "/agent" => "cps#agent"
+  
   
 end
