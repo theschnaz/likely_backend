@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
     
     unless User.find_by_uid(uid)
      user_data = FbGraph2::User.new(uid).authenticate(key)
-     user_data.fetch
+     user_data.fetch(fields: [:name,:email,:gender,:timezone])
      user = User.new
      user.name = user_data.name
      user.facebook_key = params[:key]
