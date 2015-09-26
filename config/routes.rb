@@ -60,6 +60,7 @@ Rails.application.routes.draw do
   post "/new_share_photo" => 'snaps#new_share_photo'
   get "/get_snap" => "snaps#get_snap"
   post "/get_snap" => "snaps#get_snap"
+  post "/get_snap_and_vote" => "snaps#get_snap_and_vote"
   get "/get_snap_and_vote" => "snaps#get_snap_and_vote"
   get "/emailresults" => "emailresults#sendresults"
   
