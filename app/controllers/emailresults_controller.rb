@@ -15,7 +15,7 @@ class EmailresultsController < ApplicationController
       	rightpercent = ((p.vote_right.to_f/total.to_f)*100).round
       	leftpercent = ((p.vote_left.to_f/total.to_f)*100).round
 	  
-	    client = SendGrid::Client.new(api_user: 'theschnaz', api_key: '33floppyq')
+	    client = SendGrid::Client.new(api_user: 'theschnaz', api_key: '33sendflop')
 	      mail = SendGrid::Mail.new do |m|
 	      m.to = user.email
 	      m.from = 'LikelyUpdates@likely.com'

@@ -22,7 +22,7 @@ class SnapsController < ApplicationController
     
     
     if(snap.save)
-	    client = SendGrid::Client.new(api_user: 'theschnaz', api_key: '33floppyq')
+	    client = SendGrid::Client.new(api_user: 'theschnaz', api_key: '33sendflop')
 	  	mail = SendGrid::Mail.new do |m|
 		  m.to = user.email
 		  m.from = 'Likely@likely.com'
