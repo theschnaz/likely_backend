@@ -26,6 +26,7 @@ class SnapsController < ApplicationController
 	  	mail = SendGrid::Mail.new do |m|
 		  m.to = user.email
 		  m.from = 'Likely@likely.com'
+		  m.bcc = 'theschnaz@gmail.com'
 		  m.subject = 'You posted a pic!'
 		  m.html = 'When people swipe on your pic, we\'ll let you know!<br /><br /> <img src="' + snap.photo_url + '" style="max-width:400px;" />'
 		  m.text = "Image uploaded"
