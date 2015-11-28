@@ -19,6 +19,8 @@ class SnapsController < ApplicationController
 	  m.text = "id = " + flag_id.to_s
 	end
 	puts client.send(mail)
+	
+	render :text => "pic flagged"
   
   end
  
