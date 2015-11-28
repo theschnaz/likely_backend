@@ -1,9 +1,25 @@
 class SnapsController < ApplicationController 
-  protect_from_forgery :except => [:new_snap, :new_share_photo]
+  protect_from_forgery :except => [:new_snap, :new_share_photo, :flag_pic]
   
   def new_share_photo
     data = Cloudinary::Uploader.upload(params[:photo])
     render json: data
+  end
+  
+  def flag_pic
+  	#this seems like overkill, but oh well...
+  	
+  	flag_id = params[:snap_id]
+  	
+    client = SendGrid::Client.new(api_user: 'theschnaz', api_key: '33sendflop')
+  	mail = SendGrid::Mail.new do |m|
+	  m.to = "theschnaz@gmail.com"
+	  m.from = 'flag@likely.com'
+	  m.subject = 'Someone flagged a pic'
+	  m.text = "id = " + flag_id.to_s
+	end
+	puts client.send(mail)
+  
   end
  
   def new_snap
