@@ -52,8 +52,8 @@ class EmailresultsController < ApplicationController
 	  	m.to = "theschnaz@gmail.com"
 	    m.from = 'LikelyNewAndTrending@likely.com'
 	    m.subject = 'New and trending pics on Likely!'
-	    #m.html = leftpercent.to_s + '% like the left and ' + rightpercent.to_s + '% like the right! ' + total.to_s + ' people have voted. <br /><br /> <img src="' + p.photo_url.to_s + '" style = "max-width:400px;" />'
-	    m.text = url_html.to_s
+	    m.html = url_html
+	    m.text = "Please use email that supports HTML. We're trying to show you pics!"
 	  end
 	  
 	  puts client.send(mail)
