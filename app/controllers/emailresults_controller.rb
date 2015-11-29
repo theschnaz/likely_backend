@@ -29,6 +29,38 @@ class EmailresultsController < ApplicationController
 	  
 	  render :text => "sent"
 	end
+	
+	def newandtrending
+	  
+	  #pics created in the last day
+	  duels = Snap.find_by_sql("select snaps.id, snaps.snapped_by, snaps.photo_url from snaps where snaps.created_at >= current_date - interval '100 day'")
+	  
+	  #users
+	  users = User.find_by_sql("select * from users")
+	
+	  #add a loop here for all users, only sending to theschnaz@gmail.com for now
+	  
+	  url_html = ''
+	  
+	  #builds the image URLs + html
+	  duels.each do |d|
+	    url_html += '<img src="' + d.photo_url.to_s + '" /> ' + '<br /> <br />'
+	  end
+	  
+	  client = SendGrid::Client.new(api_user: 'theschnaz', api_key: '33sendflop')
+	  	mail = SendGrid::Mail.new do |m|
+	  	m.to = "theschnaz@gmail.com"
+	    m.from = 'LikelyNewAndTrending@likely.com'
+	    m.subject = 'New and trending pics on Likely!'
+	    #m.html = leftpercent.to_s + '% like the left and ' + rightpercent.to_s + '% like the right! ' + total.to_s + ' people have voted. <br /><br /> <img src="' + p.photo_url.to_s + '" style = "max-width:400px;" />'
+	    m.text = url_html.to_s
+	  end
+	  
+	  puts client.send(mail)
+	  
+	  render :text => "sent"
+	
+	end
 
 	
 end
