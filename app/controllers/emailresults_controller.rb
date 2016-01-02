@@ -40,7 +40,7 @@ class EmailresultsController < ApplicationController
 	
 	  #add a loop here for all users, only sending to theschnaz@gmail.com for now
 	  
-	  url_html = ''
+	  url_html = '<table style="width:800px"> <img src="https://dl.dropboxusercontent.com/u/63975/logo_1024.png" style="width:800px" /> <br />'
 	  
 	  #builds the image URLs + html
 	  duels.each do |d|
@@ -55,6 +55,8 @@ class EmailresultsController < ApplicationController
 	    m.html = url_html
 	    m.text = "Please use email that supports HTML. We're trying to show you pics!"
 	  end
+	  
+	  url_html += '</table>'
 	  
 	  puts client.send(mail)
 	  
