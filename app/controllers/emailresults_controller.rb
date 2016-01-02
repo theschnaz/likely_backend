@@ -33,7 +33,7 @@ class EmailresultsController < ApplicationController
 	def newandtrending
 	  
 	  #pics created in the last day
-	  duels = Snap.find_by_sql("select snaps.id, snaps.snapped_by, snaps.photo_url from snaps where snaps.created_at >= current_date - interval '100 day'")
+	  duels = Snap.find_by_sql("select snaps.id, snaps.snapped_by, snaps.photo_url, snaps.question from snaps where snaps.created_at >= current_date - interval '100 day'")
 	  
 	  #users
 	  users = User.find_by_sql("select * from users")
@@ -44,7 +44,7 @@ class EmailresultsController < ApplicationController
 	  
 	  #builds the image URLs + html
 	  duels.each do |d|
-	    url_html += '<img src="' + d.photo_url.to_s + '" /> ' + '<br /> <br />'
+	    url_html += 'Which is likely ' + d.question.to_s + '? <br /> <img src="' + d.photo_url.to_s + '" /> ' + '<br /> <br />'
 	  end
 	  
 	  client = SendGrid::Client.new(api_user: 'theschnaz', api_key: '33sendflop')
