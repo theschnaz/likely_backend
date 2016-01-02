@@ -40,7 +40,7 @@ class EmailresultsController < ApplicationController
 	
 	  #add a loop here for all users, only sending to theschnaz@gmail.com for now
 	  
-	  url_html = '<table style="width:500px"> <tr style="padding:bottom:400px;"><td> <img src="https://dl.dropboxusercontent.com/u/63975/email_logo.png" style="width:500px" /> </td></tr>'
+	  url_html = '<table style="width:500px;"> <tr><td> <img src="https://dl.dropboxusercontent.com/u/63975/email_logo.png" style="width:500px" /> </td></tr><br />'
 	  
 	  #builds the image URLs + html
 	  duels.each do |d|
