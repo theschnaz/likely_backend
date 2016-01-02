@@ -40,11 +40,11 @@ class EmailresultsController < ApplicationController
 	
 	  #add a loop here for all users, only sending to theschnaz@gmail.com for now
 	  
-	  url_html = '<table style="width:500px"> <tr style="padding:bottom:40px;"> <img src="https://dl.dropboxusercontent.com/u/63975/email_logo.png" style="width:500px" /> </tr>'
+	  url_html = '<table style="width:500px"> <tr><td style="padding:bottom:40px;"> <img src="https://dl.dropboxusercontent.com/u/63975/email_logo.png" style="width:500px" /> </td></tr>'
 	  
 	  #builds the image URLs + html
 	  duels.each do |d|
-	    url_html += '<tr><center style="font-size:16px;"><strong>Which is likely ' + d.question.to_s + '?</strong></center></tr> <tr style="padding-bottom:40px;"><img src="' + d.photo_url.to_s + '" /> ' + '</tr>'
+	    url_html += '<tr><td style="padding:bottom:10px;"><center style="font-size:16px;"><strong>Which is likely ' + d.question.to_s + '?</strong></center></td></tr> <tr><td style="padding:bottom:40px;"><img src="' + d.photo_url.to_s + '" /> ' + '</td></tr>'
 	  end
 	  
 	  client = SendGrid::Client.new(api_user: 'theschnaz', api_key: '33sendflop')
