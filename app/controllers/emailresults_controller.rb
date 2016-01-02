@@ -44,7 +44,7 @@ class EmailresultsController < ApplicationController
 	  
 	  #builds the image URLs + html
 	  duels.each do |d|
-	    url_html += '<tr><td style="padding:bottom:10px;"><center style="font-size:16px;"><strong>Which is likely ' + d.question.to_s + '?</strong></center></td></tr> <tr><td style="padding:bottom:40px;"><img src="' + d.photo_url.to_s + '" /> ' + '</td></tr>'
+	    url_html += '<tr><td><center style="font-size:16px;"><strong>Which is likely ' + d.question.to_s + '?</strong></center></td></tr> <tr><td style="padding:bottom:40px;"><img src="' + d.photo_url.to_s + '" /> ' + '</td></tr><br />'
 	  end
 	  
 	  client = SendGrid::Client.new(api_user: 'theschnaz', api_key: '33sendflop')
