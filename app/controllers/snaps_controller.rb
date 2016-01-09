@@ -69,6 +69,7 @@ class SnapsController < ApplicationController
 
     unless(snap.size == 0)
       snap = snap.first
+      snap2 = snap.second
     
       if snap.question.nil?
         snap.question = 'better'
@@ -77,8 +78,10 @@ class SnapsController < ApplicationController
       
       puts snap.photo_url.to_s
       
-      snap.vote_right = Vote.where(:snap_id => snap.id, :vote => 'right').count
-      snap.vote_left = Vote.where(:snap_id => snap.id, :vote => 'left').count
+      #snap.vote_right = Vote.where(:snap_id => snap.id, :vote => 'right').count
+      #snap.vote_left = Vote.where(:snap_id => snap.id, :vote => 'left').count
+      
+      snap = snap + snap2
       
       render json: snap
     else
