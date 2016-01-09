@@ -68,8 +68,8 @@ class SnapsController < ApplicationController
     ##this gets a little wonky if the snap_id in the votes table is blank
 
     unless(snap.size == 0)
-      snap = snap.first
       snap2 = snap.second
+      snap = snap.first
     
       if snap.question.nil?
         snap.question = 'better'
