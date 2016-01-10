@@ -116,10 +116,39 @@ class SnapsController < ApplicationController
     
     vote.save
     
+    snapdata = Snap.find_by_sql("select id, photo_url, vote_right, vote_left, left_text, right_text, question, category from snaps where id NOT IN (select snap_id from votes where user_id =" + user.id.to_s + ") order by id desc")
+   
     
+    ##this gets a little wonky if the snap_id in the votes table is blank
+
+    if snapdata.size > 0
+      snap = snapdata.first
+      snap2 = snapdata[1]
+      
+      
+      i = 1
+      
+      until snap2.category == snap.category do
+        snap2 = snapdata[i]
+        i += 1
+      end
     
+      if snap.question.nil?
+        snap.question = 'better'
+      end
+      #if null, set to better
+      
+      puts snap.photo_url.to_s
+      
+      #snap.vote_right = Vote.where(:snap_id => snap.id, :vote => 'right').count
+      #snap.vote_left = Vote.where(:snap_id => snap.id, :vote => 'left').count
+      
+      render :json => {:snap => snap, :snap2 => snap2}
+    end
     
-    render :text => 'done'
+    if snapdata.size == 0
+      render :text => 'done'
+    end
   end
   
 end
