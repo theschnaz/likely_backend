@@ -90,8 +90,9 @@ class SnapsController < ApplicationController
       #snap.vote_left = Vote.where(:snap_id => snap.id, :vote => 'left').count
       
       render :json => {:snap => snap, :snap2 => snap2}
-    else
-      render :text => 'done'
+      else
+        render :text => 'done'
+      end
     end
   end
   
