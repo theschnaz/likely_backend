@@ -69,7 +69,7 @@ class SnapsController < ApplicationController
 
     if snapdata.size > 0
       snap = snapdata.first
-      snap2 = snapdata.first
+      snap2 = snapdata[1]
       
       
       i = 1
