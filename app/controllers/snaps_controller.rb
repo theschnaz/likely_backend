@@ -60,7 +60,42 @@ class SnapsController < ApplicationController
     render :text => snap.photo_url.to_s
   end
   
-  
+  def get_snap
+    user = User.find_by_uid(params[:uid])
+    snapdata = Snap.find_by_sql("select id, photo_url, vote_right, vote_left, left_text, right_text, question from snaps where id NOT IN (select snap_id from votes where user_id =" + user.id.to_s + ") order by id desc")
+   
+    
+    ##this gets a little wonky if the snap_id in the votes table is blank
+
+    if snapdata.size > 0
+      snap = snapdata.first
+      
+      
+      #snapdata is all of the snaps the user hasn't voted on, once we have the first snap, we need to fine the next snap with the same category
+      snap2 = []
+      i = 1
+      until snap2.category == snap.category do
+        snap2 = snapdata[i]
+        i++
+      end
+    
+      if snap.question.nil?
+        snap.question = 'better'
+      end
+      #if null, set to better
+      
+      puts snap.photo_url.to_s
+      
+      #snap.vote_right = Vote.where(:snap_id => snap.id, :vote => 'right').count
+      #snap.vote_left = Vote.where(:snap_id => snap.id, :vote => 'left').count
+      
+      render :json => {:snap => snap, :snap2 => snap2}
+    end
+    
+    if snapdata.size == 0
+      render :text => 'done'
+    end
+  end
   
   def get_snap_and_vote
   
