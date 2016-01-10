@@ -74,10 +74,7 @@ class SnapsController < ApplicationController
       #snapdata is all of the snaps the user hasn't voted on, once we have the first snap, we need to fine the next snap with the same category
       snap2 = []
       i = 1
-      until snap2.category == snap.category do
-        snap2 = snapdata[i]
-        i++
-      end
+
     
       if snap.question.nil?
         snap.question = 'better'
