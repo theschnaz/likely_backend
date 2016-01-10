@@ -3,6 +3,6 @@ class AddTopToVotes < ActiveRecord::Migration
     add_column :votes, :top_id, :integer
     add_column :votes, :bottom_id, :integer
     add_column :votes, :top_vote, :integer
-    add_column :votes, :bottom_id, :integer
+    add_column :votes, :bottom_vote, :integer
   end
 end
