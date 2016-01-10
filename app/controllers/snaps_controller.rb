@@ -103,54 +103,21 @@ class SnapsController < ApplicationController
     
     vote = Vote.new
     vote.user_id = user.id
-    snap_id = params[:snap_url]
-    #this little beauty finds the ID from the URL
-    vote.snap_id = params[:id]
-    vote.vote = params[:vote]
+    vote.top_id = params[:top]
+    vote.bottom_id = params[:bottom]
+    
+    if params[:vote] == params[:top]
+      vote.top_vote = params[:top]
+    else
+      vote.bottom_vote = params[:bottom]
+    end
+    
     vote.save
     
-    ##calculate the votes and return a percent
-    #left = Vote.find_by_sql("select count(id) from votes where vote = 'left' and snap_id = " + snap_id.to_s
-    left = Vote.where(snap_id: snap_id, vote: "left").count
-    right = Vote.where(snap_id: snap_id, vote: "right").count
-    total_votes = left + right
-    
-    if(left > right)
-      final_vote = ((left.to_f/(left.to_f+right.to_f))*100).round
-      final_vote = "L" + final_vote.to_s
-    end
-    if(right > left)
-      final_vote = ((right.to_f/(left.to_f+right.to_f))*100).round
-      final_vote = "R" + final_vote.to_s
-    end
-    if((left == right) && (left == 0))
-      final_vote = "F"
-    end
-    if(left == right)
-      final_vote = "E"
-    end
-    #by here, we have the percent with an R or L, it's being added to the string returned, the app will have to split the string
     
     
-    snap = Snap.find_by_sql("select id, photo_url, vote_right, vote_left, left_text, right_text, question from snaps where id NOT IN (select snap_id from votes where user_id =" + user.id.to_s + ") order by id desc")
     
-    #if null, set to better
-    
-    unless(snap.size == 0)
-      snap = snap.first
-    
-      if snap.question.nil?
-        snap.question = 'better'
-      end
-    
-      snap.vote_right = Vote.where(:snap_id => snap.id, :vote => 'right').count
-      snap.vote_left = Vote.where(:snap_id => snap.id, :vote => 'left').count
-      
-      #render json: snap
-      render :text => 'done'
-    else
-      render :text => 'done'
-    end
+    render :text => 'done'
   end
   
 end
