@@ -62,14 +62,22 @@ class SnapsController < ApplicationController
   
   def get_snap
     user = User.find_by_uid(params[:uid])
-    snap = Snap.find_by_sql("select id, photo_url, vote_right, vote_left, left_text, right_text, question from snaps where id NOT IN (select snap_id from votes where user_id =" + user.id.to_s + ") order by id desc")
+    snapdata = Snap.find_by_sql("select id, photo_url, vote_right, vote_left, left_text, right_text, question from snaps where id NOT IN (select snap_id from votes where user_id =" + user.id.to_s + ") order by id desc")
    
     
     ##this gets a little wonky if the snap_id in the votes table is blank
 
     unless(snap.size == 0)
-      snap2 = snap.second
-      snap = snap.first
+      snap = snapdata.first
+      
+      
+      #snapdata is all of the snaps the user hasn't voted on, once we have the first snap, we need to fine the next snap with the same category
+      snap2 = []
+      i = 1
+      until snap2.category == snap.category do
+        snap2 = snapdata[i]
+        i++
+      end
     
       if snap.question.nil?
         snap.question = 'better'
