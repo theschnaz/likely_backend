@@ -67,7 +67,7 @@ class SnapsController < ApplicationController
     
     ##this gets a little wonky if the snap_id in the votes table is blank
 
-    unless(snap.size == 0)
+    if(snapdata.size > 0)
       snap = snapdata.first
       
       
@@ -90,9 +90,8 @@ class SnapsController < ApplicationController
       #snap.vote_left = Vote.where(:snap_id => snap.id, :vote => 'left').count
       
       render :json => {:snap => snap, :snap2 => snap2}
-      else
-        render :text => 'done'
-      end
+    else
+      render :text => 'done'
     end
   end
   
