@@ -89,7 +89,8 @@ class SnapsController < ApplicationController
       #snap.vote_right = Vote.where(:snap_id => snap.id, :vote => 'right').count
       #snap.vote_left = Vote.where(:snap_id => snap.id, :vote => 'left').count
       
-      render :json => {:snap => snap, :snap2 => snap2}
+      #render :json => {:snap => snap, :snap2 => snap2}
+      render :text => 'done'
     end
     
     if snapdata.size == 0
