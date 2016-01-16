@@ -126,7 +126,59 @@ class SnapsController < ApplicationController
     ##this gets a little wonky if the snap_id in the votes table is blank
 
     if snapdata.size > 1
+      
+      
+      #this can't be a good solution, but I need to know how many images are in each category that the member hasn't voted on yet
+      animals = 0
+      art = 0
+      people = 0
+      food = 0
+      music = 0
+      
+      snapdata.each do |x|
+        if x.category == 'animals'
+          animals += 1
+        end
+        if x.category == 'art'
+          art += 1
+        end
+        if x.category == 'people'
+          people += 1
+        end
+        if x.category == 'food'
+          food += 1
+        end
+        if x.category == 'music'
+          music += 1
+        end
+        
+      end
+      
+      
       snap = snapdata.first
+      
+      #if there aren't two images in the category, render done, in the future, we'll need to look for other images
+      if (snap.category == 'animals') && (animals < 1)
+        puts 'animals'
+        render :text => 'done'
+      end
+      if (snap.category == 'art')&&(art<1)
+        puts 'art'
+        render :text => 'done'
+      end
+      if (snap.category == 'people')&&(people<1)
+        puts 'people'
+        render :text => 'done'
+      end
+      if (snap.category == 'food')&&(food<1)
+        puts 'food'
+        render :text => 'done'
+      end
+      if (snap.category =='music')&&(music<1)
+        puts 'music'
+        render :text => 'done'
+      end
+      
       snap2 = snapdata[1]
       
       
