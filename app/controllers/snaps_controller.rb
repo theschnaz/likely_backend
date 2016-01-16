@@ -96,7 +96,7 @@ class SnapsController < ApplicationController
       render :json => {:snap => snap, :snap2 => snap2, :user => user1, :user2 => user2}
     end
     
-    if snapdata.size <2 0
+    if snapdata.size < 2
       render :text => 'done'
     end
   end
