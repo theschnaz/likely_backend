@@ -62,7 +62,7 @@ class SnapsController < ApplicationController
   
   def get_snap
     user = User.find_by_uid(params[:uid])
-    snapdata = Snap.find_by_sql("select id, photo_url, vote_right, vote_left, left_text, right_text, question, category from snaps where id NOT IN (select snap_id from votes where user_id =" + user.id.to_s + ") order by id desc")
+    snapdata = Snap.find_by_sql("select id, snapped_by, photo_url, vote_right, vote_left, left_text, right_text, question, category from snaps where id NOT IN (select snap_id from votes where user_id =" + user.id.to_s + ") order by id desc")
    
     
     ##this gets a little wonky if the snap_id in the votes table is blank
@@ -78,6 +78,12 @@ class SnapsController < ApplicationController
         snap2 = snapdata[i]
         i += 1
       end
+      
+      
+      #get the profile imgaes of the posters...   
+      user1 = User.find_by_id(snap.snapped_by)
+      user2 = User.find_by_id(snap2.snapped_by)
+      
     
       if snap.question.nil?
         snap.question = 'better'
@@ -89,7 +95,7 @@ class SnapsController < ApplicationController
       #snap.vote_right = Vote.where(:snap_id => snap.id, :vote => 'right').count
       #snap.vote_left = Vote.where(:snap_id => snap.id, :vote => 'left').count
       
-      render :json => {:snap => snap, :snap2 => snap2}
+      render :json => {:snap => snap, :snap2 => snap2, :user => user1, :user2 => user2}
     end
     
     if snapdata.size == 0
