@@ -34,9 +34,7 @@ class SnapsController < ApplicationController
     #need to save here to get the snap ID for the next line
     snap.photo_url = 'http://res.cloudinary.com/hh55qpw1c/image/upload/w_500,h_500,c_fill/v1419546151/' + snap.id.to_s + '.jpg'
     snap.snapped_by = user.id
-    snap.left_text = params[:left]
-    snap.right_text = params[:right]
-    snap.question = params[:question]
+    snap.category = params[:category]
     
     
     if(snap.save)
@@ -45,7 +43,7 @@ class SnapsController < ApplicationController
 		  m.to = user.email
 		  m.from = 'Likely@likely.com'
 		  m.subject = 'You posted a pic!'
-		  m.html = 'When people swipe on your pic, we\'ll let you know!<br /><br /> <img src="' + snap.photo_url + '" style="max-width:400px;" />'
+		  m.html = 'When people vote on your pic, we\'ll let you know, good luck!<br /><br /> <img src="' + snap.photo_url + '" style="max-width:400px;" />'
 		  m.text = "Image uploaded"
 		end
 		puts client.send(mail)
@@ -67,7 +65,7 @@ class SnapsController < ApplicationController
     
     ##this gets a little wonky if the snap_id in the votes table is blank
 
-    if snapdata.size > 0
+    if snapdata.size > 1
       snap = snapdata.first
       snap2 = snapdata[1]
       
@@ -98,7 +96,7 @@ class SnapsController < ApplicationController
       render :json => {:snap => snap, :snap2 => snap2, :user => user1, :user2 => user2}
     end
     
-    if snapdata.size == 0
+    if snapdata.size <2 0
       render :text => 'done'
     end
   end
@@ -127,7 +125,7 @@ class SnapsController < ApplicationController
     
     ##this gets a little wonky if the snap_id in the votes table is blank
 
-    if snapdata.size > 0
+    if snapdata.size > 1
       snap = snapdata.first
       snap2 = snapdata[1]
       
@@ -156,7 +154,8 @@ class SnapsController < ApplicationController
       render :json => {:snap => snap, :snap2 => snap2, :user => user1, :user2 => user2}
     end
     
-    if snapdata.size == 0
+    #need at least two snaps
+    if snapdata.size < 2
       render :text => 'done'
     end
   end
