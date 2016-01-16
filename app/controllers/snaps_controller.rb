@@ -99,23 +99,23 @@ class SnapsController < ApplicationController
       snap = snapdata.first
       
       #if there aren't two images in the category, render done, in the future, we'll need to look for other images
-      if (snap.category == 'animals') && (animals < 1)
+      if (snap.category == 'animals') && (animals < 2)
         puts 'animals'
         render :text => 'done'
       end
-      if (snap.category == 'art')&&(art<1)
+      if (snap.category == 'art')&&(art<2)
         puts 'art'
         render :text => 'done'
       end
-      if (snap.category == 'people')&&(people<1)
+      if (snap.category == 'people')&&(people<2)
         puts 'people'
         render :text => 'done'
       end
-      if (snap.category == 'food')&&(food<1)
+      if (snap.category == 'food')&&(food<2)
         puts 'food'
         render :text => 'done'
       end
-      if (snap.category =='music')&&(music<1)
+      if (snap.category =='music')&&(music<2)
         puts 'music'
         render :text => 'done'
       end
@@ -211,23 +211,23 @@ class SnapsController < ApplicationController
       snap = snapdata.first
       
       #if there aren't two images in the category, render done, in the future, we'll need to look for other images
-      if (snap.category == 'animals') && (animals < 1)
+      if (snap.category == 'animals') && (animals < 2)
         puts 'animals'
         render :text => 'done'
       end
-      if (snap.category == 'art')&&(art<1)
+      if (snap.category == 'art')&&(art<2)
         puts 'art'
         render :text => 'done'
       end
-      if (snap.category == 'people')&&(people<1)
+      if (snap.category == 'people')&&(people<2)
         puts 'people'
         render :text => 'done'
       end
-      if (snap.category == 'food')&&(food<1)
+      if (snap.category == 'food')&&(food<2)
         puts 'food'
         render :text => 'done'
       end
-      if (snap.category =='music')&&(music<1)
+      if (snap.category =='music')&&(music<2)
         puts 'music'
         render :text => 'done'
       end
