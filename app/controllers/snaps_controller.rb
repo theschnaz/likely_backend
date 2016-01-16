@@ -67,8 +67,6 @@ class SnapsController < ApplicationController
 
     if snapdata.size > 1
       ##this gets a little wonky if the snap_id in the votes table is blank
-
-    if snapdata.size > 1
       
       
       #this can't be a good solution, but I need to know how many images are in each category that the member hasn't voted on yet
