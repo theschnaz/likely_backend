@@ -102,22 +102,27 @@ class SnapsController < ApplicationController
       if (snap.category == 'animals') && (animals < 2)
         puts 'animals'
         render :text => 'done'
+        exit
       end
       if (snap.category == 'art')&&(art<2)
         puts 'art'
         render :text => 'done'
+        exit
       end
       if (snap.category == 'people')&&(people<2)
         puts 'people'
         render :text => 'done'
+        exit
       end
       if (snap.category == 'food')&&(food<2)
         puts 'food'
         render :text => 'done'
+        exit
       end
       if (snap.category =='music')&&(music<2)
         puts 'music'
         render :text => 'done'
+        exit
       end
       
       snap2 = snapdata[1]
@@ -214,22 +219,27 @@ class SnapsController < ApplicationController
       if (snap.category == 'animals') && (animals < 2)
         puts 'animals'
         render :text => 'done'
+        exit
       end
       if (snap.category == 'art')&&(art<2)
         puts 'art'
         render :text => 'done'
+        exit
       end
       if (snap.category == 'people')&&(people<2)
         puts 'people'
         render :text => 'done'
+        exit
       end
       if (snap.category == 'food')&&(food<2)
         puts 'food'
         render :text => 'done'
+        exit
       end
       if (snap.category =='music')&&(music<2)
         puts 'music'
         render :text => 'done'
+        exit
       end
       
       snap2 = snapdata[1]
