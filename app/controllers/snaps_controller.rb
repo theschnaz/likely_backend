@@ -122,7 +122,7 @@ class SnapsController < ApplicationController
     
     vote.save
     
-    snapdata = Snap.find_by_sql("select id, photo_url, vote_right, vote_left, left_text, right_text, question, category from snaps where id NOT IN (select snap_id from votes where user_id =" + user.id.to_s + ") order by id desc")
+    snapdata = Snap.find_by_sql("select id, snapped_by, photo_url, vote_right, vote_left, left_text, right_text, question, category from snaps where id NOT IN (select snap_id from votes where user_id =" + user.id.to_s + ") order by id desc")
    
     
     ##this gets a little wonky if the snap_id in the votes table is blank
