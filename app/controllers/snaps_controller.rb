@@ -101,28 +101,23 @@ class SnapsController < ApplicationController
       #if there aren't two images in the category, render done, in the future, we'll need to look for other images
       if (snap.category == 'animals') && (animals < 2)
         puts 'animals'
-        render :text => 'done'
-        exit
+        render :text => 'done' and return
       end
       if (snap.category == 'art')&&(art<2)
         puts 'art'
-        render :text => 'done'
-        exit
+        render :text => 'done' and return
       end
       if (snap.category == 'people')&&(people<2)
         puts 'people'
-        render :text => 'done'
-        exit
+        render :text => 'done' and return
       end
       if (snap.category == 'food')&&(food<2)
         puts 'food'
-        render :text => 'done'
-        exit
+        render :text => 'done' and return
       end
       if (snap.category =='music')&&(music<2)
         puts 'music'
-        render :text => 'done'
-        exit
+        render :text => 'done' and return
       end
       
       snap2 = snapdata[1]
@@ -218,28 +213,23 @@ class SnapsController < ApplicationController
       #if there aren't two images in the category, render done, in the future, we'll need to look for other images
       if (snap.category == 'animals') && (animals < 2)
         puts 'animals'
-        render :text => 'done'
-        exit
+        render :text => 'done' and return
       end
       if (snap.category == 'art')&&(art<2)
         puts 'art'
-        render :text => 'done'
-        exit
+        render :text => 'done' and return
       end
       if (snap.category == 'people')&&(people<2)
         puts 'people'
-        render :text => 'done'
-        exit
+        render :text => 'done' and return
       end
       if (snap.category == 'food')&&(food<2)
         puts 'food'
-        render :text => 'done'
-        exit
+        render :text => 'done' and return
       end
       if (snap.category =='music')&&(music<2)
         puts 'music'
-        render :text => 'done'
-        exit
+        render :text => 'done' and return
       end
       
       snap2 = snapdata[1]
