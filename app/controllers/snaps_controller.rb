@@ -138,6 +138,10 @@ class SnapsController < ApplicationController
         snap2 = snapdata[i]
         i += 1
       end
+      
+      #get the profile imgaes of the posters...   
+      user1 = User.find_by_id(snap.snapped_by)
+      user2 = User.find_by_id(snap2.snapped_by)
     
       if snap.question.nil?
         snap.question = 'better'
@@ -149,7 +153,7 @@ class SnapsController < ApplicationController
       #snap.vote_right = Vote.where(:snap_id => snap.id, :vote => 'right').count
       #snap.vote_left = Vote.where(:snap_id => snap.id, :vote => 'left').count
       
-      render :json => {:snap => snap, :snap2 => snap2}
+      render :json => {:snap => snap, :snap2 => snap2, :user => user1, :user2 => user2}
     end
     
     if snapdata.size == 0
