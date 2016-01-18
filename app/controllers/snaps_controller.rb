@@ -74,7 +74,6 @@ class SnapsController < ApplicationController
       art = 0
       people = 0
       food = 0
-      music = 0
       
       snap = snapdata.first
       
@@ -90,10 +89,7 @@ class SnapsController < ApplicationController
         end
         if x.category == 'food'
           food += 1
-        end
-        if x.category == 'music'
-          music += 1
-        end     
+        end  
       end
       
       
@@ -116,13 +112,12 @@ class SnapsController < ApplicationController
 	    elsif (snap.category == 'food')&&(food>1)
 	      snap2 = snapdata[catcount + 1]
 	      cat = true
-	    elsif (snap.category =='music')&&(music>1)
-	      snap2 = snapdata[catcount + 1]
-	      cat = true
         else
           catcount += 1
+          
+          puts catcount
 	      
-	      if catcount > snapdata.size
+	      if catcount > 4 #the total number of categories
             render :text => 'done' and return
           else
 	        snap = snapdata[catcount]
@@ -194,7 +189,6 @@ class SnapsController < ApplicationController
       art = 0
       people = 0
       food = 0
-      music = 0
       
       snapdata.each do |x|
         if x.category == 'animals'
@@ -208,9 +202,6 @@ class SnapsController < ApplicationController
         end
         if x.category == 'food'
           food += 1
-        end
-        if x.category == 'music'
-          music += 1
         end
         
       end
@@ -235,13 +226,12 @@ class SnapsController < ApplicationController
 	    elsif (snap.category == 'food')&&(food>1)
 	      snap2 = snapdata[catcount + 1]
 	      cat = true
-	    elsif (snap.category =='music')&&(music>1)
-	      snap2 = snapdata[catcount + 1]
-	      cat = true
         else
           catcount += 1
           
-          if catcount > snapdata.size
+          puts catcount
+          
+          if catcount > 4 #the total number of categories
             render :text => 'done' and return
           else
 	        snap = snapdata[catcount]
