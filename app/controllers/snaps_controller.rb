@@ -121,7 +121,7 @@ class SnapsController < ApplicationController
 	      cat = true
         else
           catcount += 1
-	      snap = snapdata[catcount + 1]
+	      snap = snapdata[catcount]
 	      
 	    end
 	  end
@@ -235,7 +235,7 @@ class SnapsController < ApplicationController
 	      cat = true
         else
           catcount += 1
-	      snap = snapdata[catcount + 1]
+	      snap = snapdata[catcount]
 	      
 	    end
 	  end
