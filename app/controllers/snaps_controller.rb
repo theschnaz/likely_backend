@@ -102,19 +102,14 @@ class SnapsController < ApplicationController
       #if there aren't two images in the category, render done, in the future, we'll need to look for other images
       if (snap.category == 'animals') && (animals > 2)
         snap2 = snapdata[1]
-      end
       elsif (snap.category == 'art')&&(art>2)
         snap2 = snapdata[1]
-      end
       elsif (snap.category == 'people')&&(people>2)
         snap2 = snapdata[1]
-      end
       elsif (snap.category == 'food')&&(food>2)
         snap2 = snapdata[1]
-      end
       elsif (snap.category =='music')&&(music>2)
         snap2 = snapdata[1]
-      end
       else
         render :text => 'done' and return
       end
@@ -209,19 +204,14 @@ class SnapsController < ApplicationController
       #if there aren't two images in the category, render done, in the future, we'll need to look for other images
       if (snap.category == 'animals') && (animals > 2)
         snap2 = snapdata[1]
-      end
       elsif (snap.category == 'art')&&(art>2)
         snap2 = snapdata[1]
-      end
       elsif (snap.category == 'people')&&(people>2)
         snap2 = snapdata[1]
-      end
       elsif (snap.category == 'food')&&(food>2)
         snap2 = snapdata[1]
-      end
       elsif (snap.category =='music')&&(music>2)
         snap2 = snapdata[1]
-      end
       else
         render :text => 'done' and return
       end
