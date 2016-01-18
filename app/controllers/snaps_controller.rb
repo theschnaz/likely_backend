@@ -104,24 +104,25 @@ class SnapsController < ApplicationController
       catcount = 0
       
       while cat == false do      
-	    if (snap.category == 'animals') && (animals > 2)
+	    if (snap.category == 'animals') && (animals > 1)
 	      snap2 = snapdata[catcount + 1]
 	      cat = true
-	    elsif (snap.category == 'art')&&(art>2)
+	    elsif (snap.category == 'art')&&(art>1)
 	      snap2 = snapdata[catcount + 1]
 	      cat = true
-	    elsif (snap.category == 'people')&&(people>2)
+	    elsif (snap.category == 'people')&&(people>1)
 	      snap2 = snapdata[catcount + 1]
 	      cat = true
-	    elsif (snap.category == 'food')&&(food>2)
+	    elsif (snap.category == 'food')&&(food>1)
 	      snap2 = snapdata[catcount + 1]
 	      cat = true
-	    elsif (snap.category =='music')&&(music>2)
+	    elsif (snap.category =='music')&&(music>1)
 	      snap2 = snapdata[catcount + 1]
 	      cat = true
         else
+          catcount += 1
 	      snap = snapdata[catcount + 1]
-	      catcount += 1
+	      
 	    end
 	  end
       
@@ -217,24 +218,25 @@ class SnapsController < ApplicationController
       catcount = 0
       
       while cat == false do      
-	    if (snap.category == 'animals') && (animals > 2)
+	    if (snap.category == 'animals') && (animals > 1)
 	      snap2 = snapdata[catcount + 1]
 	      cat = true
-	    elsif (snap.category == 'art')&&(art>2)
+	    elsif (snap.category == 'art')&&(art>1)
 	      snap2 = snapdata[catcount + 1]
 	      cat = true
-	    elsif (snap.category == 'people')&&(people>2)
+	    elsif (snap.category == 'people')&&(people>1)
 	      snap2 = snapdata[catcount + 1]
 	      cat = true
-	    elsif (snap.category == 'food')&&(food>2)
+	    elsif (snap.category == 'food')&&(food>1)
 	      snap2 = snapdata[catcount + 1]
 	      cat = true
-	    elsif (snap.category =='music')&&(music>2)
+	    elsif (snap.category =='music')&&(music>1)
 	      snap2 = snapdata[catcount + 1]
 	      cat = true
         else
+          catcount += 1
 	      snap = snapdata[catcount + 1]
-	      catcount += 1
+	      
 	    end
 	  end
       
