@@ -116,7 +116,7 @@ class SnapsController < ApplicationController
         snap2 = snapdata[1]
       end
       else
-        render :text => 'done' and return;
+        render :text => 'done' and return
       end
       
       i = 1
@@ -223,7 +223,7 @@ class SnapsController < ApplicationController
         snap2 = snapdata[1]
       end
       else
-        render :text => 'done' and return;
+        render :text => 'done' and return
       end
       
       
