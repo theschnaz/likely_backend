@@ -76,6 +76,8 @@ class SnapsController < ApplicationController
       food = 0
       music = 0
       
+      snap = snapdata.first
+      
       snapdata.each do |x|
         if x.category == 'animals'
           animals += 1
@@ -91,37 +93,31 @@ class SnapsController < ApplicationController
         end
         if x.category == 'music'
           music += 1
-        end
-        
+        end     
       end
       
       
-      snap = snapdata.first
+      
       
       #if there aren't two images in the category, render done, in the future, we'll need to look for other images
-      if (snap.category == 'animals') && (animals < 2)
-        puts 'animals'
-        render :text => 'done' and return
+      if (snap.category == 'animals') && (animals > 2)
+        snap2 = snapdata[1]
       end
-      if (snap.category == 'art')&&(art<2)
-        puts 'art'
-        render :text => 'done' and return
+      elsif (snap.category == 'art')&&(art>2)
+        snap2 = snapdata[1]
       end
-      if (snap.category == 'people')&&(people<2)
-        puts 'people'
-        render :text => 'done' and return
+      elsif (snap.category == 'people')&&(people>2)
+        snap2 = snapdata[1]
       end
-      if (snap.category == 'food')&&(food<2)
-        puts 'food'
-        render :text => 'done' and return
+      elsif (snap.category == 'food')&&(food>2)
+        snap2 = snapdata[1]
       end
-      if (snap.category =='music')&&(music<2)
-        puts 'music'
-        render :text => 'done' and return
+      elsif (snap.category =='music')&&(music>2)
+        snap2 = snapdata[1]
       end
-      
-      snap2 = snapdata[1]
-      
+      else
+        render :text => 'done' and return;
+      end
       
       i = 1
       
@@ -211,28 +207,24 @@ class SnapsController < ApplicationController
       snap = snapdata.first
       
       #if there aren't two images in the category, render done, in the future, we'll need to look for other images
-      if (snap.category == 'animals') && (animals < 2)
-        puts 'animals'
-        render :text => 'done' and return
+      if (snap.category == 'animals') && (animals > 2)
+        snap2 = snapdata[1]
       end
-      if (snap.category == 'art')&&(art<2)
-        puts 'art'
-        render :text => 'done' and return
+      elsif (snap.category == 'art')&&(art>2)
+        snap2 = snapdata[1]
       end
-      if (snap.category == 'people')&&(people<2)
-        puts 'people'
-        render :text => 'done' and return
+      elsif (snap.category == 'people')&&(people>2)
+        snap2 = snapdata[1]
       end
-      if (snap.category == 'food')&&(food<2)
-        puts 'food'
-        render :text => 'done' and return
+      elsif (snap.category == 'food')&&(food>2)
+        snap2 = snapdata[1]
       end
-      if (snap.category =='music')&&(music<2)
-        puts 'music'
-        render :text => 'done' and return
+      elsif (snap.category =='music')&&(music>2)
+        snap2 = snapdata[1]
       end
-      
-      snap2 = snapdata[1]
+      else
+        render :text => 'done' and return;
+      end
       
       
       i = 1
