@@ -117,7 +117,7 @@ class SnapsController < ApplicationController
           
           puts catcount
 	      
-	      if catcount > 4 #the total number of categories
+	      if catcount == 4 #the total number of categories
             render :text => 'done' and return
           else
 	        snap = snapdata[catcount]
@@ -231,7 +231,7 @@ class SnapsController < ApplicationController
           
           puts catcount
           
-          if catcount > 4 #the total number of categories
+          if catcount == 4 #the total number of categories
             render :text => 'done' and return
           else
 	        snap = snapdata[catcount]
