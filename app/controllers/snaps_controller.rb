@@ -121,7 +121,12 @@ class SnapsController < ApplicationController
 	      cat = true
         else
           catcount += 1
-	      snap = snapdata[catcount]
+	      
+	      if catcount > snapdata.size
+            render :text => 'done' and return
+          else
+	        snap = snapdata[catcount]
+	      end
 	      
 	    end
 	  end
@@ -235,7 +240,12 @@ class SnapsController < ApplicationController
 	      cat = true
         else
           catcount += 1
-	      snap = snapdata[catcount]
+          
+          if catcount > snapdata.size
+            render :text => 'done' and return
+          else
+	        snap = snapdata[catcount]
+	      end
 	      
 	    end
 	  end
