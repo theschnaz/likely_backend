@@ -101,7 +101,7 @@ class SnapsController < ApplicationController
       
       #if there aren't two images in the category, render done, in the future, we'll need to look for other images
       cat = false
-      catcount = 1
+      catcount = 0
       
       while cat == false do      
 	    if (snap.category == 'animals') && (animals > 2)
@@ -214,7 +214,7 @@ class SnapsController < ApplicationController
       
       #if there aren't two images in the category, render done, in the future, we'll need to look for other images
       cat = false
-      catcount = 1
+      catcount = 0
       
       while cat == false do      
 	    if (snap.category == 'animals') && (animals > 2)
