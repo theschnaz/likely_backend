@@ -100,19 +100,30 @@ class SnapsController < ApplicationController
       
       
       #if there aren't two images in the category, render done, in the future, we'll need to look for other images
-      if (snap.category == 'animals') && (animals > 2)
-        snap2 = snapdata[1]
-      elsif (snap.category == 'art')&&(art>2)
-        snap2 = snapdata[1]
-      elsif (snap.category == 'people')&&(people>2)
-        snap2 = snapdata[1]
-      elsif (snap.category == 'food')&&(food>2)
-        snap2 = snapdata[1]
-      elsif (snap.category =='music')&&(music>2)
-        snap2 = snapdata[1]
-      else
-        render :text => 'done' and return
-      end
+      cat = false
+      catcount = 1
+      
+      while cat == false do      
+	    if (snap.category == 'animals') && (animals > 2)
+	      snap2 = snapdata[catcount + 1]
+	      cat = true
+	    elsif (snap.category == 'art')&&(art>2)
+	      snap2 = snapdata[catcount + 1]
+	      cat = true
+	    elsif (snap.category == 'people')&&(people>2)
+	      snap2 = snapdata[catcount + 1]
+	      cat = true
+	    elsif (snap.category == 'food')&&(food>2)
+	      snap2 = snapdata[catcount + 1]
+	      cat = true
+	    elsif (snap.category =='music')&&(music>2)
+	      snap2 = snapdata[catcount + 1]
+	      cat = true
+        else
+	      snap = snapdata[catcount + 1]
+	      catcount += 1
+	    end
+	  end
       
       i = 1
       
@@ -202,19 +213,30 @@ class SnapsController < ApplicationController
       snap = snapdata.first
       
       #if there aren't two images in the category, render done, in the future, we'll need to look for other images
-      if (snap.category == 'animals') && (animals > 2)
-        snap2 = snapdata[1]
-      elsif (snap.category == 'art')&&(art>2)
-        snap2 = snapdata[1]
-      elsif (snap.category == 'people')&&(people>2)
-        snap2 = snapdata[1]
-      elsif (snap.category == 'food')&&(food>2)
-        snap2 = snapdata[1]
-      elsif (snap.category =='music')&&(music>2)
-        snap2 = snapdata[1]
-      else
-        render :text => 'done' and return
-      end
+      cat = false
+      catcount = 1
+      
+      while cat == false do      
+	    if (snap.category == 'animals') && (animals > 2)
+	      snap2 = snapdata[catcount + 1]
+	      cat = true
+	    elsif (snap.category == 'art')&&(art>2)
+	      snap2 = snapdata[catcount + 1]
+	      cat = true
+	    elsif (snap.category == 'people')&&(people>2)
+	      snap2 = snapdata[catcount + 1]
+	      cat = true
+	    elsif (snap.category == 'food')&&(food>2)
+	      snap2 = snapdata[catcount + 1]
+	      cat = true
+	    elsif (snap.category =='music')&&(music>2)
+	      snap2 = snapdata[catcount + 1]
+	      cat = true
+        else
+	      snap = snapdata[catcount + 1]
+	      catcount += 1
+	    end
+	  end
       
       
       i = 1
