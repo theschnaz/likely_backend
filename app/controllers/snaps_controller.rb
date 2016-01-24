@@ -144,7 +144,7 @@ class SnapsController < ApplicationController
       end
       #if null, set to better
       
-      puts snap.photo_url.to_s
+      puts user2.fb_pic_square
       
       #snap.vote_right = Vote.where(:snap_id => snap.id, :vote => 'right').count
       #snap.vote_left = Vote.where(:snap_id => snap.id, :vote => 'left').count
