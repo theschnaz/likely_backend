@@ -174,9 +174,16 @@ class SnapsController < ApplicationController
       vote.snap_id = params[:bottom]
     end
     
-    vote.save
+    #if the click came from a guest, don't save anything
+    unless params[:uid] == '1217683588257786'
+      vote.save
+    end
     
-    snapdata = Snap.find_by_sql("select id, snapped_by, photo_url, vote_right, vote_left, left_text, right_text, question, category from snaps where id NOT IN (select snap_id from votes where user_id =" + user.id.to_s + ") order by id desc")
+    if params[:uid] == '1217683588257786'
+      snapdata = Snap.find_by_sql("select id, snapped_by, photo_url, vote_right, vote_left, left_text, right_text, question, category from snaps where id > " + params[:top] + "order by id desc")
+    else
+      snapdata = Snap.find_by_sql("select id, snapped_by, photo_url, vote_right, vote_left, left_text, right_text, question, category from snaps where id NOT IN (select snap_id from votes where user_id =" + user.id.to_s + ") order by id desc")
+    end
    
     
     ##this gets a little wonky if the snap_id in the votes table is blank
