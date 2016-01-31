@@ -188,7 +188,7 @@ class SnapsController < ApplicationController
     
     ##this gets a little wonky if the snap_id in the votes table is blank
 
-    if snapdata.size > 1
+    if snapdata.size > 4
       
       
       #this can't be a good solution, but I need to know how many images are in each category that the member hasn't voted on yet
@@ -199,16 +199,16 @@ class SnapsController < ApplicationController
       
       snapdata.each do |x|
         if x.category == 'animals'
-          animals += 1
+          animals = animals + 1
         end
         if x.category == 'art'
-          art += 1
+          art = art + 1
         end
         if x.category == 'people'
-          people += 1
+          people = people + 1
         end
         if x.category == 'food'
-          food += 1
+          food = food + 1
         end
         
       end
@@ -273,7 +273,7 @@ class SnapsController < ApplicationController
     end
     
     #need at least two snaps
-    if snapdata.size < 2
+    if snapdata.size < 4
       render :text => 'done'
     end
   end
