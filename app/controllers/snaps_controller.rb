@@ -60,7 +60,7 @@ class SnapsController < ApplicationController
   
   def get_snap
     user = User.find_by_uid(params[:uid])
-    snapdata = Snap.find_by_sql("select id, snapped_by, photo_url, vote_right, vote_left, left_text, right_text, question, category from snaps where id NOT IN (select snap_id from votes where user_id =" + user.id.to_s + ") order by id desc")
+    snapdata = Snap.find_by_sql("select id, snapped_by, photo_url, vote_right, vote_left, left_text, right_text, question, category from snaps where id NOT IN (select snap_id from votes where user_id =" + user.id.to_s + ") order by id asc")
    
     
     ##this gets a little wonky if the snap_id in the votes table is blank
@@ -180,9 +180,9 @@ class SnapsController < ApplicationController
     end
     
     if params[:uid] == '1217683588257786'
-      snapdata = Snap.find_by_sql("select id, snapped_by, photo_url, vote_right, vote_left, left_text, right_text, question, category from snaps where id > " + params[:top] + "order by id desc")
+      snapdata = Snap.find_by_sql("select id, snapped_by, photo_url, vote_right, vote_left, left_text, right_text, question, category from snaps where id > " + params[:top] + "order by id asc")
     else
-      snapdata = Snap.find_by_sql("select id, snapped_by, photo_url, vote_right, vote_left, left_text, right_text, question, category from snaps where id NOT IN (select snap_id from votes where user_id =" + user.id.to_s + ") order by id desc")
+      snapdata = Snap.find_by_sql("select id, snapped_by, photo_url, vote_right, vote_left, left_text, right_text, question, category from snaps where id NOT IN (select snap_id from votes where user_id =" + user.id.to_s + ") order by id asc")
     end
    
     
