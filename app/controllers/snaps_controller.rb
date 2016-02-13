@@ -282,7 +282,7 @@ class SnapsController < ApplicationController
     end
     
     #need at least two snaps
-    if snapdata.size < 4
+    if snapdata.size < 5
       render :text => 'done'
     end
   end
