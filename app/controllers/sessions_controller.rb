@@ -36,13 +36,13 @@ class SessionsController < ApplicationController
     user = User.find_by_sql("select * from users where email = '" + params[:email] + "' and password = '" + params[:password] + "'")
   
     if user.size > 0
-      render user.id.to_s and return
+      render user.first.id and return
     else
       user = User.new
       user.email = params[:email]
       user.password = params[:password]
       user.save
-      render user.id.to_s and return
+      render user.first.id and return
     end
   
   end
