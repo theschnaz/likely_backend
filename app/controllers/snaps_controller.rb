@@ -81,6 +81,7 @@ class SnapsController < ApplicationController
       food = 0
       
       snap = snapdata.first
+      snap2 = snapdata.first
       
       snapdata.each do |x|
         if x.category == 'animals'
