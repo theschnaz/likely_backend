@@ -193,7 +193,7 @@ class SnapsController < ApplicationController
     
     ##this gets a little wonky if the snap_id in the votes table is blank
     
-    puts "snap size = " + snapdata.size
+    puts "snap size = " + snapdata.size.to_s
 
     if snapdata.size > 4
       
