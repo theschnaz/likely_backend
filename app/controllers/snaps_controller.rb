@@ -124,6 +124,7 @@ class SnapsController < ApplicationController
           puts catcount
 	      
 	      if catcount == 4 #the total number of categories
+	        puts "rendered done"
             render :text => 'done' and return
           else
 	        snap = snapdata[catcount]
