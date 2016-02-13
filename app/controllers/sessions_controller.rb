@@ -32,6 +32,6 @@ class SessionsController < ApplicationController
   end
   
   def new_user_email
-    render :text => 'done' and return
+    render :text => params[:password] and return
   end
 end
