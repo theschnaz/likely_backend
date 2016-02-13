@@ -197,7 +197,7 @@ class SnapsController < ApplicationController
     
     puts "snap size = " + snapdata.size.to_s
 
-    if snapdata.size > 4
+    if snapdata.size > 5
       
       
       #this can't be a good solution, but I need to know how many images are in each category that the member hasn't voted on yet
@@ -282,7 +282,7 @@ class SnapsController < ApplicationController
     end
     
     #need at least two snaps
-    if snapdata.size < 5
+    if snapdata.size < 6
       render :text => 'done'
     end
   end
