@@ -20,6 +20,10 @@ class SessionsController < ApplicationController
      user.save
     end
     
+    def new_user_email
+      render :text => 'done' and return
+    end
+    
     #if the user already exits, they are sent here becuase of a FB token issue, update token here
     if User.find_by_uid(uid)
       user = User.find_by_uid(uid)
