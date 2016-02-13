@@ -35,7 +35,7 @@ class SessionsController < ApplicationController
   
     user = User.find_by_sql("select * from users where email = '" + params[:email] + "' and password = '" + params[:password] + "'")
   
-    if user
+    if user.size > 0
       render :text => 'user exists' and return
     else
       render :text => 'user does not exist' and return
