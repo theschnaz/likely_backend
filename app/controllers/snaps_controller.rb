@@ -134,7 +134,7 @@ class SnapsController < ApplicationController
       
       i = 1
       
-      until snap2.category == snap.category do
+      while snap2.category != snap.category do
         snap2 = snapdata[i]
         i += 1
       end
