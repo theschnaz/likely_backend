@@ -26,6 +26,11 @@ class SnapsController < ApplicationController
  
   def new_snap
   	user = User.find_by_uid(params[:uid])
+  	
+  	#if the user didnt connect FB, dont post photo
+  	if user.facebook_key == ''
+  	  render :text => 'no photo' and return
+  	end
   
     ##require 'sendgrid-ruby'
   		
@@ -187,6 +192,8 @@ class SnapsController < ApplicationController
    
     
     ##this gets a little wonky if the snap_id in the votes table is blank
+    
+    puts "snap size = " + snapdata.size
 
     if snapdata.size > 4
       
