@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController 
   protect_from_forgery :except => [:new_user]
+  protect_from_forgery :except => [:new_user_email]
    
   def new_user
     #created via the app
