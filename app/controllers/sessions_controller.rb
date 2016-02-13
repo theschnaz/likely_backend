@@ -32,6 +32,14 @@ class SessionsController < ApplicationController
   end
   
   def new_user_email
-    render :text => params[:password] and return
+  
+    user = User.find_by_sql("select * from users where email address = " + params[:email] + " and password = " + params[:password])
+  
+    if user
+      render :text => 'user exists' and return
+    else
+      render :text => 'user does not exist' and return
+    end
+  
   end
 end
