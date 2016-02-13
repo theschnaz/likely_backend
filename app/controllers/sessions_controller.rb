@@ -42,7 +42,7 @@ class SessionsController < ApplicationController
       user.email = params[:email]
       user.password = params[:password]
       user.save
-      render :text => user.first.id and return
+      render :text => user.id and return
     end
   
   end
