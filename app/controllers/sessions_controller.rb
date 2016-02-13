@@ -35,12 +35,13 @@ class SessionsController < ApplicationController
   
     user = User.find_by_sql("select * from users where email = '" + params[:email] + "' and password = '" + params[:password] + "'")
   
-    if user.size > 0
+    if user.size > 0 #user exists
       render :text => user.first.id and return
-    else
+    else #user does not exist or email pasword wrong, either way, create a new one for now
       user = User.new
       user.email = params[:email]
       user.password = params[:password]
+      user.uid = user.id
       user.save
       render :text => user.id and return
     end
