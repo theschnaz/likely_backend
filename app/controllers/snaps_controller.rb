@@ -70,7 +70,7 @@ class SnapsController < ApplicationController
     
     ##this gets a little wonky if the snap_id in the votes table is blank
 
-    if snapdata.size > 1
+    if snapdata.size > 5
       ##this gets a little wonky if the snap_id in the votes table is blank
       
       
@@ -159,7 +159,7 @@ class SnapsController < ApplicationController
       render :json => {:snap => snap, :snap2 => snap2, :user => user1, :user2 => user2}
     end
     
-    if snapdata.size < 2
+    if snapdata.size < 6
       render :text => 'done'
     end
   end
