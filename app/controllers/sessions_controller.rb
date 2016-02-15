@@ -39,6 +39,7 @@ class SessionsController < ApplicationController
       render :text => user.first.id and return
     else #user does not exist or email pasword wrong, either way, create a new one for now
       user = User.new
+      user.fb_pic_square = 'https://dl.dropboxusercontent.com/u/63975/batface.jpg'
       user.email = params[:email]
       user.password = params[:password]
       user.save
