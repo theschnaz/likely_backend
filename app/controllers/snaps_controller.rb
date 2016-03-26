@@ -153,10 +153,18 @@ class SnapsController < ApplicationController
       
       puts user2.fb_pic_square
       
-      #snap.vote_right = Vote.where(:snap_id => snap.id, :vote => 'right').count
-      #snap.vote_left = Vote.where(:snap_id => snap.id, :vote => 'left').count
+      #votes for top image
+
+      snap1_top_votes = Vote.count_by_sql "select count(*) from votes where top_id = " + snap.id.to_s + " and bottom_id = " + snap2.id.to_s + " and top_vote =" + snap.id.to_s
+      snap1_bottom_votes = Vote.count_by_sql "select count(*) from votes where top_id = "+ snap2.id.to_s + " and bottom_id = " + snap.id.to_s + " and bottom_vote = " + snap.id.to_s
+      snap1_votes = snap1_top_votes + snap1_bottom_votes
+
+      snap2_top_votes = Vote.count_by_sql "select count(*) from votes where top_id = " + snap2.id.to_s + " and bottom_id = " + snap.id.to_s + " and top_vote =" + snap2.id.to_s
+      snap2_bottom_votes = Vote.count_by_sql "select count(*) from votes where top_id = "+ snap.id.to_s + " and bottom_id = " + snap2.id.to_s + " and bottom_vote = " + snap2.id.to_s
+      snap2_votes = snap2_top_votes + snap2_bottom_votes
+
       
-      render :json => {:snap => snap, :snap2 => snap2, :user => user1, :user2 => user2}
+      render :json => {:snap => snap, :snap2 => snap2, :user => user1, :user2 => user2, :snap1votes => snap1_votes, :snap2votes => snap2_votes}
     end
     
     if snapdata.size < 6
