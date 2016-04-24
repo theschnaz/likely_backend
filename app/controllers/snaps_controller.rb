@@ -247,7 +247,7 @@ class SnapsController < ApplicationController
 
         combovote = Vote.find_by_sql("select id from votes where (top_id = " + snap.id.to_s + " and bottom_id = " + snap2.id.to_s + " and user_id = " + user.id.to_s + ") or (top_id = " + snap2.id.to_s + " and bottom_id = " + snap.id.to_s + " and user_id = " + user.id.to_s + ")")
 	      
-        puts "snap2 id = " + snap2.id.to_s + "combovote.size = " + combovote.size.to_s
+        puts "snap id = " + snap.id.to_s + " snap2 id = " + snap2.id.to_s + " combovote.size = " + combovote.size.to_s
         #if this combo of snap IDs haven't been voted on for this user, show them the snaps
         if(combovote.size == 0)
           cat = true
