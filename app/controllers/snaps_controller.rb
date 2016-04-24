@@ -197,7 +197,7 @@ class SnapsController < ApplicationController
     if params[:uid] == '1217683588257786'
       snapdata = Snap.find_by_sql("select id, snapped_by, photo_url, vote_right, vote_left, left_text, right_text, question, category from snaps where id > " + params[:top] + "order by id asc")
     else
-      snapdata = Snap.find_by_sql("select id, snapped_by, photo_url, vote_right, vote_left, left_text, right_text, question, category from snaps where id NOT IN (select snap_id from votes where user_id =" + user.id.to_s + ") order by id asc")
+      snapdata = Snap.find_by_sql("select id, snapped_by, photo_url, vote_right, vote_left, left_text, right_text, question, category from snaps order by id asc")
     end
    
     
@@ -240,17 +240,41 @@ class SnapsController < ApplicationController
       while cat == false do      
 	    if (snap.category == 'animals') && (animals > 1)
 	      snap2 = snapdata[catcount + 1]
-	      cat = true
+
+        combovote = Vote.find_by_sql("select id from votes where (top_id = " + snap.id + " and bottom_id = " + snap2.id + " and user_id = " + user.id.to_s + ") or (top_id = " + snap2.id + " and bottom_id = " + snap.id + " and user_id = " + user.id.to_s + ")")
+	      
+        #if this combo of snap IDs haven't been voted on for this user, show them the snaps
+        if(combovote.size == 0)
+          cat = true
+        end
 	    elsif (snap.category == 'art')&&(art>1)
 	      snap2 = snapdata[catcount + 1]
-	      cat = true
+
+        combovote = Vote.find_by_sql("select id from votes where (top_id = " + snap.id + " and bottom_id = " + snap2.id + " and user_id = " + user.id.to_s + ") or (top_id = " + snap2.id + " and bottom_id = " + snap.id + " and user_id = " + user.id.to_s + ")")
+        
+        #if this combo of snap IDs haven't been voted on for this user, show them the snaps
+        if(combovote.size == 0)
+          cat = true
+        end
 	    elsif (snap.category == 'people')&&(people>1)
 	      snap2 = snapdata[catcount + 1]
-	      cat = true
+
+        combovote = Vote.find_by_sql("select id from votes where (top_id = " + snap.id + " and bottom_id = " + snap2.id + " and user_id = " + user.id.to_s + ") or (top_id = " + snap2.id + " and bottom_id = " + snap.id + " and user_id = " + user.id.to_s + ")")
+        
+        #if this combo of snap IDs haven't been voted on for this user, show them the snaps
+        if(combovote.size == 0)
+          cat = true
+        end
 	    elsif (snap.category == 'food')&&(food>1)
 	      snap2 = snapdata[catcount + 1]
-	      cat = true
-        else
+
+        combovote = Vote.find_by_sql("select id from votes where (top_id = " + snap.id + " and bottom_id = " + snap2.id + " and user_id = " + user.id.to_s + ") or (top_id = " + snap2.id + " and bottom_id = " + snap.id + " and user_id = " + user.id.to_s + ")")
+        
+        #if this combo of snap IDs haven't been voted on for this user, show them the snaps
+        if(combovote.size == 0)
+          cat = true
+        end
+      else
           catcount += 1
           
           puts catcount
