@@ -242,7 +242,8 @@ class SnapsController < ApplicationController
       
       while cat == false do      
 	    if (snap.category == 'animals') && (animals > 1)
-	      snap2 = snapdata[catcount + 1]
+        catcount = catcount + 1
+	      snap2 = snapdata[catcount]
 
         combovote = Vote.find_by_sql("select id from votes where (top_id = " + snap.id.to_s + " and bottom_id = " + snap2.id.to_s + " and user_id = " + user.id.to_s + ") or (top_id = " + snap2.id.to_s + " and bottom_id = " + snap.id.to_s + " and user_id = " + user.id.to_s + ")")
 	      
@@ -253,7 +254,8 @@ class SnapsController < ApplicationController
           puts "cat = true"
         end
 	    elsif (snap.category == 'art')&&(art>1)
-	      snap2 = snapdata[catcount + 1]
+	      catcount = catcount + 1
+        snap2 = snapdata[catcount]
 
         combovote = Vote.find_by_sql("select id from votes where (top_id = " + snap.id.to_s + " and bottom_id = " + snap2.id.to_s + " and user_id = " + user.id.to_s + ") or (top_id = " + snap2.id.to_s + " and bottom_id = " + snap.id.to_s + " and user_id = " + user.id.to_s + ")")
         
@@ -262,7 +264,8 @@ class SnapsController < ApplicationController
           cat = true
         end
 	    elsif (snap.category == 'people')&&(people>1)
-	      snap2 = snapdata[catcount + 1]
+	      catcount = catcount + 1
+        snap2 = snapdata[catcount]
 
         combovote = Vote.find_by_sql("select id from votes where (top_id = " + snap.id.to_s + " and bottom_id = " + snap2.id.to_s + " and user_id = " + user.id.to_s + ") or (top_id = " + snap2.id.to_s + " and bottom_id = " + snap.id.to_s + " and user_id = " + user.id.to_s + ")")
         
@@ -271,7 +274,8 @@ class SnapsController < ApplicationController
           cat = true
         end
 	    elsif (snap.category == 'food')&&(food>1)
-	      snap2 = snapdata[catcount + 1]
+	      catcount = catcount + 1
+        snap2 = snapdata[catcount]
 
         combovote = Vote.find_by_sql("select id from votes where (top_id = " + snap.id.to_s + " and bottom_id = " + snap2.id.to_s + " and user_id = " + user.id.to_s + ") or (top_id = " + snap2.id.to_s + " and bottom_id = " + snap.id.to_s + " and user_id = " + user.id.to_s + ")")
         
