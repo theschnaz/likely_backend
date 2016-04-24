@@ -302,10 +302,17 @@ class SnapsController < ApplicationController
           end
           food = food - 1
         else
-            render :text => 'done' and return
-  	    end 
-  	  end
-	  end
+            catcount += 1
+            
+            puts catcount
+            
+            if catcount == 4 #the total number of categories
+              
+            else
+  	        snap = snapdata[catcount]
+  	      end 
+  	    end
+	   end
 
     puts "after big while"
       
