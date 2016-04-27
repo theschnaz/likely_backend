@@ -193,122 +193,72 @@ class SnapsController < ApplicationController
     unless params[:uid] == '1217683588257786'
       vote.save
     end
+
+    puts "before big while"
     
-    if params[:uid] == '1217683588257786'
-      snapdata = Snap.find_by_sql("select id, snapped_by, photo_url, vote_right, vote_left, left_text, right_text, question, category from snaps where id > " + params[:top] + "order by id asc")
-    else
-      snapdata = Snap.find_by_sql("select id, snapped_by, photo_url, vote_right, vote_left, left_text, right_text, question, category from snaps order by id asc")
+    allsnaps = Snap.connection.select_all("select t1.id as id1, t2.id as id2, t1.category from snaps as t1 cross join snaps as t2 where t1.id != t2.id and t1.category = t2.category")
+    snap = 0
+    snap2 = 0
+
+    max = 0
+    allsnaps.each do 
+      max = max + 1
     end
-   
-    
-    ##this gets a little wonky if the snap_id in the votes table is blank
-    
-    puts "snap size = " + snapdata.size.to_s
 
-    if snapdata.size > 5
-      
-      
-      #this can't be a good solution, but I need to know how many images are in each category that the member hasn't voted on yet
-      animals = 0
-      art = 0
-      people = 0
-      food = 0
-      
-      snapdata.each do |x|
-        if x.category == 'animals'
-          animals = animals + 1
-        end
-        if x.category == 'art'
-          art = art + 1
-        end
-        if x.category == 'people'
-          people = people + 1
-        end
-        if x.category == 'food'
-          food = food + 1
-        end
-        
-      end
-      
-      puts "after category loop"
-      
-      snap = snapdata.first
-      
-      #if there aren't two images in the category, render done, in the future, we'll need to look for other images
-      cat = false
-      catcount = 0
+    max = max - 1 #remove 1 since allsnaps starts at 0
+    #max = the number of pairs
 
-      puts "before big while"
+    i = 0
+    while(max > 0)
       
-      allsnaps = Snap.connection.select_all("select t1.id as id1, t2.id as id2, t1.category from snaps as t1 cross join snaps as t2 where t1.id != t2.id and t1.category = t2.category")
-
-      max = 0
-      allsnaps.each do 
-        max = max + 1
+      pair = rand(0..max)
+      
+      snappair = allsnaps[pair]
+      
+      combovote = Vote.find_by_sql("select id from votes where (top_id = " + snappair['id1'].to_s + " and bottom_id = " + snappair['id2'].to_s + " and user_id = " + user.id.to_s + ") or (top_id = " + snappair['id2'].to_s + " and bottom_id = " + snappair['id1'].to_s + " and user_id = " + user.id.to_s + ")")
+      
+      if(combovote.size == 0)
+        snap2 = Snap.find_by_id(snappair['id2'])
+        snap = Snap.find_by_id(snappair['id1'])
+        break
       end
 
-      max = max - 1 #remove 1 since allsnaps starts at 0
-      #max = the number of pairs
+      max = max -1
+    end
 
-      i = 0
-      while(max > 0)
-        
-        pair = rand(0..max)
-        
-        snappair = allsnaps[pair]
-        
-        combovote = Vote.find_by_sql("select id from votes where (top_id = " + snappair['id1'].to_s + " and bottom_id = " + snappair['id2'].to_s + " and user_id = " + user.id.to_s + ") or (top_id = " + snappair['id2'].to_s + " and bottom_id = " + snappair['id1'].to_s + " and user_id = " + user.id.to_s + ")")
-        
-        if(combovote.size == 0)
-          snap2 = Snap.find_by_id(snappair['id2'])
-          
-          break
-        end
-
-        max = max -1
-      end
-
-      if(max == 0)
-        render :text => 'done' and return
-      end
+    if(max == 0)
+      render :text => 'done' and return
+    end
 
     puts "after big while"
       
       
-      i = 1
       
-      while snap2.category != snap.category do
-        snap2 = snapdata[i]
-        i += 1
-      end
-      
-      #get the profile imgaes of the posters...   
-      user1 = User.find_by_id(snap.snapped_by)
-      user2 = User.find_by_id(snap2.snapped_by)
-    
-      if snap.question.nil?
-        snap.question = 'better'
-      end
-      #if null, set to better
-      
-      puts snap.photo_url.to_s
-      
-      snap1_top_votes = Vote.count_by_sql "select count(*) from votes where top_id = " + snap.id.to_s + " and bottom_id = " + snap2.id.to_s + " and top_vote =" + snap.id.to_s
-      snap1_bottom_votes = Vote.count_by_sql "select count(*) from votes where top_id = "+ snap2.id.to_s + " and bottom_id = " + snap.id.to_s + " and bottom_vote = " + snap.id.to_s
-      snap1_votes = snap1_top_votes + snap1_bottom_votes
-
-      snap2_top_votes = Vote.count_by_sql "select count(*) from votes where top_id = " + snap2.id.to_s + " and bottom_id = " + snap.id.to_s + " and top_vote =" + snap2.id.to_s
-      snap2_bottom_votes = Vote.count_by_sql "select count(*) from votes where top_id = "+ snap.id.to_s + " and bottom_id = " + snap2.id.to_s + " and bottom_vote = " + snap2.id.to_s
-      snap2_votes = snap2_top_votes + snap2_bottom_votes
-
-      
-      render :json => {:snap => snap, :snap2 => snap2, :user => user1, :user2 => user2, :snap1votes => snap1_votes, :snap2votes => snap2_votes}
+    #get the profile imgaes of the posters...   
+    user1 = User.find_by_id(snap.snapped_by)
+    user2 = User.find_by_id(snap2.snapped_by)
+  
+    if snap.question.nil?
+      snap.question = 'better'
     end
+    #if null, set to better
     
+    puts snap.photo_url.to_s
+    
+    snap1_top_votes = Vote.count_by_sql "select count(*) from votes where top_id = " + snap.id.to_s + " and bottom_id = " + snap2.id.to_s + " and top_vote =" + snap.id.to_s
+    snap1_bottom_votes = Vote.count_by_sql "select count(*) from votes where top_id = "+ snap2.id.to_s + " and bottom_id = " + snap.id.to_s + " and bottom_vote = " + snap.id.to_s
+    snap1_votes = snap1_top_votes + snap1_bottom_votes
+
+    snap2_top_votes = Vote.count_by_sql "select count(*) from votes where top_id = " + snap2.id.to_s + " and bottom_id = " + snap.id.to_s + " and top_vote =" + snap2.id.to_s
+    snap2_bottom_votes = Vote.count_by_sql "select count(*) from votes where top_id = "+ snap.id.to_s + " and bottom_id = " + snap2.id.to_s + " and bottom_vote = " + snap2.id.to_s
+    snap2_votes = snap2_top_votes + snap2_bottom_votes
+
+    
+    render :json => {:snap => snap, :snap2 => snap2, :user => user1, :user2 => user2, :snap1votes => snap1_votes, :snap2votes => snap2_votes}
+  
     #need at least two snaps
     if snapdata.size < 6
       render :text => 'done'
     end
   end
-  
 end
