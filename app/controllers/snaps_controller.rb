@@ -256,9 +256,5 @@ class SnapsController < ApplicationController
     
     render :json => {:snap => snap, :snap2 => snap2, :user => user1, :user2 => user2, :snap1votes => snap1_votes, :snap2votes => snap2_votes}
   
-    #need at least two snaps
-    if snapdata.size < 6
-      render :text => 'done'
-    end
   end
 end
