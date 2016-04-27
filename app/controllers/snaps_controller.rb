@@ -257,10 +257,10 @@ class SnapsController < ApplicationController
         
         snappair = allsnaps[pair]
         
-        combovote = Vote.find_by_sql("select id from votes where (top_id = " + snappair[pair]['id1'].to_s + " and bottom_id = " + snappair[pair]['id2'].to_s + " and user_id = " + user.id.to_s + ") or (top_id = " + snappair[pair]['id2'].to_s + " and bottom_id = " + snappair[pair]['id1'].to_s + " and user_id = " + user.id.to_s + ")")
+        combovote = Vote.find_by_sql("select id from votes where (top_id = " + snappair['id1'].to_s + " and bottom_id = " + snappair['id2'].to_s + " and user_id = " + user.id.to_s + ") or (top_id = " + snappair['id2'].to_s + " and bottom_id = " + snappair['id1'].to_s + " and user_id = " + user.id.to_s + ")")
         
         if(combovote.size == 0)
-          snap2 = snapdata[snappair[pair]['id2']]
+          snap2 = snapdata[snappair['id2']
           break
         end
 
