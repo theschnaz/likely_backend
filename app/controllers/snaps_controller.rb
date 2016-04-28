@@ -176,10 +176,9 @@ class SnapsController < ApplicationController
 
     puts "in get_snap_and_vote"
 
-
+    user = User.find_by_uid(params[:uid])
     #do the vote stuff if there is a vote (top)
     if(params[:top])
-      user = User.find_by_uid(params[:uid])
       
       vote = Vote.new
       vote.user_id = user.id
