@@ -173,28 +173,34 @@ class SnapsController < ApplicationController
   end
   
   def get_snap_and_vote
-  
-    user = User.find_by_uid(params[:uid])
-    
-    vote = Vote.new
-    vote.user_id = user.id
-    vote.top_id = params[:top]
-    vote.bottom_id = params[:bottom]
-    
-    if params[:vote] == params[:top]
-      vote.top_vote = params[:top]
-      vote.snap_id = params[:top]
-    else
-      vote.bottom_vote = params[:bottom]
-      vote.snap_id = params[:bottom]
-    end
-    
-    #if the click came from a guest, don't save anything
-    unless params[:uid] == '1217683588257786'
-      vote.save
+
+    puts "in get_snap_and_vote"
+
+
+    #do the vote stuff if there is a vote (top)
+    if(params[:top])
+      user = User.find_by_uid(params[:uid])
+      
+      vote = Vote.new
+      vote.user_id = user.id
+      vote.top_id = params[:top]
+      vote.bottom_id = params[:bottom]
+      
+      if params[:vote] == params[:top]
+        vote.top_vote = params[:top]
+        vote.snap_id = params[:top]
+      else
+        vote.bottom_vote = params[:bottom]
+        vote.snap_id = params[:bottom]
+      end
+      
+      #if the click came from a guest, don't save anything
+      unless params[:uid] == '1217683588257786'
+        vote.save
+      end
     end
 
-    puts "before big while"
+    
     
     allsnaps = Snap.connection.select_all("select t1.id as id1, t2.id as id2, t1.category from snaps as t1 cross join snaps as t2 where t1.id != t2.id and t1.category = t2.category")
     snap = 0
@@ -208,7 +214,6 @@ class SnapsController < ApplicationController
     max = max - 1 #remove 1 since allsnaps starts at 0
     #max = the number of pairs
 
-    i = 0
     while(max > 0)
       
       pair = rand(0..max)
@@ -238,10 +243,6 @@ class SnapsController < ApplicationController
     user1 = User.find_by_id(snap.snapped_by)
     user2 = User.find_by_id(snap2.snapped_by)
   
-    if snap.question.nil?
-      snap.question = 'better'
-    end
-    #if null, set to better
     
     puts snap.photo_url.to_s
     
