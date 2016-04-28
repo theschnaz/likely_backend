@@ -221,7 +221,7 @@ class SnapsController < ApplicationController
       
       combovote = Vote.find_by_sql("select id from votes where (top_id = " + snappair['id1'].to_s + " and bottom_id = " + snappair['id2'].to_s + " and user_id = " + user.id.to_s + ") or (top_id = " + snappair['id2'].to_s + " and bottom_id = " + snappair['id1'].to_s + " and user_id = " + user.id.to_s + ")")
       
-      if(combovote.size == 0)
+      if(combovote.size == 0 && (snappair['id1'] != snappair['id2']))
         snap2 = Snap.find_by_id(snappair['id2'])
         snap = Snap.find_by_id(snappair['id1'])
         break
