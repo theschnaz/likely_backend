@@ -80,7 +80,7 @@ class EmailresultsController < ApplicationController
 
 		puts "count = " + i.to_s + " "
 
-		url_html += '<tr><td><img src="' + duels[i]['photo_url'].to_s + '" style="width:300px;"/> ' + '</td></tr><br/>'
+		url_html += '<tr><td><strong style="font-size:16px;">Which is likely better or worse? <br /><img src="' + duels[i]['photo_url'].to_s + '" style="width:300px;"/> ' + '</td></tr><br/>'
 		url_html += '<tr><td><strong>Likely better</strong></td></tr>'
 		url_html += '<tr><td>'
 		betterthan.each do |x|
@@ -93,6 +93,7 @@ class EmailresultsController < ApplicationController
 			url_html += '<img src = "http://res.cloudinary.com/hh55qpw1c/image/upload/w_500,h_500,c_fill/v1419546151/' + x.to_s + '.jpg" style="width:100px;" />'
 		end
 		url_html += '</td></tr>'
+		url_html += '<tr style="background-color:#cccccc;"><td><br /><br /></td></tr>'
 		url_html += '<tr><td><br /><br /></td></tr>'
 		i = i + 1
 	  end
