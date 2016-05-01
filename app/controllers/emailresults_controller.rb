@@ -65,10 +65,10 @@ class EmailresultsController < ApplicationController
 		worsethan = Array.new
 
 		othersnapsarray.each do |x|
-			thisimagevotes = Vote.connection.select_all("select id from votes where (top_vote = 135 or bottom_vote = 135) and ((top_id = 135 or bottom_id =" + x.to_s + ") or (top_id = " + x.to_s + " and bottom_id =135))")
+			thisimagevotes = Vote.connection.select_all("select id from votes where (top_vote = " + duels[i]['snap_id'].to_d + " or bottom_vote = " + duels[i]['snap_id'].to_d + ") and ((top_id = " + duels[i]['snap_id'].to_d + " or bottom_id =" + x.to_s + ") or (top_id = " + x.to_s + " and bottom_id =" + duels[i]['snap_id'].to_d + "))")
 			thisimagevotes = thisimagevotes.count
 
-			thatimagevotes = Vote.connection.select_all("select id from votes where (top_vote = " + x.to_s + " or bottom_vote = " + x.to_s + ") and ((top_id = 135 or bottom_id = " + x.to_s + ") or (top_id = " + x.to_s + " and bottom_id =135))")
+			thatimagevotes = Vote.connection.select_all("select id from votes where (top_vote = " + x.to_s + " or bottom_vote = " + x.to_s + ") and ((top_id = " + duels[i]['snap_id'].to_d + " or bottom_id = " + x.to_s + ") or (top_id = " + x.to_s + " and bottom_id =" + duels[i]['snap_id'].to_d + "))")
 			thatimagevotes = thatimagevotes.count
 
 			if(thisimagevotes >= thatimagevotes)
