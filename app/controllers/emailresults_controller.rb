@@ -82,17 +82,17 @@ class EmailresultsController < ApplicationController
 
 		url_html += '<tr><td><img src="' + duels[i]['photo_url'].to_s + '" style="width:300px;"/> ' + '</td></tr><br/>'
 		url_html += '<tr><td><strong>Likely better</strong></td></tr>'
-		url_html += '<tr>'
+		url_html += '<tr><td>'
 		betterthan.each do |x|
-			url_html += '<td style="width:110px;"><img src = "http://res.cloudinary.com/hh55qpw1c/image/upload/w_500,h_500,c_fill/v1419546151/' + x.to_s + '.jpg" style="width:100px;" /></td>'
+			url_html += '<img src = "http://res.cloudinary.com/hh55qpw1c/image/upload/w_500,h_500,c_fill/v1419546151/' + x.to_s + '.jpg" style="width:100px;" />'
 		end
-		url_html += '</tr><br />'
+		url_html += '</td></tr><br />'
 		url_html += '<tr><td><strong>Likely worse</strong></td></tr>'
-		url_html += '<tr>'
+		url_html += '<tr><td>'
 		worsethan.each do |x|
-			url_html += '<td style="width:110px;"><img src = "http://res.cloudinary.com/hh55qpw1c/image/upload/w_500,h_500,c_fill/v1419546151/' + x.to_s + '.jpg" style="width:100px;" /></td>'
+			url_html += '<img src = "http://res.cloudinary.com/hh55qpw1c/image/upload/w_500,h_500,c_fill/v1419546151/' + x.to_s + '.jpg" style="width:100px;" />'
 		end
-		url_html += '</tr>'
+		url_html += '</td></tr>'
 		url_html += '<tr><td><br /><br /></td></tr>'
 		i = i + 1
 	  end
