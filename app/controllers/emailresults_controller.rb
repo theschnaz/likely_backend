@@ -80,17 +80,17 @@ class EmailresultsController < ApplicationController
 
 		puts "count = " + i.to_s + " "
 
-		url_html += '<tr><td><img src="' + duels[i]['photo_url'].to_s + '" style="width:300px;"/> ' + '</td></tr>'
-		url_html += '<tr><td><strong>Likely better</strong></td></tr><br /><br />'
+		url_html += '<tr><td><img src="' + duels[i]['photo_url'].to_s + '" style="width:300px;"/> ' + '</td></tr><br/>'
+		url_html += '<tr><td><strong>Likely better</strong></td></tr>'
 		url_html += '<tr>'
 		betterthan.each do |x|
-			url_html += '<td><img src = "http://res.cloudinary.com/hh55qpw1c/image/upload/w_500,h_500,c_fill/v1419546151/' + x.to_s + '.jpg" style="width:100px; padding-right:20px;" /></td>'
+			url_html += '<td style="width:110px;"><img src = "http://res.cloudinary.com/hh55qpw1c/image/upload/w_500,h_500,c_fill/v1419546151/' + x.to_s + '.jpg" style="width:100px;" /></td>'
 		end
-		url_html += '</tr>'
-		url_html += '<tr><td><strong>Likely worse</strong></td></tr><br /><br />'
+		url_html += '</tr><br />'
+		url_html += '<tr><td><strong>Likely worse</strong></td></tr>'
 		url_html += '<tr>'
 		worsethan.each do |x|
-			url_html += '<td><img src = "http://res.cloudinary.com/hh55qpw1c/image/upload/w_500,h_500,c_fill/v1419546151/' + x.to_s + '.jpg" style="width:100px; padding-right:20px;" /></td>'
+			url_html += '<td style="width:110px;"><img src = "http://res.cloudinary.com/hh55qpw1c/image/upload/w_500,h_500,c_fill/v1419546151/' + x.to_s + '.jpg" style="width:100px;" /></td>'
 		end
 		url_html += '</tr>'
 		url_html += '<tr><td><br /><br /></td></tr>'
