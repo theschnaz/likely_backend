@@ -49,14 +49,14 @@ class EmailresultsController < ApplicationController
 	  	othersnaps = Vote.connection.select_all("select top_vote, bottom_vote from votes where (top_id = 135 or bottom_id = 135) and (top_vote != 135 or bottom_vote != 135)")
 		othersnapsarray = Array.new
 
-		i = 0
-		while(i < othersnaps.count)
-			if(othersnaps[i]['top_vote'].nil?)
-			  othersnapsarray << othersnaps[i]['bottom_vote']
+		r = 0
+		while(r < othersnaps.count)
+			if(othersnaps[r]['top_vote'].nil?)
+			  othersnapsarray << othersnaps[r]['bottom_vote']
 			else
-			  othersnapsarray << othersnaps[i]['top_vote']
+			  othersnapsarray << othersnaps[r]['top_vote']
 			end
-			i = i + 1
+			r = r + 1
 		end
 
 		othersnapsarray = othersnapsarray.uniq
