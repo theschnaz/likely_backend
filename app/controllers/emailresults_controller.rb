@@ -78,6 +78,8 @@ class EmailresultsController < ApplicationController
 			end
 		end
 
+		puts "count = " + i + " "
+
 		url_html += '<tr><td><img src="' + duels[i]['photo_url'].to_s + '" style="width:300px"/> ' + '</td></tr><br /><br />'
 		url_html += '<tr><td>Likely better</td></tr><br /><br />'
 		betterthan.each do |x|
