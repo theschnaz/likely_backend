@@ -33,7 +33,7 @@ class EmailresultsController < ApplicationController
 	def newandtrending
 	  
 	  #pics created in the last day
-	  duels = Snap.find_by_sql("select snaps.id, snaps.snapped_by, snaps.photo_url, snaps.question from snaps where snaps.created_at >= current_date - interval '100 day'")
+	  duels = Vote.connection.select_all("select distinct votes.snap_id, snaps.photo_url from votes, snaps where votes.created_at > CURRENT_DATE - interval '1 day' and snaps.id=votes.snap_id")
 	  
 	  #users
 	  users = User.find_by_sql("select * from users")
@@ -43,8 +43,10 @@ class EmailresultsController < ApplicationController
 	  url_html = '<table style="width:500px;"> <tr><td> <img src="https://dl.dropboxusercontent.com/u/63975/email_logo.png" style="width:500px" /> </td></tr><br /><br />'
 	  
 	  #builds the image URLs + html
-	  duels.each do |d|
-	    url_html += '<tr><td><center style="font-size:16px;"><strong>Which is likely ' + d.question.to_s + '?</strong></center></td></tr> <tr><td style="padding:bottom:40px;"><img src="' + d.photo_url.to_s + '" /> ' + '</td></tr><br /><br />'
+	  i = 0
+	  while(i < duels.count)
+		url_html += '<tr><td><img src="' + duels[i]['photo_url'].to_s + '" /> ' + '</td></tr><br /><br />'
+		i = i + 1
 	  end
 	  
 	  client = SendGrid::Client.new(api_user: 'theschnaz', api_key: '33sendflop')
