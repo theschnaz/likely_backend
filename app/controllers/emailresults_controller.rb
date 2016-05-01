@@ -45,7 +45,49 @@ class EmailresultsController < ApplicationController
 	  #builds the image URLs + html
 	  i = 0
 	  while(i < duels.count)
-		url_html += '<tr><td><img src="' + duels[i]['photo_url'].to_s + '" /> ' + '</td></tr><br /><br />'
+	  	#this code helps us find the other snap ids that this snap has been compared to
+	  	othersnaps = Vote.connection.select_all("select top_vote, bottom_vote from votes where (top_id = 135 or bottom_id = 135) and (top_vote != 135 or bottom_vote != 135)")
+		othersnapsarray = Array.new
+
+		i = 0
+		while(i < othersnaps.count)
+			if(othersnaps[i]['top_vote'].nil?)
+			  othersnapsarray << othersnaps[i]['bottom_vote']
+			else
+			  othersnapsarray << othersnaps[i]['top_vote']
+			end
+			i = i + 1
+		end
+
+		othersnapsarray = othersnapsarray.uniq
+
+		betterthan = Array.new
+		worsethan = Array.new
+
+		othersnapsarray.each do |x|
+			thisimagevotes = Vote.connection.select_all("select id from votes where (top_vote = 135 or bottom_vote = 135) and ((top_id = 135 or bottom_id = x) or (top_id = x and bottom_id =135))")
+			thisimagevotes = thisimagevotes.count
+
+			thatimagevotes = Vote.connection.select_all("select id from votes where (top_vote = x or bottom_vote = x) and ((top_id = 135 or bottom_id = x) or (top_id = x and bottom_id =135))")
+			thatimagevotes = thatimagevotes.count
+
+			if(thisimagevotes >= thatimagevotes)
+				betterthan << x
+			else
+				worsethan << x
+			end
+		end
+
+		url_html += '<tr><td><img src="' + duels[i]['photo_url'].to_s + '" style="width:300px"/> ' + '</td></tr><br /><br />'
+		url_html += '<tr><td>Likely better</td></tr><br /><br />'
+		betterthan.each do |x|
+			url_html += x.to_s
+		end
+		url_html += '<tr><td>Likely worse</td></tr><br /><br />'
+		worsethan.each do |x|
+			url_html += x.to_s
+		end
+		url_html += '<tr><td><br /><br /></td></tr>'
 		i = i + 1
 	  end
 	  
