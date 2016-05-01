@@ -93,7 +93,7 @@ class EmailresultsController < ApplicationController
 			url_html += '<img src = "http://res.cloudinary.com/hh55qpw1c/image/upload/w_500,h_500,c_fill/v1419546151/' + x.to_s + '.jpg" style="width:100px;" />'
 		end
 		url_html += '</td></tr>'
-		url_html += '<tr style="background-color:#cccccc;"><td><br /><br /></td></tr>'
+		url_html += '<tr style="border-top 3px solid #cccccc"><td><br /><br /></td></tr>'
 		url_html += '<tr><td><br /><br /></td></tr>'
 		i = i + 1
 	  end
