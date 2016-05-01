@@ -65,10 +65,10 @@ class EmailresultsController < ApplicationController
 		worsethan = Array.new
 
 		othersnapsarray.each do |x|
-			thisimagevotes = Vote.connection.select_all("select id from votes where (top_vote = 135 or bottom_vote = 135) and ((top_id = 135 or bottom_id = x) or (top_id = x and bottom_id =135))")
+			thisimagevotes = Vote.connection.select_all("select id from votes where (top_vote = 135 or bottom_vote = 135) and ((top_id = 135 or bottom_id =" + x.to_s + ") or (top_id = " + x.to_s + " and bottom_id =135))")
 			thisimagevotes = thisimagevotes.count
 
-			thatimagevotes = Vote.connection.select_all("select id from votes where (top_vote = x or bottom_vote = x) and ((top_id = 135 or bottom_id = x) or (top_id = x and bottom_id =135))")
+			thatimagevotes = Vote.connection.select_all("select id from votes where (top_vote = " + x.to_s + " or bottom_vote = " + x.to_s + ") and ((top_id = 135 or bottom_id = " + x.to_s + ") or (top_id = " + x.to_s + " and bottom_id =135))")
 			thatimagevotes = thatimagevotes.count
 
 			if(thisimagevotes >= thatimagevotes)
