@@ -46,7 +46,7 @@ class EmailresultsController < ApplicationController
 	  i = 0
 	  while(i < duels.count)
 	  	#this code helps us find the other snap ids that this snap has been compared to
-	  	othersnaps = Vote.connection.select_all("select top_vote, bottom_vote from votes where (top_id = " + duels[i]['snap_id'].to_d + " or bottom_id = " + duels[i]['snap_id'].to_d + ") and (top_vote != " + duels[i]['snap_id'].to_d + " or bottom_vote != " + duels[i]['snap_id'].to_d + ")")
+	  	othersnaps = Vote.connection.select_all("select top_vote, bottom_vote from votes where (top_id = " + duels[i]['snap_id'].to_s + " or bottom_id = " + duels[i]['snap_id'].to_s + ") and (top_vote != " + duels[i]['snap_id'].to_s + " or bottom_vote != " + duels[i]['snap_id'].to_s + ")")
 		othersnapsarray = Array.new
 
 		r = 0
@@ -65,10 +65,10 @@ class EmailresultsController < ApplicationController
 		worsethan = Array.new
 
 		othersnapsarray.each do |x|
-			thisimagevotes = Vote.connection.select_all("select id from votes where (top_vote = " + duels[i]['snap_id'].to_d + " or bottom_vote = " + duels[i]['snap_id'].to_d + ") and ((top_id = " + duels[i]['snap_id'].to_d + " or bottom_id =" + x.to_s + ") or (top_id = " + x.to_s + " and bottom_id =" + duels[i]['snap_id'].to_d + "))")
+			thisimagevotes = Vote.connection.select_all("select id from votes where (top_vote = " + duels[i]['snap_id'].to_s + " or bottom_vote = " + duels[i]['snap_id'].to_s + ") and ((top_id = " + duels[i]['snap_id'].to_s + " or bottom_id =" + x.to_s + ") or (top_id = " + x.to_s + " and bottom_id =" + duels[i]['snap_id'].to_s + "))")
 			thisimagevotes = thisimagevotes.count
 
-			thatimagevotes = Vote.connection.select_all("select id from votes where (top_vote = " + x.to_s + " or bottom_vote = " + x.to_s + ") and ((top_id = " + duels[i]['snap_id'].to_d + " or bottom_id = " + x.to_s + ") or (top_id = " + x.to_s + " and bottom_id =" + duels[i]['snap_id'].to_d + "))")
+			thatimagevotes = Vote.connection.select_all("select id from votes where (top_vote = " + x.to_s + " or bottom_vote = " + x.to_s + ") and ((top_id = " + duels[i]['snap_id'].to_s + " or bottom_id = " + x.to_s + ") or (top_id = " + x.to_s + " and bottom_id =" + duels[i]['snap_id'].to_s + "))")
 			thatimagevotes = thatimagevotes.count
 
 			if(thisimagevotes >= thatimagevotes)
