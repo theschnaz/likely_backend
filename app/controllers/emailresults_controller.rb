@@ -113,7 +113,8 @@ class EmailresultsController < ApplicationController
 
 		  client = SendGrid::Client.new(api_user: 'theschnaz', api_key: '33sendflop')
 	  	  mail = SendGrid::Mail.new do |m|
-	  	    m.to = g.email
+	  	    #m.to = g.email
+	  	    m.to = "theschnaz@gmail.com"
 	        m.from = 'LikelyNewAndTrending@likely.com'
 	        m.subject = 'New and trending pics on Likely!'
 	        m.html = url_html
