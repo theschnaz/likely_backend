@@ -60,6 +60,8 @@ class SnapsController < ApplicationController
       @url_html += '</table>'
 
 
+      render :text => @url_html.html_content
+
   end
   
   def new_share_photo
