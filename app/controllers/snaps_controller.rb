@@ -58,6 +58,8 @@ class SnapsController < ApplicationController
       url_html += '<tr ><td style="border-top: 5px solid #cccccc;"><br /><br /></td></tr>'
       url_html += '<tr><td><br /><br /></td></tr>'
 
+      url_html += '</table>'
+
 
       render :html => url_html
 
