@@ -40,7 +40,6 @@ class SnapsController < ApplicationController
         end
       end
 
-      puts "count = " + i.to_s + " "
 
       url_html += '<tr><td><strong style="font-size:16px;">Which is likely better or worse? <br /><img src="' + @snap.id.to_s + '" style="width:300px;"/> ' + '</td></tr><br/>'
       url_html += '<tr><td><strong>Likely better</strong></td></tr>'
