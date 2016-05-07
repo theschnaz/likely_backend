@@ -78,10 +78,10 @@ class EmailresultsController < ApplicationController
 				thatimagevotes = thatimagevotes.count
 
 				if(thisimagevotes >= thatimagevotes)
-					betterthan << x
-				else
-					worsethan << x
-				end
+		          worsethan << x
+		        else
+		          betterthan << x
+		        end
 			end
 
 			if(betterthan.size >0 && worsethan.size >0 )

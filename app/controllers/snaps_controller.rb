@@ -36,9 +36,9 @@ class SnapsController < ApplicationController
         thatimagevotes = thatimagevotes.count
 
         if(thisimagevotes >= thatimagevotes)
-          betterthan << x
-        else
           worsethan << x
+        else
+          betterthan << x
         end
       end
 
