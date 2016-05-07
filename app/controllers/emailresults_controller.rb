@@ -110,7 +110,6 @@ class EmailresultsController < ApplicationController
 
 		  url_html += '<tr><td><strong>Share Likely with a friend!  <a href="https://itunes.apple.com/app/which-is-likely-better/id1035137555?mt=8">iOS</a> and <a href="https://play.google.com/store/apps/details?id=com.likely">Android</a></strong></td></tr>'
 	      url_html += '</table>'
-	      url_html = ''
 
 		  client = SendGrid::Client.new(api_user: 'theschnaz', api_key: '33sendflop')
 	  	  mail = SendGrid::Mail.new do |m|
@@ -121,6 +120,7 @@ class EmailresultsController < ApplicationController
 	        m.text = "Please use email that supports HTML. We're trying to show you pics!"
 	      end
 
+	      url_html = ''
 		  puts client.send(mail)
 		  
 		  puts "sent to: " + g.email
