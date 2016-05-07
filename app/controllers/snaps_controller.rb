@@ -60,7 +60,7 @@ class SnapsController < ApplicationController
       @url_html += '</table>'
 
 
-      render :text => @url_html.html_content
+      render html: @url_html.html_safe
 
   end
   
