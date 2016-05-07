@@ -41,13 +41,16 @@ class SnapsController < ApplicationController
       end
 
 
-      @url_html += '<tr><td><strong style="font-size:16px;">Which is likely better or worse? <br /><img src="' + @snap.photo_url.to_s + '" style="width:300px;"/> ' + '</td></tr><br/>'
+      @url_html += '<tr><td><br /><br /></td></tr>'
+      @url_html += '<tr><td><strong style="font-size:24px;">Which is likely better or worse? <br /><img src="' + @snap.photo_url.to_s + '" style="width:500px;"/> ' + '</td></tr><br/>'
+      @url_html += '<tr><td><br /><br /></td></tr>'
       @url_html += '<tr><td><strong>Likely better</strong></td></tr>'
       @url_html += '<tr><td>'
       betterthan.each do |x|
         @url_html += '<a href="/snaps/' + x.to_s + '"><img src = "http://res.cloudinary.com/hh55qpw1c/image/upload/w_500,h_500,c_fill/v1419546151/' + x.to_s + '.jpg" style="width:100px;" /></a>'
       end
       @url_html += '</td></tr><br />'
+      @url_html += '<tr><td><br /><br /></td></tr>'
       @url_html += '<tr><td><strong>Likely worse</strong></td></tr>'
       @url_html += '<tr><td>'
       worsethan.each do |x|
@@ -56,6 +59,8 @@ class SnapsController < ApplicationController
       @url_html += '</td></tr>'
       @url_html += '<tr ><td style="border-top: 5px solid #cccccc;"><br /><br /></td></tr>'
       @url_html += '<tr><td><br /><br /></td></tr>'
+
+      @url_html += '<tr><td><strong style="font-size:24px;">Share Likely with a friend!  <a href="https://itunes.apple.com/app/which-is-likely-better/id1035137555?mt=8">iOS</a> and <a href="https://play.google.com/store/apps/details?id=com.likely">Android</a></strong><br /><br /></td></tr>'
 
       @url_html += '</table>'
 
