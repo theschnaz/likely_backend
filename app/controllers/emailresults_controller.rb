@@ -108,8 +108,7 @@ class EmailresultsController < ApplicationController
 			i = i + 1
 		  end
 
-		  url_html += '<tr><td><strong style="font-size: 24px;">Share Likely with a friend!  <a href="https://itunes.apple.com/app/which-is-likely-better/id1035137555?mt=8">iOS</a> and <a href="https://play.google.com/store/apps/details?id=com.likely">Android</a></strong></td></tr>'
-		  url_html += '<tr><td><br /><br /></td></tr>'
+		  url_html += '<tr><td><strong style="font-size:24px;">Share Likely with a friend!  <a href="https://itunes.apple.com/app/which-is-likely-better/id1035137555?mt=8">iOS</a> and <a href="https://play.google.com/store/apps/details?id=com.likely">Android</a></strong><br /><br /></td></tr>'
 	      url_html += '</table>'
 
 		  client = SendGrid::Client.new(api_user: 'theschnaz', api_key: '33sendflop')
@@ -125,7 +124,7 @@ class EmailresultsController < ApplicationController
 		  puts client.send(mail)
 		  
 		  puts "sent to: " + g.email
-
+		  
 		  
 	  end
 	  render :text => "sent"
