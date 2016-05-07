@@ -1,7 +1,7 @@
 class EmailresultsController < ApplicationController
 	def sendresults
 	  #duels that have been voted on yesterday
-	  duels = Snap.find_by_sql("select snaps.id, snaps.snapped_by, snaps.photo_url, snaps.vote_left, snaps.vote_right from snaps, votes where snaps.id = votes.snap_id and votes.updated_at >= current_date - interval '1 day'")
+	  duels = Snap.find_by_sql("select snaps.id, snaps.snapped_by, snaps.photo_url, snaps.vote_left, snaps.vote_right from snaps, votes where snaps.id = votes.snap_id and votes.updated_at >= current_date - interval '6 day'")
 	  
 	  duels.each do |p|
 	  
@@ -36,7 +36,7 @@ class EmailresultsController < ApplicationController
 	  duels = Vote.connection.select_all("select distinct votes.snap_id, snaps.photo_url from votes, snaps where votes.created_at > CURRENT_DATE - interval '1 day' and snaps.id=votes.snap_id")
 	  
 	  #users
-	  users = User.find_by_sql("select * from users")
+	  users = User.find_by_sql("select * from users where email is not null")
 	
 	  #add a loop here for all users, only sending to theschnaz@gmail.com for now
 	  
@@ -95,25 +95,24 @@ class EmailresultsController < ApplicationController
 		url_html += '</td></tr>'
 		url_html += '<tr ><td style="border-top: 5px solid #cccccc;"><br /><br /></td></tr>'
 		url_html += '<tr><td><br /><br /></td></tr>'
+
+		url_html += '</table>'
+
+		client = SendGrid::Client.new(api_user: 'theschnaz', api_key: '33sendflop')
+	  	  mail = SendGrid::Mail.new do |m|
+	  	  m.to = "theschnaz@gmail.com"
+	      m.from = 'LikelyNewAndTrending@likely.com'
+	      m.subject = 'New and trending pics on Likely!'
+	      m.html = url_html
+	      m.text = "Please use email that supports HTML. We're trying to show you pics!"
+	    end
+
+	    puts client.send(mail)
+	  
+	    render :text => "sent"
+
 		i = i + 1
 	  end
-	  
-	  client = SendGrid::Client.new(api_user: 'theschnaz', api_key: '33sendflop')
-	  	mail = SendGrid::Mail.new do |m|
-	  	m.to = "theschnaz@gmail.com"
-	    m.from = 'LikelyNewAndTrending@likely.com'
-	    m.subject = 'New and trending pics on Likely!'
-	    m.html = url_html
-	    m.text = "Please use email that supports HTML. We're trying to show you pics!"
-	  end
-	  
-	  url_html += '</table>'
-	  
-	  puts client.send(mail)
-	  
-	  render :text => "sent"
 	
-	end
-
-	
+	end	
 end
