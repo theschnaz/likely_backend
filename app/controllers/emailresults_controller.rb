@@ -91,13 +91,13 @@ class EmailresultsController < ApplicationController
 				url_html += '<tr><td><strong>Likely better</strong></td></tr>'
 				url_html += '<tr><td>'
 				betterthan.each do |x|
-					url_html += '<img src = "http://res.cloudinary.com/hh55qpw1c/image/upload/w_500,h_500,c_fill/v1419546151/' + x.to_s + '.jpg" style="width:100px;" />'
+					url_html += '<a href="/snaps/' + x.to_s + '"><img src = "http://res.cloudinary.com/hh55qpw1c/image/upload/w_500,h_500,c_fill/v1419546151/' + x.to_s + '.jpg" style="width:100px;" /></a>'
 				end
 				url_html += '</td></tr><br />'
 				url_html += '<tr><td><strong>Likely worse</strong></td></tr>'
 				url_html += '<tr><td>'
 				worsethan.each do |x|
-					url_html += '<img src = "http://res.cloudinary.com/hh55qpw1c/image/upload/w_500,h_500,c_fill/v1419546151/' + x.to_s + '.jpg" style="width:100px;" />'
+					url_html += '<a href="/snaps/' + x.to_s + '"><img src = "http://res.cloudinary.com/hh55qpw1c/image/upload/w_500,h_500,c_fill/v1419546151/' + x.to_s + '.jpg" style="width:100px;" /></a>'
 				end
 				url_html += '</td></tr>'
 				url_html += '<tr ><td style="border-top: 5px solid #cccccc;"><br /><br /></td></tr>'
