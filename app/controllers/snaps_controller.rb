@@ -27,10 +27,10 @@ class SnapsController < ApplicationController
       worsethan = Array.new
 
       othersnapsarray.each do |x|
-        thisimagevotes = Vote.connection.select_all("select id from votes where (top_vote = " + duels[i]['snap_id'].to_s + " or bottom_vote = " + duels[i]['snap_id'].to_s + ") and ((top_id = " + duels[i]['snap_id'].to_s + " or bottom_id =" + x.to_s + ") or (top_id = " + x.to_s + " and bottom_id =" + duels[i]['snap_id'].to_s + "))")
+        thisimagevotes = Vote.connection.select_all("select id from votes where (top_vote = " + @snap.id.to_s + " or bottom_vote = " + @snap.id.to_s + ") and ((top_id = " + @snap.id.to_s + " or bottom_id =" + x.to_s + ") or (top_id = " + x.to_s + " and bottom_id =" + @snap.id.to_s + "))")
         thisimagevotes = thisimagevotes.count
 
-        thatimagevotes = Vote.connection.select_all("select id from votes where (top_vote = " + x.to_s + " or bottom_vote = " + x.to_s + ") and ((top_id = " + duels[i]['snap_id'].to_s + " or bottom_id = " + x.to_s + ") or (top_id = " + x.to_s + " and bottom_id =" + duels[i]['snap_id'].to_s + "))")
+        thatimagevotes = Vote.connection.select_all("select id from votes where (top_vote = " + x.to_s + " or bottom_vote = " + x.to_s + ") and ((top_id = " + @snap.id.to_s + " or bottom_id = " + x.to_s + ") or (top_id = " + x.to_s + " and bottom_id =" + @snap.id.to_s + "))")
         thatimagevotes = thatimagevotes.count
 
         if(thisimagevotes >= thatimagevotes)
@@ -43,7 +43,7 @@ class SnapsController < ApplicationController
       if(betterthan.size >0 && worsethan.size >0 )
         puts "count = " + i.to_s + " "
 
-        url_html += '<tr><td><strong style="font-size:16px;">Which is likely better or worse? <br /><img src="' + duels[i]['photo_url'].to_s + '" style="width:300px;"/> ' + '</td></tr><br/>'
+        url_html += '<tr><td><strong style="font-size:16px;">Which is likely better or worse? <br /><img src="' + @snap.id.to_s + '" style="width:300px;"/> ' + '</td></tr><br/>'
         url_html += '<tr><td><strong>Likely better</strong></td></tr>'
         url_html += '<tr><td>'
         betterthan.each do |x|
