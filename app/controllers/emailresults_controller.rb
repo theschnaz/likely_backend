@@ -38,16 +38,19 @@ class EmailresultsController < ApplicationController
 	  #users
 	  users = User.find_by_sql("select * from users where email is not null")
 	
-	  
+	  url_html = ''
 	  
 	  
 	  users.each do |g|
+	  	  puts "email for: " + g.email
+	  	  puts "html = " url_html
 	  	  #add a loop here for all users, only sending to theschnaz@gmail.com for now
 	  	  url_html = '<table style="width:500px;"> <tr><td> <img src="https://dl.dropboxusercontent.com/u/63975/email_logo.png" style="width:500px" /> </td></tr><br />'
 
 		  #builds the image URLs + html
 		  i = 0
 		  while(i < duels.count)
+		  	puts "i = " + i.to_s
 		  	#this code helps us find the other snap ids that this snap has been compared to
 		  	othersnaps = Vote.connection.select_all("select top_vote, bottom_vote from votes where (top_id = " + duels[i]['snap_id'].to_s + " or bottom_id = " + duels[i]['snap_id'].to_s + ") and (top_vote != " + duels[i]['snap_id'].to_s + " or bottom_vote != " + duels[i]['snap_id'].to_s + ")")
 			othersnapsarray = Array.new
@@ -105,6 +108,10 @@ class EmailresultsController < ApplicationController
 			i = i + 1
 		  end
 
+		  url_html += '<tr><td><strong>Share Likely with a friend!  <a href="https://itunes.apple.com/app/which-is-likely-better/id1035137555?mt=8">iOS</a> and <a href="https://play.google.com/store/apps/details?id=com.likely">Android</a></strong></td></tr>'
+	      url_html += '</table>'
+	      url_html = ''
+
 		  client = SendGrid::Client.new(api_user: 'theschnaz', api_key: '33sendflop')
 	  	  mail = SendGrid::Mail.new do |m|
 	  	    m.to = "theschnaz@gmail.com"
@@ -114,14 +121,11 @@ class EmailresultsController < ApplicationController
 	        m.text = "Please use email that supports HTML. We're trying to show you pics!"
 	      end
 
-		  url_html += '<tr><td><strong>Share Likely with a friend!  <a href="https://itunes.apple.com/app/which-is-likely-better/id1035137555?mt=8">iOS</a> and <a href="https://play.google.com/store/apps/details?id=com.likely">Android</a></strong></td></tr>'
-	      url_html += '</table>'
-
 		  puts client.send(mail)
 		  
 		  puts "sent to: " + g.email
 
-		  url_html = ''
+		  
 	  end
 	  render :text => "sent"
 	end	
