@@ -42,78 +42,80 @@ class EmailresultsController < ApplicationController
 	  
 	  url_html = '<table style="width:500px;"> <tr><td> <img src="https://dl.dropboxusercontent.com/u/63975/email_logo.png" style="width:500px" /> </td></tr><br />'
 	  
-	  #builds the image URLs + html
-	  i = 0
-	  while(i < duels.count)
-	  	#this code helps us find the other snap ids that this snap has been compared to
-	  	othersnaps = Vote.connection.select_all("select top_vote, bottom_vote from votes where (top_id = " + duels[i]['snap_id'].to_s + " or bottom_id = " + duels[i]['snap_id'].to_s + ") and (top_vote != " + duels[i]['snap_id'].to_s + " or bottom_vote != " + duels[i]['snap_id'].to_s + ")")
-		othersnapsarray = Array.new
+	  users.each do |g|
+		  #builds the image URLs + html
+		  i = 0
+		  while(i < duels.count)
+		  	#this code helps us find the other snap ids that this snap has been compared to
+		  	othersnaps = Vote.connection.select_all("select top_vote, bottom_vote from votes where (top_id = " + duels[i]['snap_id'].to_s + " or bottom_id = " + duels[i]['snap_id'].to_s + ") and (top_vote != " + duels[i]['snap_id'].to_s + " or bottom_vote != " + duels[i]['snap_id'].to_s + ")")
+			othersnapsarray = Array.new
 
-		r = 0
-		while(r < othersnaps.count)
-			if(othersnaps[r]['top_vote'].nil?)
-			  othersnapsarray << othersnaps[r]['bottom_vote']
-			else
-			  othersnapsarray << othersnaps[r]['top_vote']
+			r = 0
+			while(r < othersnaps.count)
+				if(othersnaps[r]['top_vote'].nil?)
+				  othersnapsarray << othersnaps[r]['bottom_vote']
+				else
+				  othersnapsarray << othersnaps[r]['top_vote']
+				end
+				r = r + 1
 			end
-			r = r + 1
-		end
 
-		othersnapsarray = othersnapsarray.uniq
+			othersnapsarray = othersnapsarray.uniq
 
-		betterthan = Array.new
-		worsethan = Array.new
+			betterthan = Array.new
+			worsethan = Array.new
 
-		othersnapsarray.each do |x|
-			thisimagevotes = Vote.connection.select_all("select id from votes where (top_vote = " + duels[i]['snap_id'].to_s + " or bottom_vote = " + duels[i]['snap_id'].to_s + ") and ((top_id = " + duels[i]['snap_id'].to_s + " or bottom_id =" + x.to_s + ") or (top_id = " + x.to_s + " and bottom_id =" + duels[i]['snap_id'].to_s + "))")
-			thisimagevotes = thisimagevotes.count
+			othersnapsarray.each do |x|
+				thisimagevotes = Vote.connection.select_all("select id from votes where (top_vote = " + duels[i]['snap_id'].to_s + " or bottom_vote = " + duels[i]['snap_id'].to_s + ") and ((top_id = " + duels[i]['snap_id'].to_s + " or bottom_id =" + x.to_s + ") or (top_id = " + x.to_s + " and bottom_id =" + duels[i]['snap_id'].to_s + "))")
+				thisimagevotes = thisimagevotes.count
 
-			thatimagevotes = Vote.connection.select_all("select id from votes where (top_vote = " + x.to_s + " or bottom_vote = " + x.to_s + ") and ((top_id = " + duels[i]['snap_id'].to_s + " or bottom_id = " + x.to_s + ") or (top_id = " + x.to_s + " and bottom_id =" + duels[i]['snap_id'].to_s + "))")
-			thatimagevotes = thatimagevotes.count
+				thatimagevotes = Vote.connection.select_all("select id from votes where (top_vote = " + x.to_s + " or bottom_vote = " + x.to_s + ") and ((top_id = " + duels[i]['snap_id'].to_s + " or bottom_id = " + x.to_s + ") or (top_id = " + x.to_s + " and bottom_id =" + duels[i]['snap_id'].to_s + "))")
+				thatimagevotes = thatimagevotes.count
 
-			if(thisimagevotes >= thatimagevotes)
-				betterthan << x
-			else
-				worsethan << x
+				if(thisimagevotes >= thatimagevotes)
+					betterthan << x
+				else
+					worsethan << x
+				end
 			end
-		end
 
-		if(betterthan.size >0 && worsethan.size >0 )
-			puts "count = " + i.to_s + " "
+			if(betterthan.size >0 && worsethan.size >0 )
+				puts "count = " + i.to_s + " "
 
-			url_html += '<tr><td><strong style="font-size:16px;">Which is likely better or worse? <br /><img src="' + duels[i]['photo_url'].to_s + '" style="width:300px;"/> ' + '</td></tr><br/>'
-			url_html += '<tr><td><strong>Likely better</strong></td></tr>'
-			url_html += '<tr><td>'
-			betterthan.each do |x|
-				url_html += '<img src = "http://res.cloudinary.com/hh55qpw1c/image/upload/w_500,h_500,c_fill/v1419546151/' + x.to_s + '.jpg" style="width:100px;" />'
+				url_html += '<tr><td><strong style="font-size:16px;">Which is likely better or worse? <br /><img src="' + duels[i]['photo_url'].to_s + '" style="width:300px;"/> ' + '</td></tr><br/>'
+				url_html += '<tr><td><strong>Likely better</strong></td></tr>'
+				url_html += '<tr><td>'
+				betterthan.each do |x|
+					url_html += '<img src = "http://res.cloudinary.com/hh55qpw1c/image/upload/w_500,h_500,c_fill/v1419546151/' + x.to_s + '.jpg" style="width:100px;" />'
+				end
+				url_html += '</td></tr><br />'
+				url_html += '<tr><td><strong>Likely worse</strong></td></tr>'
+				url_html += '<tr><td>'
+				worsethan.each do |x|
+					url_html += '<img src = "http://res.cloudinary.com/hh55qpw1c/image/upload/w_500,h_500,c_fill/v1419546151/' + x.to_s + '.jpg" style="width:100px;" />'
+				end
+				url_html += '</td></tr>'
+				url_html += '<tr ><td style="border-top: 5px solid #cccccc;"><br /><br /></td></tr>'
+				url_html += '<tr><td><br /><br /></td></tr>'
+
+				url_html += '</table>'
 			end
-			url_html += '</td></tr><br />'
-			url_html += '<tr><td><strong>Likely worse</strong></td></tr>'
-			url_html += '<tr><td>'
-			worsethan.each do |x|
-				url_html += '<img src = "http://res.cloudinary.com/hh55qpw1c/image/upload/w_500,h_500,c_fill/v1419546151/' + x.to_s + '.jpg" style="width:100px;" />'
-			end
-			url_html += '</td></tr>'
-			url_html += '<tr ><td style="border-top: 5px solid #cccccc;"><br /><br /></td></tr>'
-			url_html += '<tr><td><br /><br /></td></tr>'
 
-			url_html += '</table>'
-		end
+			i = i + 1
+		  end
+		  client = SendGrid::Client.new(api_user: 'theschnaz', api_key: '33sendflop')
+	  	  mail = SendGrid::Mail.new do |m|
+	  	    m.to = "theschnaz@gmail.com"
+	        m.from = 'LikelyNewAndTrending@likely.com'
+	        m.subject = 'New and trending pics on Likely!'
+	        m.html = url_html
+	        m.text = "Please use email that supports HTML. We're trying to show you pics!"
+	      end
 
-		i = i + 1
+		  puts client.send(mail)
+		  
+		  puts "sent to: " + g.email
 	  end
-	  client = SendGrid::Client.new(api_user: 'theschnaz', api_key: '33sendflop')
-  	  mail = SendGrid::Mail.new do |m|
-  	    m.to = "theschnaz@gmail.com"
-        m.from = 'LikelyNewAndTrending@likely.com'
-        m.subject = 'New and trending pics on Likely!'
-        m.html = url_html
-        m.text = "Please use email that supports HTML. We're trying to show you pics!"
-      end
-
-	  puts client.send(mail)
-	  
-	  puts "sent to: " + users[i].email.to_s
 	  render :text => "sent"
 	end	
 end
