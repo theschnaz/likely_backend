@@ -68,6 +68,8 @@ Rails.application.routes.draw do
   get "/newandtrending" => "emailresults#newandtrending"
   
   get "/agent" => "cps#agent"
+
+  resources :snaps
   
   
 end
