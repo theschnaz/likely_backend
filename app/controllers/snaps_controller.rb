@@ -5,7 +5,9 @@ class SnapsController < ApplicationController
 
     @snap = Snap.find(params[:id])
 
-    @url_html = '<table style="width:500px;"> <tr><td> <img src="https://dl.dropboxusercontent.com/u/63975/email_logo.png" style="width:500px" /> </td></tr><br />'
+    @url_html = '<meta property="og:image" content="' + snap.photo_url.to_s + '" />'
+
+    @url_html += '<table style="width:500px;"> <tr><td> <img src="https://dl.dropboxusercontent.com/u/63975/email_logo.png" style="width:500px" /> </td></tr><br />'
 
     othersnaps = Vote.connection.select_all("select top_vote, bottom_vote from votes where (top_id = " + @snap.id.to_s + " or bottom_id = " + @snap.id.to_s + ") and (top_vote != " + @snap.id.to_s + " or bottom_vote != " + @snap.id.to_s + ")")
 
