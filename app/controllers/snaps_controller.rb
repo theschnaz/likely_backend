@@ -1,5 +1,11 @@
 class SnapsController < ApplicationController 
   protect_from_forgery :except => [:new_snap, :new_share_photo, :flag_pic]
+
+  def show
+
+    @snap = Snap.find(params[:id])
+
+  end
   
   def new_share_photo
     data = Cloudinary::Uploader.upload(params[:photo])
