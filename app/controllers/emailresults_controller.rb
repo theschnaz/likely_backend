@@ -109,7 +109,7 @@ class EmailresultsController < ApplicationController
 
 	    puts client.send(mail)
 	  
-	    render :text => "sent"
+	    puts "sent to: " + users[i].email.to_s
 
 		i = i + 1
 	  end
