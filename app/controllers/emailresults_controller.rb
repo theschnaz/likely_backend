@@ -78,41 +78,42 @@ class EmailresultsController < ApplicationController
 			end
 		end
 
-		puts "count = " + i.to_s + " "
+		if(betterthan.size >0 && worsethan.size >0 )
+			puts "count = " + i.to_s + " "
 
-		url_html += '<tr><td><strong style="font-size:16px;">Which is likely better or worse? <br /><img src="' + duels[i]['photo_url'].to_s + '" style="width:300px;"/> ' + '</td></tr><br/>'
-		url_html += '<tr><td><strong>Likely better</strong></td></tr>'
-		url_html += '<tr><td>'
-		betterthan.each do |x|
-			url_html += '<img src = "http://res.cloudinary.com/hh55qpw1c/image/upload/w_500,h_500,c_fill/v1419546151/' + x.to_s + '.jpg" style="width:100px;" />'
+			url_html += '<tr><td><strong style="font-size:16px;">Which is likely better or worse? <br /><img src="' + duels[i]['photo_url'].to_s + '" style="width:300px;"/> ' + '</td></tr><br/>'
+			url_html += '<tr><td><strong>Likely better</strong></td></tr>'
+			url_html += '<tr><td>'
+			betterthan.each do |x|
+				url_html += '<img src = "http://res.cloudinary.com/hh55qpw1c/image/upload/w_500,h_500,c_fill/v1419546151/' + x.to_s + '.jpg" style="width:100px;" />'
+			end
+			url_html += '</td></tr><br />'
+			url_html += '<tr><td><strong>Likely worse</strong></td></tr>'
+			url_html += '<tr><td>'
+			worsethan.each do |x|
+				url_html += '<img src = "http://res.cloudinary.com/hh55qpw1c/image/upload/w_500,h_500,c_fill/v1419546151/' + x.to_s + '.jpg" style="width:100px;" />'
+			end
+			url_html += '</td></tr>'
+			url_html += '<tr ><td style="border-top: 5px solid #cccccc;"><br /><br /></td></tr>'
+			url_html += '<tr><td><br /><br /></td></tr>'
+
+			url_html += '</table>'
 		end
-		url_html += '</td></tr><br />'
-		url_html += '<tr><td><strong>Likely worse</strong></td></tr>'
-		url_html += '<tr><td>'
-		worsethan.each do |x|
-			url_html += '<img src = "http://res.cloudinary.com/hh55qpw1c/image/upload/w_500,h_500,c_fill/v1419546151/' + x.to_s + '.jpg" style="width:100px;" />'
-		end
-		url_html += '</td></tr>'
-		url_html += '<tr ><td style="border-top: 5px solid #cccccc;"><br /><br /></td></tr>'
-		url_html += '<tr><td><br /><br /></td></tr>'
-
-		url_html += '</table>'
-
-		client = SendGrid::Client.new(api_user: 'theschnaz', api_key: '33sendflop')
-	  	  mail = SendGrid::Mail.new do |m|
-	  	  m.to = "theschnaz@gmail.com"
-	      m.from = 'LikelyNewAndTrending@likely.com'
-	      m.subject = 'New and trending pics on Likely!'
-	      m.html = url_html
-	      m.text = "Please use email that supports HTML. We're trying to show you pics!"
-	    end
-
-	    puts client.send(mail)
-	  
-	    puts "sent to: " + users[i].email.to_s
 
 		i = i + 1
 	  end
-	
+	  client = SendGrid::Client.new(api_user: 'theschnaz', api_key: '33sendflop')
+  	  mail = SendGrid::Mail.new do |m|
+  	    m.to = "theschnaz@gmail.com"
+        m.from = 'LikelyNewAndTrending@likely.com'
+        m.subject = 'New and trending pics on Likely!'
+        m.html = url_html
+        m.text = "Please use email that supports HTML. We're trying to show you pics!"
+      end
+
+	  puts client.send(mail)
+	  
+	  puts "sent to: " + users[i].email.to_s
+	  render :text => "sent"
 	end	
 end
