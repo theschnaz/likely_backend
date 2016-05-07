@@ -1,7 +1,7 @@
 class EmailresultsController < ApplicationController
 	def sendresults
 	  #duels that have been voted on yesterday
-	  duels = Snap.find_by_sql("select snaps.id, snaps.snapped_by, snaps.photo_url, snaps.vote_left, snaps.vote_right from snaps, votes where snaps.id = votes.snap_id and votes.updated_at >= current_date - interval '6 day'")
+	  duels = Snap.find_by_sql("select snaps.id, snaps.snapped_by, snaps.photo_url, snaps.vote_left, snaps.vote_right from snaps, votes where snaps.id = votes.snap_id and votes.updated_at >= current_date - interval '1 day'")
 	  
 	  duels.each do |p|
 	  
@@ -33,7 +33,7 @@ class EmailresultsController < ApplicationController
 	def newandtrending
 	  
 	  #pics created in the last day
-	  duels = Vote.connection.select_all("select distinct votes.snap_id, snaps.photo_url from votes, snaps where votes.created_at > CURRENT_DATE - interval '1 day' and snaps.id=votes.snap_id")
+	  duels = Vote.connection.select_all("select distinct votes.snap_id, snaps.photo_url from votes, snaps where votes.created_at > CURRENT_DATE - interval '1 day' and snaps.id=votes.snap_id order by votes.snap_id desc")
 	  
 	  #users
 	  users = User.find_by_sql("select * from users where email is not null")
@@ -105,7 +105,7 @@ class EmailresultsController < ApplicationController
 		  end
 		  client = SendGrid::Client.new(api_user: 'theschnaz', api_key: '33sendflop')
 	  	  mail = SendGrid::Mail.new do |m|
-	  	    m.to = "theschnaz@gmail.com"
+	  	    m.to = g.email
 	        m.from = 'LikelyNewAndTrending@likely.com'
 	        m.subject = 'New and trending pics on Likely!'
 	        m.html = url_html
