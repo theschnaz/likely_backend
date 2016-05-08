@@ -35,10 +35,12 @@ class SnapsController < ApplicationController
         thatimagevotes = Vote.connection.select_all("select id from votes where (top_vote = " + x.to_s + " or bottom_vote = " + x.to_s + ") and ((top_id = " + @snap.id.to_s + " and bottom_id = " + x.to_s + ") or (top_id = " + x.to_s + " and bottom_id =" + @snap.id.to_s + "))")
         thatimagevotes = thatimagevotes.count
 
+        #no ties, images need to be better or worse
         if(thisimagevotes > thatimagevotes)
           puts 'thisimage votes = ' + thisimagevotes.to_s + ' thatimave votes = ' + thatimagevotes.to_s + ' (ID = ' + x.to_s + ' )'
           worsethan << x
-        else
+        end
+        if(thisimagevotes < thatimagevotes)
           puts 'thisimage votes = ' + thisimagevotes.to_s + ' thatimave votes = ' + thatimagevotes.to_s + ' (ID = ' + x.to_s + ' )'
           betterthan << x
         end

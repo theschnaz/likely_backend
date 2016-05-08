@@ -78,9 +78,11 @@ class EmailresultsController < ApplicationController
 				thatimagevotes = Vote.connection.select_all("select id from votes where (top_vote = " + x.to_s + " or bottom_vote = " + x.to_s + ") and ((top_id = " + duels[i]['snap_id'].to_s + " and bottom_id = " + x.to_s + ") or (top_id = " + x.to_s + " and bottom_id =" + duels[i]['snap_id'].to_s + "))")
 				thatimagevotes = thatimagevotes.count
 
+				#no ties, images need to be better or worse
 				if(thisimagevotes > thatimagevotes)
 		          worsethan << x
-		        else
+		        end
+		        if(thisimagevotes < thatimagevotes)
 		          betterthan << x
 		        end
 			end
