@@ -53,7 +53,8 @@ class EmailresultsController < ApplicationController
 		  	puts "i = " + i.to_s
 		  	#this code helps us find the other snap ids that this snap has been compared to
 		  	othersnaps = Vote.connection.select_all("select top_vote, bottom_vote from votes where (top_id = " + duels[i]['snap_id'].to_s + " or bottom_id = " + duels[i]['snap_id'].to_s + ") and (top_vote != " + duels[i]['snap_id'].to_s + " or bottom_vote != " + duels[i]['snap_id'].to_s + ")")
-			othersnapsarray = Array.new
+			
+			#othersnapsarray = Array.new
 
 			r = 0
 			while(r < othersnaps.count)
