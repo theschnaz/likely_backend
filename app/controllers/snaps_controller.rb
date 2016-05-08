@@ -36,10 +36,10 @@ class SnapsController < ApplicationController
         thatimagevotes = thatimagevotes.count
 
         if(thisimagevotes > thatimagevotes)
-          puts 'thisimage votes = ' + thisimagevotes.to_s + ' thatimave votes = ' + thatimagevotes.to_s
+          puts 'thisimage votes = ' + thisimagevotes.to_s + ' thatimave votes = ' + thatimagevotes.to_s + ' (ID = ' + x.to_s + ' )'
           worsethan << x
         else
-          puts 'thisimage votes = ' + thisimagevotes.to_s + ' thatimave votes = ' + thatimagevotes.to_s
+          puts 'thisimage votes = ' + thisimagevotes.to_s + ' thatimave votes = ' + thatimagevotes.to_s + ' (ID = ' + x.to_s + ' )'
           betterthan << x
         end
       end
