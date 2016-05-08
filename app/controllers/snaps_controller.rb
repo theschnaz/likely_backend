@@ -5,7 +5,16 @@ class SnapsController < ApplicationController
 
     @snap = Snap.find(params[:id])
 
-    @url_html = '<meta property="og:image" content="' + @snap.photo_url.to_s + '" />'
+    @url_html = '<html><head>'
+    @url_html += '<meta property="og:image" content="' + @snap.photo_url.to_s + '" />'
+    @url_thml += '</head><body><div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.6&appId=156319467766597";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, \'script', 'facebook-jssdk\'));</script>'
 
     @url_html += '<table style="width:500px;"> <tr><td> <img src="https://dl.dropboxusercontent.com/u/63975/email_logo.png" style="width:500px" /> </td></tr><br />'
 
@@ -71,7 +80,7 @@ class SnapsController < ApplicationController
       @url_html += '<tr><td><br /><br /></td></tr>'
       @url_html += '<tr><td><strong style="font-size:24px;">Share Likely with a friend!  <a href="https://itunes.apple.com/app/which-is-likely-better/id1035137555?mt=8">iOS</a> and <a href="https://play.google.com/store/apps/details?id=com.likely">Android</a></strong><br /><br /></td></tr>'
 
-      @url_html += '</table>'
+      @url_html += '</table></body></html>'
 
 
       render html: @url_html.html_safe
