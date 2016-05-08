@@ -87,7 +87,7 @@ class EmailresultsController < ApplicationController
 			if(betterthan.size >0 && worsethan.size >0 )
 				puts "count = " + i.to_s + " "
 
-				url_html += '<tr><td><strong style="font-size:16px;">Which is likely better or worse? <br /><a href="https://afternoon-citadel-4709.herokuapp.com/snaps/'+ duels[i]['photo_url'].to_s +'"><img src="' + duels[i]['photo_url'].to_s + '" style="width:300px;"/></a> ' + '</td></tr><br/>'
+				url_html += '<tr><td><strong style="font-size:16px;">Which is likely better or worse? <br /><a href="https://afternoon-citadel-4709.herokuapp.com/snaps/' + duels[i]['snap_id'].to_s + '"><img src="' + duels[i]['photo_url'].to_s + '" style="width:300px;"/></a> ' + '</td></tr><br/>'
 				url_html += '<tr><td><strong>Likely better</strong></td></tr>'
 				url_html += '<tr><td>'
 				betterthan.each do |x|
