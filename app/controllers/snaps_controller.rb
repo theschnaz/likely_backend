@@ -66,6 +66,9 @@ class SnapsController < ApplicationController
       @url_html += '<tr ><td style="border-top: 5px solid #cccccc;"><br /><br /></td></tr>'
       @url_html += '<tr><td><br /><br /></td></tr>'
 
+      @url_html += '<tr><td>Tag a friend!</br><div class="fb-comments" data-href="http://likely.com" data-width="500" data-numposts="10"></div></td></tr>'
+
+      @url_html += '<tr><td><br /><br /></td></tr>'
       @url_html += '<tr><td><strong style="font-size:24px;">Share Likely with a friend!  <a href="https://itunes.apple.com/app/which-is-likely-better/id1035137555?mt=8">iOS</a> and <a href="https://play.google.com/store/apps/details?id=com.likely">Android</a></strong><br /><br /></td></tr>'
 
       @url_html += '</table>'
