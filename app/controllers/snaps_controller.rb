@@ -14,7 +14,7 @@ class SnapsController < ApplicationController
   js = d.createElement(s); js.id = id;
   js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.6&appId=156319467766597";
   fjs.parentNode.insertBefore(js, fjs);
-}(document, \'script', 'facebook-jssdk\'));</script>'
+}(document, \'script\', \'facebook-jssdk\'));</script>'
 
     @url_html += '<table style="width:500px;"> <tr><td> <img src="https://dl.dropboxusercontent.com/u/63975/email_logo.png" style="width:500px" /> </td></tr><br />'
 
