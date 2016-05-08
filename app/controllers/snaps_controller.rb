@@ -7,14 +7,12 @@ class SnapsController < ApplicationController
 
     @url_html = '<html><head>'
     @url_html += '<meta property="og:image" content="' + @snap.photo_url.to_s + '" />'
-    @url_html += '</head><body><div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.6&appId=156319467766597";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, \'script\', \'facebook-jssdk\'));</script>'
+    @url_html += '<meta property="og:url" content="https://afternoon-citadel-4709.herokuapp.com' + request.fullpath + '" />'
+    @url_html += '<meta property="og:type" content="website" />'
+    @url_html += '<meta property="og:title" content="Which is Likely better?" />'
+    @url_html += '<meta property="og:description" content="Which is Likely better? Share and vote on Likely!" />'
+    @url_html += '<meta property="fb:app_id" content="808775805831243" />'
+    @url_html += '</head><body>'
 
     @url_html += '<table style="width:500px;"> <tr><td> <img src="https://dl.dropboxusercontent.com/u/63975/email_logo.png" style="width:500px" /> </td></tr><br />'
 
@@ -75,7 +73,7 @@ class SnapsController < ApplicationController
       @url_html += '<tr ><td style="border-top: 5px solid #cccccc;"><br /><br /></td></tr>'
       @url_html += '<tr><td><br /><br /></td></tr>'
 
-      @url_html += '<tr><td><a href="https://facebook.com/sharer.php?u=https://afternoon-citadel-4709.herokuapp.com' + request.fullpath + ' "><strong style="font-size:24px;">Post this page to Facebook!</strong></a></td></tr>'
+      @url_html += '<tr><td><a href="https://facebook.com/sharer.php?u=https://afternoon-citadel-4709.herokuapp.com' + request.fullpath + ' "><img src="http://afternoon-citadel-4709.herokuapp.com/facebook.png" /></a></td></tr>'
 
       @url_html += '<tr><td><br /><br /></td></tr>'
       @url_html += '<tr><td><strong style="font-size:16px;">Share Likely with a friend!  <a href="https://itunes.apple.com/app/which-is-likely-better/id1035137555?mt=8">iOS</a> and <a href="https://play.google.com/store/apps/details?id=com.likely">Android</a></strong><br /><br /></td></tr>'
