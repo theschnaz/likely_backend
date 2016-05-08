@@ -13,13 +13,13 @@ class SnapsController < ApplicationController
     @url_html += '<meta property="og:description" content="Which is Likely better? Share and vote on Likely!" />'
     @url_html += '<meta property="fb:app_id" content="808775805831243" />'
     @url_html += '</head><body><div id="fb-root"></div>
-  <script>(function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, \'script\', \'facebook-jssdk\'));</script>'
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.6&appId=808775805831243";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, \'script\', \'facebook-jssdk\'));</script>'
 
     @url_html += '<table style="width:500px;"> <tr><td> <img src="https://dl.dropboxusercontent.com/u/63975/email_logo.png" style="width:500px" /> </td></tr><br />'
 
@@ -80,7 +80,7 @@ class SnapsController < ApplicationController
       @url_html += '<tr ><td style="border-top: 5px solid #cccccc;"><br /><br /></td></tr>'
       @url_html += '<tr><td><br /><br /></td></tr>'
 
-      @url_html += '<tr><td><div class="fb-share-button" data-href="https://afternoon-citadel-4709.herokuapp.com' + request.fullpath + '" data-layout="button" data-mobile-iframe="true"> </div>'
+      @url_html += '<tr><td><div class="fb-share-button" data-href="https://afternoon-citadel-4709.herokuapp.com' + request.fullpath + '" data-layout="button" data-mobile-iframe="true"> </div></td></tr>'
 
       @url_html += '<tr><td><br /><br /></td></tr>'
       @url_html += '<tr><td><strong style="font-size:16px;">Share Likely with a friend!  <a href="https://itunes.apple.com/app/which-is-likely-better/id1035137555?mt=8">iOS</a> and <a href="https://play.google.com/store/apps/details?id=com.likely">Android</a></strong><br /><br /></td></tr>'
