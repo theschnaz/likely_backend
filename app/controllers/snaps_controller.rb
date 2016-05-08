@@ -7,7 +7,7 @@ class SnapsController < ApplicationController
 
     @url_html = '<html><head>'
     @url_html += '<meta property="og:image" content="' + @snap.photo_url.to_s + '" />'
-    @url_thml += '</head><body><div id="fb-root"></div>
+    @url_html += '</head><body><div id="fb-root"></div>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
