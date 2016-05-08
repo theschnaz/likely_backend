@@ -77,7 +77,7 @@ class EmailresultsController < ApplicationController
 				thatimagevotes = Vote.connection.select_all("select id from votes where (top_vote = " + x.to_s + " or bottom_vote = " + x.to_s + ") and ((top_id = " + duels[i]['snap_id'].to_s + " or bottom_id = " + x.to_s + ") or (top_id = " + x.to_s + " and bottom_id =" + duels[i]['snap_id'].to_s + "))")
 				thatimagevotes = thatimagevotes.count
 
-				if(thisimagevotes >= thatimagevotes)
+				if(thisimagevotes > thatimagevotes)
 		          worsethan << x
 		        else
 		          betterthan << x
@@ -91,13 +91,13 @@ class EmailresultsController < ApplicationController
 				url_html += '<tr><td><strong>Likely better</strong></td></tr>'
 				url_html += '<tr><td>'
 				betterthan.each do |x|
-					url_html += '<a href="/snaps/' + x.to_s + '"><img src = "http://res.cloudinary.com/hh55qpw1c/image/upload/w_500,h_500,c_fill/v1419546151/' + x.to_s + '.jpg" style="width:100px;" /></a>'
+					url_html += '<a href="https://afternoon-citadel-4709.herokuapp.com/snaps/' + x.to_s + '"><img src = "http://res.cloudinary.com/hh55qpw1c/image/upload/w_500,h_500,c_fill/v1419546151/' + x.to_s + '.jpg" style="width:100px;" /></a>'
 				end
 				url_html += '</td></tr><br />'
 				url_html += '<tr><td><strong>Likely worse</strong></td></tr>'
 				url_html += '<tr><td>'
 				worsethan.each do |x|
-					url_html += '<a href="/snaps/' + x.to_s + '"><img src = "http://res.cloudinary.com/hh55qpw1c/image/upload/w_500,h_500,c_fill/v1419546151/' + x.to_s + '.jpg" style="width:100px;" /></a>'
+					url_html += '<a href="https://afternoon-citadel-4709.herokuapp.com/snaps/' + x.to_s + '"><img src = "http://res.cloudinary.com/hh55qpw1c/image/upload/w_500,h_500,c_fill/v1419546151/' + x.to_s + '.jpg" style="width:100px;" /></a>'
 				end
 				url_html += '</td></tr>'
 				url_html += '<tr ><td style="border-top: 5px solid #cccccc;"><br /><br /></td></tr>'
