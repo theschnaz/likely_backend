@@ -35,6 +35,10 @@ class EmailresultsController < ApplicationController
 	  #pics created in the last day
 	  duels = Vote.connection.select_all("select distinct votes.snap_id, snaps.photo_url from votes, snaps where votes.created_at > CURRENT_DATE - interval '1 day' and snaps.id=votes.snap_id order by votes.snap_id desc")
 	  
+	  if(duels.count == 0)
+	  	render :text => "no new votes" and return
+	  end
+
 	  #users
 	  users = User.find_by_sql("select * from users where email is not null")
 	
@@ -54,7 +58,7 @@ class EmailresultsController < ApplicationController
 		  	#this code helps us find the other snap ids that this snap has been compared to
 		  	othersnaps = Vote.connection.select_all("select top_vote, bottom_vote from votes where (top_id = " + duels[i]['snap_id'].to_s + " or bottom_id = " + duels[i]['snap_id'].to_s + ") and (top_vote != " + duels[i]['snap_id'].to_s + " or bottom_vote != " + duels[i]['snap_id'].to_s + ")")
 			
-			#othersnapsarray = Array.new
+			othersnapsarray = Array.new
 
 			r = 0
 			while(r < othersnaps.count)
