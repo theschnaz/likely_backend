@@ -2,7 +2,7 @@ class EmailresultsController < ApplicationController
 
 	def invitedfollowers
 
-	  #invited users
+	  #invited userss
 	  users = InvitedFollowers.find_by_sql("select * from invited_followers where email is not null and email not in (select email from users)")
 	  #users = User.find_by_sql("select * from users where id = 1")
 	
