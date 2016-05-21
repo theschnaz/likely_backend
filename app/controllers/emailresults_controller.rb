@@ -107,8 +107,6 @@ class EmailresultsController < ApplicationController
 	  render :text => "sent"
 	end
 
-	  
-	end
 	
 	def newandtrending
 	  
