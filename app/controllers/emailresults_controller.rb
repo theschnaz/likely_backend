@@ -1,8 +1,13 @@
 class EmailresultsController < ApplicationController
+
+	def invitedfollowers
+
+	end
+
 	def sendmyresults
 	  #users
-	  #users = User.find_by_sql("select * from users where email is not null")
-	  users = User.find_by_sql("select * from users where id = 1")
+	  users = User.find_by_sql("select * from users where email is not null")
+	  #users = User.find_by_sql("select * from users where id = 1")
 	
 	  url_html = ''
 	  
@@ -89,9 +94,9 @@ class EmailresultsController < ApplicationController
 
 		  client = SendGrid::Client.new(api_user: 'theschnaz', api_key: '33sendflop')
 	  	  mail = SendGrid::Mail.new do |m|
-	  	    #m.to = g.email
-	  	    m.to = 'theschnaz@gmail.com'
-	        m.from = 'YourPics@likely.com'
+	  	    m.to = g.email
+	  	    #m.to = 'theschnaz@gmail.com'
+	        m.from = 'YourPicsOnLikely@likely.com'
 	        m.subject = 'Update to pics you posted on Likely!'
 	        m.html = url_html
 	        m.text = "Please use email that supports HTML. We're trying to show you pics!"
