@@ -2,17 +2,15 @@ class EmailresultsController < ApplicationController
 
 	def invitedfollowers
 
-	  #invited userss
+	  #invited followers who are not users (they don't have an account)
 	  users = InvitedFollowers.find_by_sql("select * from invited_followers where email is not null and email not in (select email from users)")
-	  #users = User.find_by_sql("select * from users where id = 1")
 	
 	  url_html = ''
 	  
 	  
 	  users.each do |g|
-	  	  #my snaps that were voted on yesterday
-	  	  #in the future, we'll need to loop through each id the user is following 
-		  duels = Vote.connection.select_all("select distinct votes.snap_id, snaps.photo_url from votes, snaps where votes.created_at > CURRENT_DATE - interval '1 day' and snaps.id=votes.snap_id and snaps.id = " + g.snap.to_s + "order by votes.snap_id desc")
+	  	  #my snaps that were voted on yesterday that the invited person follows
+		  duels = Vote.connection.select_all("select distinct votes.snap_id, snaps.photo_url from votes, snaps where votes.created_at > CURRENT_DATE - interval '1 day' and snaps.id = votes.snap_id and snaps.id in (select distinct snap from invited_followers where email = '" + g.email.to_s + "') order by votes.snap_id desc")
 		  
 		  if(duels.count == 0)
 		  	render :text => "no new votes" and return
