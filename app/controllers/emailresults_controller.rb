@@ -1,4 +1,5 @@
 class EmailresultsController < ApplicationController
+	protect_from_forgery :except => [:addtoinvitedfollowers]
 
 	def addtoinvitedfollowers
 
