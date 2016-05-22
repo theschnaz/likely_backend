@@ -1,9 +1,22 @@
 class EmailresultsController < ApplicationController
 
+	def addtoinvitedfollowers
+
+		persontoadd = InvitedFollowers.new
+
+		persontoadd.email = params[:email]
+		persontoadd.snap = params[:snap]
+
+		persontoadd.save
+
+		render :text => "saved" and return
+
+	end
+
 	def invitedfollowers
 
-	  #invited followers who are not users (they don't have an account)
-	  users = InvitedFollowers.find_by_sql("select * from invited_followers where email is not null and email not in (select email from users)")
+	  #invited followers
+	  users = InvitedFollowers.find_by_sql("select * from invited_followers where email is not null")
 	
 	  url_html = ''
 	  

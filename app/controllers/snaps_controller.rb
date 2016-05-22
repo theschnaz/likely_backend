@@ -150,8 +150,7 @@ class SnapsController < ApplicationController
     Cloudinary::Uploader.upload(params[:photo], :public_id => snap.id)
     
     
-    
-    render :text => snap.photo_url.to_s
+    render :json => {:snap => snap}
   end
   
   def get_snap
