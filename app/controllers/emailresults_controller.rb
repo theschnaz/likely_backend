@@ -75,7 +75,11 @@ class EmailresultsController < ApplicationController
 		        end
 			end
 
+			addedcontent = false #we'll set this to true if we add content
+
 			if(betterthan.size >0 && worsethan.size >0 )
+				addedcontent = true
+
 				puts "count = " + i.to_s + " "
 
 				url_html += '<tr><td><strong style="font-size:16px;">Which is likely better or worse? <br /><a href="https://afternoon-citadel-4709.herokuapp.com/snaps/' + duels[i]['snap_id'].to_s + '"><img src="' + duels[i]['photo_url'].to_s + '" style="width:300px;"/></a> ' + '</td></tr><br/>'
@@ -97,6 +101,10 @@ class EmailresultsController < ApplicationController
 			end
 
 			i = i + 1
+		  end
+
+		  if(addedcontent == false)
+		  	render :text => "no new content" and return
 		  end
 
 		  url_html += '<tr><td><strong style="font-size:24px;">Share Likely with a friend!  <a href="https://itunes.apple.com/app/which-is-likely-better/id1035137555?mt=8">iOS</a> and <a href="https://play.google.com/store/apps/details?id=com.likely">Android</a></strong><br /><br /></td></tr>'
@@ -184,7 +192,11 @@ class EmailresultsController < ApplicationController
 		        end
 			end
 
+			addedcontent = false #we'll set this to true if we add content
+
 			if(betterthan.size >0 && worsethan.size >0 )
+
+				addedcontent = true
 				puts "count = " + i.to_s + " "
 
 				url_html += '<tr><td><strong style="font-size:16px;">Which is likely better or worse? <br /><a href="https://afternoon-citadel-4709.herokuapp.com/snaps/' + duels[i]['snap_id'].to_s + '"><img src="' + duels[i]['photo_url'].to_s + '" style="width:300px;"/></a> ' + '</td></tr><br/>'
@@ -206,6 +218,10 @@ class EmailresultsController < ApplicationController
 			end
 
 			i = i + 1
+		  end
+
+		  if(addedcontent == false)
+		  	render :text => "no new content" and return
 		  end
 
 		  url_html += '<tr><td><strong style="font-size:24px;">Share Likely with a friend!  <a href="https://itunes.apple.com/app/which-is-likely-better/id1035137555?mt=8">iOS</a> and <a href="https://play.google.com/store/apps/details?id=com.likely">Android</a></strong><br /><br /></td></tr>'
@@ -292,7 +308,11 @@ class EmailresultsController < ApplicationController
 		        end
 			end
 
+			addedcontent = false #we'll set this to true if we add content
+
 			if(betterthan.size >0 && worsethan.size >0 )
+
+				addedcontent = true
 				puts "count = " + i.to_s + " "
 
 				url_html += '<tr><td><strong style="font-size:16px;">Which is likely better or worse? <br /><a href="https://afternoon-citadel-4709.herokuapp.com/snaps/' + duels[i]['snap_id'].to_s + '"><img src="' + duels[i]['photo_url'].to_s + '" style="width:300px;"/></a> ' + '</td></tr><br/>'
@@ -314,6 +334,10 @@ class EmailresultsController < ApplicationController
 			end
 
 			i = i + 1
+		  end
+
+		  if(addedcontent == false)
+		  	render :text => "no new content" and return
 		  end
 
 		  url_html += '<tr><td><strong style="font-size:24px;">Share Likely with a friend!  <a href="https://itunes.apple.com/app/which-is-likely-better/id1035137555?mt=8">iOS</a> and <a href="https://play.google.com/store/apps/details?id=com.likely">Android</a></strong><br /><br /></td></tr>'
