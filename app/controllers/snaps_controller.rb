@@ -27,6 +27,8 @@ class SnapsController < ApplicationController
 
     othersnapsarray = Array.new
 
+    puts 'othersnaps.count = ' + othersnaps.count.to_s
+
       r = 0
       while(r < othersnaps.count)
         if(othersnaps[r]['top_vote'].nil?)
