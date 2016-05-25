@@ -23,7 +23,7 @@ class SnapsController < ApplicationController
 
     @url_html += '<table style="width:500px;"> <tr><td> <img src="https://dl.dropboxusercontent.com/u/63975/email_logo.png" style="width:500px" /> </td></tr><br />'
 
-    othersnaps = Vote.connection.select_all("select top_vote, bottom_vote, top_id, bottom_id from votes where (top_id = " + @snap.id.to_s + " or bottom_id = " + @snap.id.to_s + ")")
+    othersnaps = Vote.connection.select_all("select top_id, bottom_id from votes where (top_id = " + @snap.id.to_s + " or bottom_id = " + @snap.id.to_s + ")")
 
     othersnapsarray = Array.new
 
@@ -31,7 +31,7 @@ class SnapsController < ApplicationController
 
       r = 0
       while(r < othersnaps.count)
-        if(othersnaps[r]['top_id'] == @snap.id)
+        if(othersnaps[r]['top_id'] == @snap.id.to_s)
           othersnapsarray << othersnaps[r]['bottom_id']
         else
           othersnapsarray << othersnaps[r]['top_id']
