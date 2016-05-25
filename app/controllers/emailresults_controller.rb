@@ -18,6 +18,8 @@ class EmailresultsController < ApplicationController
 
 	  #invited followers
 	  users = InvitedFollowers.find_by_sql("select * from invited_followers where email is not null")
+
+	  puts 'users.count = ' + users.count.to_s
 	
 	  url_html = ''
 	  
@@ -26,6 +28,9 @@ class EmailresultsController < ApplicationController
 	  	  #my snaps that were voted on yesterday that the invited person follows
 		  duels = Vote.connection.select_all("select distinct votes.snap_id, snaps.photo_url from votes, snaps where votes.created_at > CURRENT_DATE - interval '1 day' and snaps.id = votes.snap_id and snaps.id in (select distinct snap from invited_followers where email = '" + g.email.to_s + "') order by votes.snap_id desc")
 		  
+		  puts 'g email = ' + g.email.to_s
+		  puts 'duels.count = ' + duels.count.to_s
+
 		  if(duels.count == 0)
 		  	render :text => "no new votes" and return
 		  end
@@ -77,7 +82,7 @@ class EmailresultsController < ApplicationController
 
 			addedcontent = false #we'll set this to true if we add content
 
-			if(betterthan.size >0 && worsethan.size >0 )
+			if(betterthan.size > 0 || worsethan.size > 0 )
 				addedcontent = true
 
 				puts "count = " + i.to_s + " "
@@ -194,7 +199,7 @@ class EmailresultsController < ApplicationController
 
 			addedcontent = false #we'll set this to true if we add content
 
-			if(betterthan.size >0 && worsethan.size >0 )
+			if(betterthan.size >0 || worsethan.size >0 )
 
 				addedcontent = true
 				puts "count = " + i.to_s + " "
@@ -310,7 +315,7 @@ class EmailresultsController < ApplicationController
 
 			addedcontent = false #we'll set this to true if we add content
 
-			if(betterthan.size >0 && worsethan.size >0 )
+			if(betterthan.size >0 || worsethan.size >0 )
 
 				addedcontent = true
 				puts "count = " + i.to_s + " "
