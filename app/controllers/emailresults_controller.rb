@@ -53,7 +53,7 @@ class EmailresultsController < ApplicationController
 
 		      r = 0
 		      while(r < othersnaps.count)
-		        if(othersnaps[r]['top_id'] == snap.id.to_s)
+		        if(othersnaps[r]['top_id'] == duels[i]['snap_id'].to_s)
 		          othersnapsarray << othersnaps[r]['bottom_id']
 		        else
 		          othersnapsarray << othersnaps[r]['top_id']
@@ -172,7 +172,7 @@ class EmailresultsController < ApplicationController
 
 		      r = 0
 		      while(r < othersnaps.count)
-		        if(othersnaps[r]['top_id'] == snap.id.to_s)
+		        if(othersnaps[r]['top_id'] == duels[i]['snap_id'].to_s)
 		          othersnapsarray << othersnaps[r]['bottom_id']
 		        else
 		          othersnapsarray << othersnaps[r]['top_id']
@@ -290,7 +290,7 @@ class EmailresultsController < ApplicationController
 
 		      r = 0
 		      while(r < othersnaps.count)
-		        if(othersnaps[r]['top_id'] == snap.id.to_s)
+		        if(othersnaps[r]['top_id'] == duels[i]['snap_id'].to_s)
 		          othersnapsarray << othersnaps[r]['bottom_id']
 		        else
 		          othersnapsarray << othersnaps[r]['top_id']
