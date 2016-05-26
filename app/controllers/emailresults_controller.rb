@@ -45,7 +45,7 @@ class EmailresultsController < ApplicationController
 		  while(i < duels.count)
 		  	puts "i = " + i.to_s
 		  	#this code helps us find the other snap ids that this snap has been compared to
-		  	othersnaps = Vote.connection.select_all("select top_id, bottom_id from votes where (top_id = " + snap.id.to_s + " or bottom_id = " + snap.id.to_s + ")")
+		  	othersnaps = Vote.connection.select_all("select top_id, bottom_id from votes where (top_id = " + duels[i]['snap_id'].to_s + " or bottom_id = " + duels[i]['snap_id'].to_s + ")")
 
 		    othersnapsarray = Array.new
 
@@ -164,7 +164,7 @@ class EmailresultsController < ApplicationController
 		  while(i < duels.count)
 		  	puts "i = " + i.to_s
 		  	#this code helps us find the other snap ids that this snap has been compared to
-		  	othersnaps = Vote.connection.select_all("select top_id, bottom_id from votes where (top_id = " + snap.id.to_s + " or bottom_id = " + snap.id.to_s + ")")
+		  	othersnaps = Vote.connection.select_all("select top_id, bottom_id from votes where (top_id = " + duels[i]['snap_id'].to_s + " or bottom_id = " + duels[i]['snap_id'].to_s + ")")
 
 		    othersnapsarray = Array.new
 
@@ -282,7 +282,7 @@ class EmailresultsController < ApplicationController
 		  while((i < duels.count) && (i < 6)) #don't need to send more than 5 photos...
 		  	puts "i = " + i.to_s
 		  	#this code helps us find the other snap ids that this snap has been compared to
-		  	othersnaps = Vote.connection.select_all("select top_id, bottom_id from votes where (top_id = " + snap.id.to_s + " or bottom_id = " + snap.id.to_s + ")")
+		  	othersnaps = Vote.connection.select_all("select top_id, bottom_id from votes where (top_id = " + duels[i]['snap_id'].to_s + " or bottom_id = " + duels[i]['snap_id'].to_s + ")")
 
 		    othersnapsarray = Array.new
 
