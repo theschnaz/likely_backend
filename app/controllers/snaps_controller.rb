@@ -9,8 +9,8 @@ class SnapsController < ApplicationController
     @url_html += '<meta property="og:image" content="' + @snap.photo_url.to_s + '" />'
     @url_html += '<meta property="og:url" content="https://afternoon-citadel-4709.herokuapp.com' + request.fullpath + '" />'
     @url_html += '<meta property="og:type" content="website" />'
-    @url_html += '<meta property="og:title" content="Which is Likely better?" />'
-    @url_html += '<meta property="og:description" content="Which is Likely better? Share and vote on Likely!" />'
+    @url_html += '<meta property="og:title" content="Is this the best in ' + @snap.category.to_s +'?" />'
+    @url_html += '<meta property="og:description" content="Download Likely for iOS and Android today for free!" />'
     @url_html += '<meta property="fb:app_id" content="808775805831243" />'
     @url_html += '</head><body><div id="fb-root"></div>
 <script>(function(d, s, id) {
