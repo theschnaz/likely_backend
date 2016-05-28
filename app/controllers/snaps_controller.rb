@@ -6,7 +6,7 @@ class SnapsController < ApplicationController
     @snap = Snap.find(params[:id])
 
     @url_html = '<html><head>'
-    @url_html += '<meta property="og:image" content="' + @snap.photo_url.to_s + '" />'
+    @url_html += '<meta property="og:image" content="http://res.cloudinary.com/hh55qpw1c/image/upload/w_500,h_261,c_fill/v1419546151/' + @snap.id.to_s + '.jpg" />'
     @url_html += '<meta property="og:url" content="https://afternoon-citadel-4709.herokuapp.com' + request.fullpath + '" />'
     @url_html += '<meta property="og:type" content="website" />'
     @url_html += '<meta property="og:title" content="Is this the best in ' + @snap.category.to_s + '?" />'
