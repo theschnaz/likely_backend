@@ -72,7 +72,7 @@ class SnapsController < ApplicationController
 
 
       @url_html += '<tr><td><br /><br /></td></tr>'
-      @url_html += '<tr><td><strong style="font-size:24px;">This is Likely better than ' + pic_percent + '% in ' + @snap.category + ' <br /><img src="' + @snap.photo_url.to_s + '" style="width:500px;"/> ' + '</td></tr><br/>'
+      @url_html += '<tr><td><strong style="font-size:24px;">This is Likely better than ' + pic_percent.to_s + '% in ' + @snap.category + ' <br /><img src="' + @snap.photo_url.to_s + '" style="width:500px;"/> ' + '</td></tr><br/>'
       @url_html += '<tr><td><br /><br /></td></tr>'
       @url_html += '<tr><td><strong>Likely better</strong></td></tr>'
       @url_html += '<tr><td>'
