@@ -62,9 +62,12 @@ class SnapsController < ApplicationController
         end
       end
 
+      puts 'worse than count = ' + worsethan.count.to_s
+      puts 'better than count = ' + betterthan.count.to_s
+
 
       @url_html += '<tr><td><br /><br /></td></tr>'
-      @url_html += '<tr><td><strong style="font-size:24px;">This is Likely better than 80% in ' + @snap.category.to_s + ' <br /><img src="' + @snap.photo_url.to_s + '" style="width:500px;"/> ' + '</td></tr><br/>'
+      @url_html += '<tr><td><strong style="font-size:24px;">This is Likely better than 80% in ' + @snap.category + ' <br /><img src="' + @snap.photo_url.to_s + '" style="width:500px;"/> ' + '</td></tr><br/>'
       @url_html += '<tr><td><br /><br /></td></tr>'
       @url_html += '<tr><td><strong>Likely better</strong></td></tr>'
       @url_html += '<tr><td>'
