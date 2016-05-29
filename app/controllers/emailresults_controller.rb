@@ -126,25 +126,25 @@ class EmailresultsController < ApplicationController
 		  url_html += '<tr><td><strong style="font-size:24px;">Share Likely with a friend!  <a href="https://itunes.apple.com/app/which-is-likely-better/id1035137555?mt=8">iOS</a> and <a href="https://play.google.com/store/apps/details?id=com.likely">Android</a></strong><br /><br /></td></tr>'
 	      url_html += '</table>'
 
-		  #client = SendGrid::Client.new(api_user: 'theschnaz', api_key: '33sendflop')
-	  	  #mail = SendGrid::Mail.new do |m|
-	  	  #  m.to = g.email
+		  client = SendGrid::Client.new(api_user: 'theschnaz', api_key: '33sendflop')
+	  	  mail = SendGrid::Mail.new do |m|
+	  	    m.to = g.email
 	  	    #m.to = 'theschnaz@gmail.com'
-	      #  m.from = 'LikelyUpdates@likely.com'
-	      #  m.subject = 'Updates on pics you\'re following on Likely!'
-	      #  m.html = url_html
-	      #  m.text = "Please use email that supports HTML. We're trying to show you pics!"
-	      #end
+	        m.from = 'LikelyUpdates@likely.com'
+	        m.subject = 'Updates on pics you\'re following on Likely!'
+	        m.html = url_html
+	        m.text = "Please use email that supports HTML. We're trying to show you pics!"
+	      end
 
 	      url_html = ''
-		 # puts client.send(mail)
+		  puts client.send(mail)
 		  
 		  puts "sent to: " + g.email
 		  
 		  
 	  end
-	  #render :text => "sent"
-	  render html: url_html
+	  render :text => "sent"
+	  #render html: url_html
 
 	end
 
@@ -158,7 +158,7 @@ class EmailresultsController < ApplicationController
 	  
 	  users.each do |g|
 	  	  #my snaps that were voted on yesterday
-		  duels = Vote.connection.select_all("select distinct votes.snap_id, snaps.photo_url from votes, snaps where votes.created_at > CURRENT_DATE - interval '1 day' and snaps.id=votes.snap_id and snaps.snapped_by = " + g.id.to_s + "order by votes.snap_id desc")
+		  duels = Vote.connection.select_all("select distinct votes.snap_id, snaps.photo_url, snaps.category from votes, snaps where votes.created_at > CURRENT_DATE - interval '1 day' and snaps.id=votes.snap_id and snaps.snapped_by = " + g.id.to_s + "order by votes.snap_id desc")
 		  
 		  if(duels.count == 0)
 		  	render :text => "no new votes" and return
@@ -211,6 +211,15 @@ class EmailresultsController < ApplicationController
 		        end
 			end
 
+			puts 'worse than count = ' + worsethan.count.to_s
+	        puts 'better than count = ' + betterthan.count.to_s
+
+	        total_vote_count = worsethan.count + betterthan.count
+	        pic_percent = (worsethan.count.to_f / total_vote_count.to_f)*100
+	        pic_percent = pic_percent.to_i
+
+     	 	puts '% = ' + pic_percent.to_s
+
 			addedcontent = false #we'll set this to true if we add content
 
 			if(betterthan.size >0 || worsethan.size >0 )
@@ -218,14 +227,14 @@ class EmailresultsController < ApplicationController
 				addedcontent = true
 				puts "count = " + i.to_s + " "
 
-				url_html += '<tr><td><strong style="font-size:16px;">Which is likely better or worse? <br /><a href="https://afternoon-citadel-4709.herokuapp.com/snaps/' + duels[i]['snap_id'].to_s + '"><img src="' + duels[i]['photo_url'].to_s + '" style="width:300px;"/></a> ' + '</td></tr><br/>'
-				url_html += '<tr><td><strong>Likely better</strong></td></tr>'
+				url_html += '<tr><td><strong style="font-size:16px;">This is Likely better than ' + pic_percent.to_s + '% in ' + duels[i]['snap_id']['category'].to_s + ' <br /><a href="https://afternoon-citadel-4709.herokuapp.com/snaps/' + duels[i]['snap_id'].to_s + '"><img src="' + duels[i]['photo_url'].to_s + '" style="width:300px;"/></a> ' + '</td></tr><br/>'
+				url_html += '<tr><td><strong>These are the better ' + (100 - pic_percent).to_s + '</strong></td></tr>'
 				url_html += '<tr><td>'
 				betterthan.each do |x|
 					url_html += '<a href="https://afternoon-citadel-4709.herokuapp.com/snaps/' + x.to_s + '"><img src = "http://res.cloudinary.com/hh55qpw1c/image/upload/w_500,h_500,c_fill/v1419546151/' + x.to_s + '.jpg" style="width:100px;" /></a>'
 				end
 				url_html += '</td></tr><br />'
-				url_html += '<tr><td><strong>Likely worse</strong></td></tr>'
+				url_html += '<tr><td><strong>These are the worse ' + pic_percent.to_s + '</strong></td></tr>'
 				url_html += '<tr><td>'
 				worsethan.each do |x|
 					url_html += '<a href="https://afternoon-citadel-4709.herokuapp.com/snaps/' + x.to_s + '"><img src = "http://res.cloudinary.com/hh55qpw1c/image/upload/w_500,h_500,c_fill/v1419546151/' + x.to_s + '.jpg" style="width:100px;" /></a>'
@@ -269,7 +278,7 @@ class EmailresultsController < ApplicationController
 	
 	def newandtrending
 	  
-	  duels = Vote.connection.select_all("select distinct votes.snap_id, snaps.photo_url from votes, snaps where votes.created_at > CURRENT_DATE - interval '1 day' and snaps.id=votes.snap_id order by votes.snap_id desc")
+	  duels = Vote.connection.select_all("select distinct votes.snap_id, snaps.photo_url, snaps.category from votes, snaps where votes.created_at > CURRENT_DATE - interval '1 day' and snaps.id=votes.snap_id order by votes.snap_id desc")
 	  
 	  if(duels.count == 0)
 	  	render :text => "no new votes" and return
@@ -329,6 +338,15 @@ class EmailresultsController < ApplicationController
 		        end
 			end
 
+			puts 'worse than count = ' + worsethan.count.to_s
+	        puts 'better than count = ' + betterthan.count.to_s
+
+	        total_vote_count = worsethan.count + betterthan.count
+	        pic_percent = (worsethan.count.to_f / total_vote_count.to_f)*100
+	        pic_percent = pic_percent.to_i
+
+     	 	puts '% = ' + pic_percent.to_s
+
 			addedcontent = false #we'll set this to true if we add content
 
 			if(betterthan.size >0 || worsethan.size >0 )
@@ -336,14 +354,14 @@ class EmailresultsController < ApplicationController
 				addedcontent = true
 				puts "count = " + i.to_s + " "
 
-				url_html += '<tr><td><strong style="font-size:16px;">Which is likely better or worse? <br /><a href="https://afternoon-citadel-4709.herokuapp.com/snaps/' + duels[i]['snap_id'].to_s + '"><img src="' + duels[i]['photo_url'].to_s + '" style="width:300px;"/></a> ' + '</td></tr><br/>'
-				url_html += '<tr><td><strong>Likely better</strong></td></tr>'
+				url_html += '<tr><td><strong style="font-size:16px;">This is Likely better than ' + pic_percent.to_s + '% in ' + duels[i]['snap_id']['category'].to_s + ' <br /><a href="https://afternoon-citadel-4709.herokuapp.com/snaps/' + duels[i]['snap_id'].to_s + '"><img src="' + duels[i]['photo_url'].to_s + '" style="width:300px;"/></a> ' + '</td></tr><br/>'
+				url_html += '<tr><td><strong>These are the better ' + (100 - pic_percent).to_s + '</strong></td></tr>'
 				url_html += '<tr><td>'
 				betterthan.each do |x|
 					url_html += '<a href="https://afternoon-citadel-4709.herokuapp.com/snaps/' + x.to_s + '"><img src = "http://res.cloudinary.com/hh55qpw1c/image/upload/w_500,h_500,c_fill/v1419546151/' + x.to_s + '.jpg" style="width:100px;" /></a>'
 				end
 				url_html += '</td></tr><br />'
-				url_html += '<tr><td><strong>Likely worse</strong></td></tr>'
+				url_html += '<tr><td><strong>These are the worse ' + pic_percent.to_s + '</strong></td></tr>'
 				url_html += '<tr><td>'
 				worsethan.each do |x|
 					url_html += '<a href="https://afternoon-citadel-4709.herokuapp.com/snaps/' + x.to_s + '"><img src = "http://res.cloudinary.com/hh55qpw1c/image/upload/w_500,h_500,c_fill/v1419546151/' + x.to_s + '.jpg" style="width:100px;" /></a>'
