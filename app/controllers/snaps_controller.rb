@@ -75,14 +75,14 @@ class SnapsController < ApplicationController
       @url_html += '<tr><td><br /><br /></td></tr>'
       @url_html += '<tr><td><strong style="font-size:24px;">This is Likely better than ' + pic_percent.to_s + '% in ' + @snap.category + ' <br /><img src="' + @snap.photo_url.to_s + '" style="width:500px;"/> ' + '</td></tr><br/>'
       @url_html += '<tr><td><br /><br /></td></tr>'
-      @url_html += '<tr><td><strong>Likely better</strong></td></tr>'
+      @url_html += '<tr><td><strong>These are the better ' + (100 - pic_percent) + '%</strong></td></tr>'
       @url_html += '<tr><td>'
       betterthan.each do |x|
         @url_html += '<a href="/snaps/' + x.to_s + '"><img src = "http://res.cloudinary.com/hh55qpw1c/image/upload/w_500,h_500,c_fill/v1419546151/' + x.to_s + '.jpg" style="width:100px;" /></a>'
       end
       @url_html += '</td></tr><br />'
       @url_html += '<tr><td><br /><br /></td></tr>'
-      @url_html += '<tr><td><strong>Likely worse</strong></td></tr>'
+      @url_html += '<tr><td><strong>These are the worse ' + (100 - pic_percent) + '%</strong></td></tr>'
       @url_html += '<tr><td>'
       worsethan.each do |x|
         @url_html += '<a href="/snaps/' + x.to_s + '"><img src = "http://res.cloudinary.com/hh55qpw1c/image/upload/w_500,h_500,c_fill/v1419546151/' + x.to_s + '.jpg" style="width:100px;" /></a>'
