@@ -66,7 +66,7 @@ class SnapsController < ApplicationController
       puts 'better than count = ' + betterthan.count.to_s
 
       total_vote_count = worsethan.count + betterthan.count
-      pic_percent = worsethan.count / total_vote_count
+      pic_percent = (worsethan.count / total_vote_count)*100
 
       puts '% = ' + pic_percent.to_s
 
