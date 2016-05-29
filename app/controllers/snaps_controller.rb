@@ -82,7 +82,7 @@ class SnapsController < ApplicationController
       end
       @url_html += '</td></tr><br />'
       @url_html += '<tr><td><br /><br /></td></tr>'
-      @url_html += '<tr><td><strong>These are the worse ' + (100 - pic_percent).to_s + '%</strong></td></tr>'
+      @url_html += '<tr><td><strong>These are the worse ' + pic_percent.to_s + '%</strong></td></tr>'
       @url_html += '<tr><td>'
       worsethan.each do |x|
         @url_html += '<a href="/snaps/' + x.to_s + '"><img src = "http://res.cloudinary.com/hh55qpw1c/image/upload/w_500,h_500,c_fill/v1419546151/' + x.to_s + '.jpg" style="width:100px;" /></a>'
