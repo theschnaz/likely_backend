@@ -5,24 +5,6 @@ class SnapsController < ApplicationController
 
     @snap = Snap.find(params[:id])
 
-    @url_html = '<html><head>'
-    @url_html += '<meta property="og:image" content="http://res.cloudinary.com/hh55qpw1c/image/upload/w_500,h_500,c_fill/w_956,h_500,c_pad,b_black/v1419546151/' + @snap.id.to_s + '.jpg" />'
-    @url_html += '<meta property="og:url" content="https://afternoon-citadel-4709.herokuapp.com' + request.fullpath + '" />'
-    @url_html += '<meta property="og:type" content="website" />'
-    @url_html += '<meta property="og:title" content="Is this the best in ' + @snap.category.to_s + '?" />'
-    @url_html += '<meta property="og:description" content="Download Likely for iOS and Android today for free!" />'
-    @url_html += '<meta property="fb:app_id" content="808775805831243" />'
-    @url_html += '</head><body><div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.6&appId=808775805831243";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, \'script\', \'facebook-jssdk\'));</script>'
-
-    @url_html += '<table style="width:500px;"> <tr><td> <img src="https://dl.dropboxusercontent.com/u/63975/email_logo.png" style="width:500px" /> </td></tr><br />'
-
     othersnaps = Vote.connection.select_all("select top_id, bottom_id from votes where (top_id = " + @snap.id.to_s + " or bottom_id = " + @snap.id.to_s + ")")
 
     othersnapsarray = Array.new
@@ -70,6 +52,24 @@ class SnapsController < ApplicationController
       pic_percent = pic_percent.to_i
 
       puts '% = ' + pic_percent.to_s
+
+      @url_html = '<html><head>'
+      @url_html += '<meta property="og:image" content="http://res.cloudinary.com/hh55qpw1c/image/upload/w_500,h_500,c_fill/w_956,h_500,c_pad,b_black/v1419546151/' + @snap.id.to_s + '.jpg" />'
+      @url_html += '<meta property="og:url" content="https://afternoon-citadel-4709.herokuapp.com' + request.fullpath + '" />'
+      @url_html += '<meta property="og:type" content="website" />'
+      @url_html += '<meta property="og:title" content="Is this the best in ' + @snap.category.to_s + '?" />'
+      @url_html += '<meta property="og:description" content="Download Likely for iOS and Android today for free!" />'
+      @url_html += '<meta property="fb:app_id" content="808775805831243" />'
+      @url_html += '</head><body><div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.6&appId=808775805831243";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, \'script\', \'facebook-jssdk\'));</script>'
+
+      @url_html += '<table style="width:500px;"> <tr><td> <img src="https://dl.dropboxusercontent.com/u/63975/email_logo.png" style="width:500px" /> </td></tr><br />'
 
 
       @url_html += '<tr><td><br /><br /></td></tr>'
