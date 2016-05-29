@@ -68,7 +68,7 @@ class SnapsController < ApplicationController
       total_vote_count = worsethan.count + betterthan.count
       pic_percent = betterthan.count / total_vote_count
 
-      put '% = ' + pic_percent.to_s
+      puts '% = ' + pic_percent.to_s
 
 
       @url_html += '<tr><td><br /><br /></td></tr>'
