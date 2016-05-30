@@ -98,7 +98,7 @@ class EmailresultsController < ApplicationController
 
 				puts "count = " + i.to_s + " "
 
-				url_html += '<tr><td><strong style="font-size:16px;">This is Likely better than ' + pic_percent.to_s + '% in ' + duels[i]['snap_id']['category'].to_s + ' <br /><a href="https://afternoon-citadel-4709.herokuapp.com/snaps/' + duels[i]['snap_id'].to_s + '"><img src="' + duels[i]['photo_url'].to_s + '" style="width:300px;"/></a> ' + '</td></tr><br/>'
+				url_html += '<tr><td><strong style="font-size:16px;">This is Likely better than ' + pic_percent.to_s + '% in ' + duels[i]['category'].to_s + ' <br /><a href="https://afternoon-citadel-4709.herokuapp.com/snaps/' + duels[i]['snap_id'].to_s + '"><img src="' + duels[i]['photo_url'].to_s + '" style="width:300px;"/></a> ' + '</td></tr><br/>'
 				url_html += '<tr><td><strong>These are the better ' + (100 - pic_percent).to_s + '%</strong></td></tr>'
 				url_html += '<tr><td>'
 				betterthan.each do |x|
@@ -149,6 +149,7 @@ class EmailresultsController < ApplicationController
 	end
 
 	def sendmyresults
+	  #results for the pics a member posted
 	  #users
 	  users = User.find_by_sql("select * from users where email is not null")
 	  #users = User.find_by_sql("select * from users where id = 1")
@@ -158,7 +159,7 @@ class EmailresultsController < ApplicationController
 	  
 	  users.each do |g|
 	  	  #my snaps that were voted on yesterday
-		  duels = Vote.connection.select_all("select distinct votes.snap_id, snaps.photo_url, snaps.category from votes, snaps where votes.created_at > CURRENT_DATE - interval '1 day' and snaps.id=votes.snap_id and snaps.snapped_by = " + g.id.to_s + "order by votes.snap_id desc")
+		  duels = Vote.connection.select_all("select distinct votes.snap_id, snaps.photo_url, snaps.category from votes, snaps where votes.created_at > CURRENT_DATE - interval '1 day' and snaps.id=votes.snap_id and snaps.snapped_by = " + g.id.to_s + " order by votes.snap_id desc")
 		  
 		  if(duels.count == 0)
 		  	render :text => "no new votes" and return
@@ -227,7 +228,7 @@ class EmailresultsController < ApplicationController
 				addedcontent = true
 				puts "count = " + i.to_s + " "
 
-				url_html += '<tr><td><strong style="font-size:16px;">This is Likely better than ' + pic_percent.to_s + '% in ' + duels[i]['snap_id']['category'].to_s + ' <br /><a href="https://afternoon-citadel-4709.herokuapp.com/snaps/' + duels[i]['snap_id'].to_s + '"><img src="' + duels[i]['photo_url'].to_s + '" style="width:300px;"/></a> ' + '</td></tr><br/>'
+				url_html += '<tr><td><strong style="font-size:16px;">This is Likely better than ' + pic_percent.to_s + '% in ' + duels[i]['category'].to_s + ' <br /><a href="https://afternoon-citadel-4709.herokuapp.com/snaps/' + duels[i]['snap_id'].to_s + '"><img src="' + duels[i]['photo_url'].to_s + '" style="width:300px;"/></a> ' + '</td></tr><br/>'
 				url_html += '<tr><td><strong>These are the better ' + (100 - pic_percent).to_s + '</strong></td></tr>'
 				url_html += '<tr><td>'
 				betterthan.each do |x|
@@ -354,14 +355,14 @@ class EmailresultsController < ApplicationController
 				addedcontent = true
 				puts "count = " + i.to_s + " "
 
-				url_html += '<tr><td><strong style="font-size:16px;">This is Likely better than ' + pic_percent.to_s + '% in ' + duels[i]['snap_id']['category'].to_s + ' <br /><a href="https://afternoon-citadel-4709.herokuapp.com/snaps/' + duels[i]['snap_id'].to_s + '"><img src="' + duels[i]['photo_url'].to_s + '" style="width:300px;"/></a> ' + '</td></tr><br/>'
-				url_html += '<tr><td><strong>These are the better ' + (100 - pic_percent).to_s + '</strong></td></tr>'
+				url_html += '<tr><td><strong style="font-size:16px;">This is Likely better than ' + pic_percent.to_s + '% in ' + duels[i]['category'].to_s + ' <br /><a href="https://afternoon-citadel-4709.herokuapp.com/snaps/' + duels[i]['snap_id'].to_s + '"><img src="' + duels[i]['photo_url'].to_s + '" style="width:300px;"/></a> ' + '</td></tr><br/>'
+				url_html += '<tr><td><strong>These are the better ' + (100 - pic_percent).to_s + '%</strong></td></tr>'
 				url_html += '<tr><td>'
 				betterthan.each do |x|
 					url_html += '<a href="https://afternoon-citadel-4709.herokuapp.com/snaps/' + x.to_s + '"><img src = "http://res.cloudinary.com/hh55qpw1c/image/upload/w_500,h_500,c_fill/v1419546151/' + x.to_s + '.jpg" style="width:100px;" /></a>'
 				end
 				url_html += '</td></tr><br />'
-				url_html += '<tr><td><strong>These are the worse ' + pic_percent.to_s + '</strong></td></tr>'
+				url_html += '<tr><td><strong>These are the worse ' + pic_percent.to_s + '%</strong></td></tr>'
 				url_html += '<tr><td>'
 				worsethan.each do |x|
 					url_html += '<a href="https://afternoon-citadel-4709.herokuapp.com/snaps/' + x.to_s + '"><img src = "http://res.cloudinary.com/hh55qpw1c/image/upload/w_500,h_500,c_fill/v1419546151/' + x.to_s + '.jpg" style="width:100px;" /></a>'
