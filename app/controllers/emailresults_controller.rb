@@ -162,9 +162,9 @@ class EmailresultsController < ApplicationController
 	  	  #my snaps that were voted on yesterday
 		  duels = Vote.connection.select_all("select distinct votes.snap_id, snaps.photo_url, snaps.category from votes, snaps where votes.created_at > CURRENT_DATE - interval '1 day' and snaps.id = votes.snap_id and snaps.snapped_by = " + g.id.to_s + " order by votes.snap_id desc")
 		  
-		  if(duels.count == 0)
-		  	render :text => "no new votes" and return
-		  end
+		  #if(duels.count == 0)
+		  #	render :text => "no new votes" and return
+		  #end
 
 	  	  puts "email for: " + g.email
 	  	  puts "html = " + url_html
