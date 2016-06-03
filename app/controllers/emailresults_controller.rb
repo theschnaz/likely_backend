@@ -173,6 +173,8 @@ class EmailresultsController < ApplicationController
 
 		  #builds the image URLs + html
 		  i = 0
+
+		  addedcontent = false #we'll set this to true if we add content
 		  while(i < duels.count)
 		  	puts "i = " + i.to_s
 		  	#this code helps us find the other snap ids that this snap has been compared to
@@ -222,7 +224,6 @@ class EmailresultsController < ApplicationController
 
      	 	puts '% = ' + pic_percent.to_s
 
-			addedcontent = false #we'll set this to true if we add content
 
 			if(betterthan.size >0 || worsethan.size >0 )
 
@@ -248,32 +249,34 @@ class EmailresultsController < ApplicationController
 			end
 
 			i = i + 1
-		  end
+		  end #while(i < duels.count)
 
 		  if(addedcontent == false)
-		  	render :text => "no new content" and return
+		  	puts 'no email for id = ' + g.id.to_s 
 		  end
+		  else
+		    url_html += '<tr><td><strong style="font-size:24px;">Share Likely with a friend!  <a href="https://itunes.apple.com/app/which-is-likely-better/id1035137555?mt=8">iOS</a> and <a href="https://play.google.com/store/apps/details?id=com.likely">Android</a></strong><br /><br /></td></tr>'
+	        url_html += '</table>'
 
-		  url_html += '<tr><td><strong style="font-size:24px;">Share Likely with a friend!  <a href="https://itunes.apple.com/app/which-is-likely-better/id1035137555?mt=8">iOS</a> and <a href="https://play.google.com/store/apps/details?id=com.likely">Android</a></strong><br /><br /></td></tr>'
-	      url_html += '</table>'
+		    client = SendGrid::Client.new(api_user: 'theschnaz', api_key: '33sendflop')
+	  	    mail = SendGrid::Mail.new do |m|
+	  	      m.to = g.email
+	  	      #m.to = 'theschnaz@gmail.com'
+	          m.from = 'YourPicsOnLikely@likely.com'
+	          m.subject = 'Update to pics you posted on Likely!'
+	          m.html = url_html
+	          m.text = "Please use email that supports HTML. We're trying to show you pics!"
+	        end
 
-		  client = SendGrid::Client.new(api_user: 'theschnaz', api_key: '33sendflop')
-	  	  mail = SendGrid::Mail.new do |m|
-	  	    m.to = g.email
-	  	    #m.to = 'theschnaz@gmail.com'
-	        m.from = 'YourPicsOnLikely@likely.com'
-	        m.subject = 'Update to pics you posted on Likely!'
-	        m.html = url_html
-	        m.text = "Please use email that supports HTML. We're trying to show you pics!"
-	      end
+	        url_html = ''
+		    puts client.send(mail)
+		  
+		    puts "sent to: " + g.email
+		  end #closes else
+		  
+		  
+	  end #closes users.each do |g|
 
-	      url_html = ''
-		  puts client.send(mail)
-		  
-		  puts "sent to: " + g.email
-		  
-		  
-	  end
 	  render :text => "sent"
 	end
 
