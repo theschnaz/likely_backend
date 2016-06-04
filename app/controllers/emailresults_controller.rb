@@ -264,6 +264,7 @@ class EmailresultsController < ApplicationController
 	          m.from = 'YourPicsOnLikely@likely.com'
 	          m.subject = 'Update to pics you posted on Likely!'
 	          m.html = url_html
+	          m.replyto = 'theschnaz@gmail.com'
 	          m.text = "Please use email that supports HTML. We're trying to show you pics!"
 	        end
 
