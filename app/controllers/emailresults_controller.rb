@@ -132,6 +132,7 @@ class EmailresultsController < ApplicationController
 	  	    #m.to = 'theschnaz@gmail.com'
 	        m.from = 'LikelyUpdates@likely.com'
 	        m.subject = 'Updates on pics you\'re following on Likely!'
+	        m.reply_to = 'theschnaz@gmail.com'
 	        m.html = url_html
 	        m.text = "Please use email that supports HTML. We're trying to show you pics!"
 	      end
@@ -231,13 +232,13 @@ class EmailresultsController < ApplicationController
 				puts "count = " + i.to_s + " "
 
 				url_html += '<tr><td><strong style="font-size:16px;">This is Likely better than ' + pic_percent.to_s + '% in ' + duels[i]['category'].to_s + ' <br /><a href="https://afternoon-citadel-4709.herokuapp.com/snaps/' + duels[i]['snap_id'].to_s + '"><img src="' + duels[i]['photo_url'].to_s + '" style="width:300px;"/></a> ' + '</td></tr><br/>'
-				url_html += '<tr><td><strong>These are the better ' + (100 - pic_percent).to_s + '</strong></td></tr>'
+				url_html += '<tr><td><strong>These are the better ' + (100 - pic_percent).to_s + '%</strong></td></tr>'
 				url_html += '<tr><td>'
 				betterthan.each do |x|
 					url_html += '<a href="https://afternoon-citadel-4709.herokuapp.com/snaps/' + x.to_s + '"><img src = "http://res.cloudinary.com/hh55qpw1c/image/upload/w_500,h_500,c_fill/v1419546151/' + x.to_s + '.jpg" style="width:100px;" /></a>'
 				end
 				url_html += '</td></tr><br />'
-				url_html += '<tr><td><strong>These are the worse ' + pic_percent.to_s + '</strong></td></tr>'
+				url_html += '<tr><td><strong>These are the worse ' + pic_percent.to_s + '%</strong></td></tr>'
 				url_html += '<tr><td>'
 				worsethan.each do |x|
 					url_html += '<a href="https://afternoon-citadel-4709.herokuapp.com/snaps/' + x.to_s + '"><img src = "http://res.cloudinary.com/hh55qpw1c/image/upload/w_500,h_500,c_fill/v1419546151/' + x.to_s + '.jpg" style="width:100px;" /></a>'
@@ -393,6 +394,7 @@ class EmailresultsController < ApplicationController
 	  	    m.to = g.email
 	        m.from = 'LikelyNewAndTrending@likely.com'
 	        m.subject = 'New and trending pics on Likely!'
+	        m.reply_to = 'theschnaz@gmail.com'
 	        m.html = url_html
 	        m.text = "Please use email that supports HTML. We're trying to show you pics!"
 	      end
