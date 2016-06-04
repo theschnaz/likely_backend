@@ -52,7 +52,7 @@ class SnapsController < ApplicationController
 
       puts 'pic_percent = ' + pic_percent.to_s
 
-      if pic_percent.nil?
+      if pic_percent.nan?
         pic_percent = 0
       end
 
