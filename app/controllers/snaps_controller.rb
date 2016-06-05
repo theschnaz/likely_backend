@@ -64,7 +64,11 @@ class SnapsController < ApplicationController
       @url_html += '<meta property="og:image" content="http://res.cloudinary.com/hh55qpw1c/image/upload/w_500,h_500,c_fill/w_956,h_500,c_pad,b_black/v1419546151/' + @snap.id.to_s + '.jpg" />'
       @url_html += '<meta property="og:url" content="https://afternoon-citadel-4709.herokuapp.com' + request.fullpath + '" />'
       @url_html += '<meta property="og:type" content="website" />'
-      @url_html += '<meta property="og:title" content="This is Likely better than ' + pic_percent.to_s + '% in ' + @snap.category + '!" />'
+      if pic_percent == 0
+        @url_html += '<meta property="og:title" content="Is this the best in ' + @snap.category + '?" />'
+      else
+        @url_html += '<meta property="og:title" content="This is Likely better than ' + pic_percent.to_s + '% in ' + @snap.category + '!" />'
+      end
       @url_html += '<meta property="og:description" content="Download Likely for iOS and Android today for free!" />'
       @url_html += '<meta property="fb:app_id" content="808775805831243" />'
       @url_html += '</head><body><div id="fb-root"></div>
