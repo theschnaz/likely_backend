@@ -311,6 +311,7 @@ class SnapsController < ApplicationController
 
         #update the user's points
         userpoints = user.points + rand(1..5)
+        user.points = userpoints
         user.save
       end
     end
