@@ -304,13 +304,14 @@ class SnapsController < ApplicationController
         vote.bottom_vote = params[:bottom]
         vote.snap_id = params[:bottom]
       end
+
+      userpoints = user.points + rand(1..5)
       
       #if the click came from a guest, don't save anything
       unless params[:uid] == '1217683588257786'
         vote.save
 
         #update the user's points
-        userpoints = user.points + rand(1..5)
         user.points = userpoints
         user.save
       end
@@ -371,7 +372,7 @@ class SnapsController < ApplicationController
     snap2_votes = snap2_top_votes + snap2_bottom_votes
 
     
-    render :json => {:snap => snap, :snap2 => snap2, :user => user1, :user2 => user2, :snap1votes => snap1_votes, :snap2votes => snap2_votes}
+    render :json => {:snap => snap, :snap2 => snap2, :user => user1, :user2 => user2, :snap1votes => snap1_votes, :snap2votes => snap2_votes, :userpoints => userpoints}
   
   end
 end
