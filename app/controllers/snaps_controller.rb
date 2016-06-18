@@ -308,6 +308,10 @@ class SnapsController < ApplicationController
       #if the click came from a guest, don't save anything
       unless params[:uid] == '1217683588257786'
         vote.save
+
+        #update the user's points
+        userpoints = user.points + rand(1..5)
+        user.save
       end
     end
 
