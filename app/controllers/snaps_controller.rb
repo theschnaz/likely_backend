@@ -289,6 +289,7 @@ class SnapsController < ApplicationController
     puts "in get_snap_and_vote"
 
     user = User.find_by_uid(params[:uid])
+    userpoints = user.points + rand(1..5)
     #do the vote stuff if there is a vote (top)
     if(params[:top])
       
@@ -305,8 +306,6 @@ class SnapsController < ApplicationController
         vote.snap_id = params[:bottom]
       end
 
-      userpoints = user.points + rand(1..5)
-      
       #if the click came from a guest, don't save anything
       unless params[:uid] == '1217683588257786'
         vote.save
@@ -371,6 +370,7 @@ class SnapsController < ApplicationController
     snap2_bottom_votes = Vote.count_by_sql "select count(*) from votes where top_id = "+ snap.id.to_s + " and bottom_id = " + snap2.id.to_s + " and bottom_vote = " + snap2.id.to_s
     snap2_votes = snap2_top_votes + snap2_bottom_votes
 
+    puts 'userpoints = ' + userpoints.to_s
     
     render :json => {:snap => snap, :snap2 => snap2, :user => user1, :user2 => user2, :snap1votes => snap1_votes, :snap2votes => snap2_votes, :userpoints => userpoints}
   
