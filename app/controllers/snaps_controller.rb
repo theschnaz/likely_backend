@@ -170,9 +170,13 @@ class SnapsController < ApplicationController
     
   
     Cloudinary::Uploader.upload(params[:photo], :public_id => snap.id)
+
+    userpoints = user.points + rand(100..150)
+    user.points = userpoints
+    user.save
     
     
-    render :json => {:snap => snap}
+    render :json => {:snap => snap, :userpoints => userpoints}
   end
   
   def get_snap
