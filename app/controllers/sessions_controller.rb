@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
   protect_from_forgery :except => [:add_points]
    
   def add_points
-    user = User.find_by_uid(uid)
+    user = User.find_by_uid(params[:uid])
     userpoints = user.points + 200
     user.points = userpoints
     user.save
