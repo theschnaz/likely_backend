@@ -68,6 +68,7 @@ Rails.application.routes.draw do
   post "/flag" => "snaps#flag_pic"
   get "/newandtrending" => "emailresults#newandtrending"
   post "/addtoinvitedfollowers" => "emailresults#addtoinvitedfollowers"
+  post "/add_points" => "sessions#add_points"
 
   get "/agent" => "cps#agent"
 

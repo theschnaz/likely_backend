@@ -1,7 +1,18 @@
 class SessionsController < ApplicationController 
   protect_from_forgery :except => [:new_user]
   protect_from_forgery :except => [:new_user_email]
+  protect_from_forgery :except => [:add_points]
    
+  def add_points
+    user = User.find_by_uid(uid)
+    userpoints = user.points + 200
+    user.points = userpoints
+    user.save
+
+    render :json => {:userpoints => userpoints}
+
+  end
+
   def new_user
     #created via the app
     uid = params[:uid]
