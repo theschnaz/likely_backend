@@ -65,7 +65,11 @@ class SnapsController < ApplicationController
       @url_html += '<meta property="og:url" content="https://afternoon-citadel-4709.herokuapp.com' + request.fullpath + '" />'
       @url_html += '<meta property="og:type" content="website" />'
       if pic_percent == 0
-        @url_html += '<meta property="og:title" content="Is this the best in ' + @snap.category + '?" />'
+        if(@snap.category == 'people')
+          @url_html += '<meta property="og:title" content="Are they the best in ' + @snap.category + '?" />'
+        else
+          @url_html += '<meta property="og:title" content="Is this the best in ' + @snap.category + '?" />'
+        end
       else
         @url_html += '<meta property="og:title" content="This is Likely better than ' + pic_percent.to_s + '% in ' + @snap.category + '!" />'
       end
