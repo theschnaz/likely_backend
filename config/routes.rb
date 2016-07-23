@@ -69,6 +69,7 @@ Rails.application.routes.draw do
   get "/newandtrending" => "emailresults#newandtrending"
   post "/addtoinvitedfollowers" => "emailresults#addtoinvitedfollowers"
   post "/add_points" => "sessions#add_points"
+  get "/open" => "snaps#open"
 
   get "/agent" => "cps#agent"
 
