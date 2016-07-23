@@ -8,11 +8,24 @@
 </head>
 <body>
 <script>
-	var IS_IOS = navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)/i);
+	var userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
-	var IS_ANDROID = navigator.userAgent.match(/(android)/i);
+	var OS;
 
-    alert("ios " = + IS_IOS);
+	if( userAgent.match( /iPad/i ) || userAgent.match( /iPhone/i ) || userAgent.match( /iPod/i ) )
+	{
+		OS = 'iOS';
+	}
+	else if( userAgent.match( /Android/i ) )
+	{
+		OS = 'Android';
+	}
+	else
+	{
+		OS = 'unknown';
+	}
+
+    alert(OS);
  </script>
 
 <div id="fb-root"></div>
