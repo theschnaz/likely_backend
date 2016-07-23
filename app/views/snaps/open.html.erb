@@ -1,0 +1,31 @@
+<script>
+	var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+	var OS;
+
+	if( userAgent.match( /iPad/i ) || userAgent.match( /iPhone/i ) || userAgent.match( /iPod/i ) )
+	{
+		window.location = "likely://";
+    
+        setTimeout(function() {
+    
+            // If the user is still here, open the App Store
+            if (!document.webkitHidden) {
+    
+                // Replace the Apple ID following '/id'
+                window.location = 'https://itunes.apple.com/us/app/which-is-likely-better/id1035137555';
+            }
+        }, 25);
+		OS = 'iOS';
+	}
+	else if( userAgent.match( /Android/i ) )
+	{
+		window.location = 'http://test.host.com/';
+	}
+	else
+	{
+		OS = 'unknown';
+	}
+
+    //alert(OS);
+ </script>
