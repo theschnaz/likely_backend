@@ -26,8 +26,7 @@ class EmailresultsController < ApplicationController
 	  
 	  users.each do |g|
 	  	  #my snaps that were voted on yesterday that the invited person follows
-		  #duels = Vote.connection.select_all("select distinct votes.snap_id, snaps.photo_url, snaps.category from votes, snaps where votes.created_at > CURRENT_DATE - interval '1 day' and snaps.id = votes.snap_id and snaps.id in (select distinct snap from invited_followers where email = '" + g.email.to_s + "') order by votes.snap_id desc")
-		  duels = Vote.connection.select_all("select distinct votes.snap_id, snaps.photo_url, snaps.category from votes, snaps where votes.created_at > CURRENT_DATE - interval '60 day' and snaps.id = votes.snap_id order by votes.snap_id desc")
+		  duels = Vote.connection.select_all("select distinct votes.snap_id, snaps.photo_url, snaps.category from votes, snaps where votes.created_at > CURRENT_DATE - interval '1 day' and snaps.id = votes.snap_id and snaps.id in (select distinct snap from invited_followers where email = '" + g.email.to_s + "') order by votes.snap_id desc")
 		  
 		  puts 'g email = ' + g.email.to_s
 		  puts 'duels.count = ' + duels.count.to_s
@@ -40,7 +39,6 @@ class EmailresultsController < ApplicationController
 	  	  puts "html = " + url_html
 	  	  #add a loop here for all users, only sending to theschnaz@gmail.com for now
 	  	  url_html = '<table style="width:500px;"> <tr><td> <img src="https://dl.dropboxusercontent.com/u/63975/email_logo.png" style="width:500px" /> </td></tr><br />'
-	  	  url_html += '<tr><td><a href="https://afternoon-citadel-4709.herokuapp.com/open">Open the app</a></td></tr>'
 
 		  #builds the image URLs + html
 		  i = 0
@@ -100,6 +98,7 @@ class EmailresultsController < ApplicationController
 
 				puts "count = " + i.to_s + " "
 
+				url_html += '<tr><td><a href="https://afternoon-citadel-4709.herokuapp.com/open">Open Likely to vote!</a></td></tr>'
 				url_html += '<tr><td><strong style="font-size:16px;">This is Likely better than ' + pic_percent.to_s + '% in ' + duels[i]['category'].to_s + ' <br /><a href="https://afternoon-citadel-4709.herokuapp.com/snaps/' + duels[i]['snap_id'].to_s + '"><img src="' + duels[i]['photo_url'].to_s + '" style="width:300px;"/></a> ' + '</td></tr><br/>'
 				url_html += '<tr><td><strong>These are the better ' + (100 - pic_percent).to_s + '%</strong></td></tr>'
 				url_html += '<tr><td>'
@@ -128,26 +127,26 @@ class EmailresultsController < ApplicationController
 		  url_html += '<tr><td><strong style="font-size:24px;">Share Likely with a friend!  <a href="https://itunes.apple.com/app/which-is-likely-better/id1035137555?mt=8">iOS</a> and <a href="https://play.google.com/store/apps/details?id=com.likely">Android</a></strong><br /><br /></td></tr>'
 	      url_html += '</table>'
 
-		  #client = SendGrid::Client.new(api_user: 'theschnaz', api_key: '33sendflop')
-	  	  #mail = SendGrid::Mail.new do |m|
-	  	  #  m.to = g.email
-	  	  #  #m.to = 'theschnaz@gmail.com'
-	      #  m.from = 'LikelyUpdates@likely.com'
-	      #  m.subject = 'Updates on pics you\'re following on Likely!'
-	      #  m.reply_to = 'theschnaz@gmail.com'
-	      #  m.html = url_html
-	      #  m.text = "Please use email that supports HTML. We're trying to show you pics!"
-	      #end
+		  client = SendGrid::Client.new(api_user: 'theschnaz', api_key: '33sendflop')
+	  	  mail = SendGrid::Mail.new do |m|
+	  	    m.to = g.email
+	  	    #m.to = 'theschnaz@gmail.com'
+	        m.from = 'LikelyUpdates@likely.com'
+	        m.subject = 'Updates on pics you\'re following on Likely!'
+	        m.reply_to = 'theschnaz@gmail.com'
+	        m.html = url_html
+	        m.text = "Please use email that supports HTML. We're trying to show you pics!"
+	      end
 
 	      url_html = ''
-		  #puts client.send(mail)
+		  puts client.send(mail)
 		  
 		  puts "sent to: " + g.email
 		  
 		  
 	  end
-	  #render :text => "sent"
-	  render html: url_html
+	  render :text => "sent"
+	  #render html: url_html
 
 	end
 
@@ -233,6 +232,7 @@ class EmailresultsController < ApplicationController
 				addedcontent = true
 				puts "count = " + i.to_s + " "
 
+				url_html += '<tr><td><a href="https://afternoon-citadel-4709.herokuapp.com/open">Open Likely to vote!</a></td></tr>'
 				url_html += '<tr><td><strong style="font-size:16px;">This is Likely better than ' + pic_percent.to_s + '% in ' + duels[i]['category'].to_s + ' <br /><a href="https://afternoon-citadel-4709.herokuapp.com/snaps/' + duels[i]['snap_id'].to_s + '"><img src="' + duels[i]['photo_url'].to_s + '" style="width:300px;"/></a> ' + '</td></tr><br/>'
 				url_html += '<tr><td><strong>These are the better ' + (100 - pic_percent).to_s + '%</strong></td></tr>'
 				url_html += '<tr><td>'
@@ -362,6 +362,7 @@ class EmailresultsController < ApplicationController
 				addedcontent = true
 				puts "count = " + i.to_s + " "
 
+				url_html += '<tr><td><a href="https://afternoon-citadel-4709.herokuapp.com/open">Open Likely to vote!</a></td></tr>'
 				url_html += '<tr><td><strong style="font-size:16px;">This is Likely better than ' + pic_percent.to_s + '% in ' + duels[i]['category'].to_s + ' <br /><a href="https://afternoon-citadel-4709.herokuapp.com/snaps/' + duels[i]['snap_id'].to_s + '"><img src="' + duels[i]['photo_url'].to_s + '" style="width:300px;"/></a> ' + '</td></tr><br/>'
 				url_html += '<tr><td><strong>These are the better ' + (100 - pic_percent).to_s + '%</strong></td></tr>'
 				url_html += '<tr><td>'
