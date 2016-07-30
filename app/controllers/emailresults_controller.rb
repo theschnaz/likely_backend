@@ -39,6 +39,7 @@ class EmailresultsController < ApplicationController
 	  	  puts "html = " + url_html
 	  	  #add a loop here for all users, only sending to theschnaz@gmail.com for now
 	  	  url_html = '<table style="width:500px;"> <tr><td> <img src="https://dl.dropboxusercontent.com/u/63975/email_logo.png" style="width:500px" /> </td></tr><br />'
+	  	  url_html += '<tr><td><a href="https://afternoon-citadel-4709.herokuapp.com/open">Open the app</a></td></tr>'
 
 		  #builds the image URLs + html
 		  i = 0
@@ -126,26 +127,26 @@ class EmailresultsController < ApplicationController
 		  url_html += '<tr><td><strong style="font-size:24px;">Share Likely with a friend!  <a href="https://itunes.apple.com/app/which-is-likely-better/id1035137555?mt=8">iOS</a> and <a href="https://play.google.com/store/apps/details?id=com.likely">Android</a></strong><br /><br /></td></tr>'
 	      url_html += '</table>'
 
-		  client = SendGrid::Client.new(api_user: 'theschnaz', api_key: '33sendflop')
-	  	  mail = SendGrid::Mail.new do |m|
-	  	    m.to = g.email
-	  	    #m.to = 'theschnaz@gmail.com'
-	        m.from = 'LikelyUpdates@likely.com'
-	        m.subject = 'Updates on pics you\'re following on Likely!'
-	        m.reply_to = 'theschnaz@gmail.com'
-	        m.html = url_html
-	        m.text = "Please use email that supports HTML. We're trying to show you pics!"
-	      end
+		  #client = SendGrid::Client.new(api_user: 'theschnaz', api_key: '33sendflop')
+	  	  #mail = SendGrid::Mail.new do |m|
+	  	  #  m.to = g.email
+	  	  #  #m.to = 'theschnaz@gmail.com'
+	      #  m.from = 'LikelyUpdates@likely.com'
+	      #  m.subject = 'Updates on pics you\'re following on Likely!'
+	      #  m.reply_to = 'theschnaz@gmail.com'
+	      #  m.html = url_html
+	      #  m.text = "Please use email that supports HTML. We're trying to show you pics!"
+	      #end
 
 	      url_html = ''
-		  puts client.send(mail)
+		  #puts client.send(mail)
 		  
 		  puts "sent to: " + g.email
 		  
 		  
 	  end
-	  render :text => "sent"
-	  #render html: url_html
+	  #render :text => "sent"
+	  render html: url_html
 
 	end
 
