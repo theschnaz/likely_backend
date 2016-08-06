@@ -146,6 +146,13 @@ class SnapsController < ApplicationController
  
   def new_snap
   	user = User.find_by_uid(params[:uid])
+
+    #find the place of the user (first place, second place, etc.)
+        place_users = User.all
+        place_users = place_users.order(points: :desc)
+        place = User.order('points DESC').index(user)
+        place = place + 1
+        total = users.count
   	
   	#if the user didnt connect FB, dont post photo
   	if user.facebook_key == ''
@@ -169,7 +176,7 @@ class SnapsController < ApplicationController
 		  m.from = 'Likely@likely.com'
 		  m.subject = 'You posted a pic!'
       m.reply_to = 'theschnaz@gmail.com'
-		  m.html = 'When people vote on your pic, we\'ll let you know, good luck!<br /><br /> <strong>Forward this email to your friends so they can vote too!<strong><br /> <br /><a href="https://afternoon-citadel-4709.herokuapp.com/snaps/' + snap.id.to_s + '"> <img src="' + snap.photo_url + '" style="max-width:400px;" /></a><br /><br /><strong style="font-size:16px;">Share Likely with a friend!  <a href="https://itunes.apple.com/app/which-is-likely-better/id1035137555?mt=8">iOS</a> and <a href="https://play.google.com/store/apps/details?id=com.likely">Android</a></strong>'
+		  m.html = 'You are in ' + place.ordinalize + ' place! Vote, share, and post photos to earn more points.<br /> When people vote on your pic, we\'ll let you know, good luck!<br /><br /> <strong>Forward this email to your friends so they can vote too!<strong><br /> <br /><a href="https://afternoon-citadel-4709.herokuapp.com/snaps/' + snap.id.to_s + '"> <img src="' + snap.photo_url + '" style="max-width:400px;" /></a><br /><br /><strong style="font-size:16px;">Share Likely with a friend!  <a href="https://itunes.apple.com/app/which-is-likely-better/id1035137555?mt=8">iOS</a> and <a href="https://play.google.com/store/apps/details?id=com.likely">Android</a></strong>'
 		  m.text = "Image uploaded"
 		end
 		puts client.send(mail)
