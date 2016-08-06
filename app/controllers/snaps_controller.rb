@@ -152,7 +152,7 @@ class SnapsController < ApplicationController
         place_users = place_users.order(points: :desc)
         place = User.order('points DESC').index(user)
         place = place + 1
-        total = users.count
+        total = place_users.count
   	
   	#if the user didnt connect FB, dont post photo
   	if user.facebook_key == ''
