@@ -302,9 +302,9 @@ class EmailresultsController < ApplicationController
 	  	  #find the place of the user (first place, second place, etc.)
 	  	  place_users = User.all
 	  	  place_users = place_users.order(points: :desc)
-	  	  place = User.order('points DESC').index(user)
+	  	  place = User.order('points DESC').index(g)
 	  	  place = place + 1
-	  	  total = users.count
+	  	  total = place_users.count
 
 
 	  	  puts "email for: " + g.email
@@ -370,7 +370,7 @@ class EmailresultsController < ApplicationController
 				addedcontent = true
 				puts "count = " + i.to_s + " "
 
-				url_html += '<tr><td>Your are in ' + place.ordinalize + ' place! Vote, share, and post photos to earn more points.</td></tr>'
+				url_html += '<tr><td>You are in ' + place.ordinalize + ' place! Vote, share, and post photos to earn more points.</td></tr>'
 				url_html += '<tr><td><a href="https://afternoon-citadel-4709.herokuapp.com/open">Open Likely to vote!</a></td></tr>'
 				url_html += '<tr><td><strong style="font-size:16px;">This is Likely better than ' + pic_percent.to_s + '% in ' + duels[i]['category'].to_s + ' <br /><a href="https://afternoon-citadel-4709.herokuapp.com/snaps/' + duels[i]['snap_id'].to_s + '"><img src="' + duels[i]['photo_url'].to_s + '" style="width:300px;"/></a> ' + '</td></tr><br/>'
 				url_html += '<tr><td><strong>These are the better ' + (100 - pic_percent).to_s + '%</strong></td></tr>'
