@@ -38,7 +38,7 @@ class EmailresultsController < ApplicationController
 	  	  puts "email for: " + g.email
 	  	  puts "html = " + url_html
 	  	  #add a loop here for all users, only sending to theschnaz@gmail.com for now
-	  	  url_html = '<table style="width:500px;"> <tr><td> <img src="https://dl.dropboxusercontent.com/u/63975/email_logo.png" style="width:500px" /> </td></tr><br />'
+	  	  url_html = '<table style="width:500px;"> <tr><td> <img src="http://drive.google.com/uc?export=view&id=0BxxFmxq-Dlf_UnVfUHllSjNDdjA" style="width:500px" /> </td></tr><br />'
 
 		  #builds the image URLs + html
 		  i = 0
@@ -171,7 +171,7 @@ class EmailresultsController < ApplicationController
 	  	  puts "email for: " + g.email
 	  	  puts "html = " + url_html
 	  	  #add a loop here for all users, only sending to theschnaz@gmail.com for now
-	  	  url_html = '<table style="width:500px;"> <tr><td> <img src="https://dl.dropboxusercontent.com/u/63975/email_logo.png" style="width:500px" /> </td></tr><br />'
+	  	  url_html = '<table style="width:500px;"> <tr><td> <img src="http://drive.google.com/uc?export=view&id=0BxxFmxq-Dlf_UnVfUHllSjNDdjA" style="width:500px" /> </td></tr><br />'
 
 		  #builds the image URLs + html
 		  i = 0
@@ -310,7 +310,7 @@ class EmailresultsController < ApplicationController
 	  	  puts "email for: " + g.email
 	  	  puts "html = " + url_html
 	  	  #add a loop here for all users, only sending to theschnaz@gmail.com for now
-	  	  url_html = '<table style="width:500px;"> <tr><td> <img src="https://dl.dropboxusercontent.com/u/63975/email_logo.png" style="width:500px" /> </td></tr><br />'
+	  	  url_html = '<table style="width:500px;"> <tr><td> <img src="http://drive.google.com/uc?export=view&id=0BxxFmxq-Dlf_UnVfUHllSjNDdjA" style="width:500px" /> </td></tr><br />'
 
 		  #builds the image URLs + html
 		  i = 0
