@@ -87,7 +87,7 @@ class SnapsController < ApplicationController
     fjs.parentNode.insertBefore(js, fjs);
   }(document, \'script\', \'facebook-jssdk\'));</script>'
 
-      @url_html += '<table style="width:500px;"> <tr><td> <img src="https://dl.dropboxusercontent.com/u/63975/email_logo.png" style="width:500px" /> </td></tr><br />'
+      @url_html += '<table style="width:500px;"> <tr><td> <img src="http://drive.google.com/uc?export=view&id=0BxxFmxq-Dlf_UnVfUHllSjNDdjA" style="width:500px" /> </td></tr><br />'
 
 
       @url_html += '<tr><td><br /><br /></td></tr>'
